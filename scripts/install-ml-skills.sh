@@ -9,7 +9,7 @@ ML_SKILLS="ml-solution-design data-ingestion data-validation feature-engineering
 LLM_SKILLS="llm-rag llm-fine-tuning llm-evaluation llm-data-preparation llm-deployment llm-observability llm-cost-optimization llm-guardrails llm-prompt-engineering llm-agent-orchestration llm-distillation"
 
 for s in $ML_SKILLS $LLM_SKILLS; do
-  test -f "$ROOT/.github/skills/$s/SKILL.md" || { echo "[wagents][fail] ml/llm skill missing: $s" >&2; exit 1; }
+  test -f "$ROOT/skills/$s/SKILL.md" || { echo "[wagents][fail] ml/llm skill missing: $s" >&2; exit 1; }
 done
 
 echo "[wagents] ml-skills: OK — 28 skills verified (17 MLOps + 11 LLMOps)"

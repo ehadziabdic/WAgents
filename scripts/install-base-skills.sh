@@ -11,13 +11,13 @@ for arg in "$@"; do
 done
 
 for s in base-architecture-blueprint base-design-references base-webapp-testing-basics; do
-  test -f "$ROOT/.github/skills/$s/SKILL.md" || { echo "[wagents][fail] base skill missing: $s" >&2; exit 1; }
+  test -f "$ROOT/skills/$s/SKILL.md" || { echo "[wagents][fail] base skill missing: $s" >&2; exit 1; }
 done
 
 if [ "$INCLUDE_HACKER" = "1" ]; then
   echo "[wagents] base-skills: vendoring claude-red (SnailSploit/Claude-Red, full copy, pinned)..."
   PINNED_REF="${CLAUDE_RED_REF:-24d7968bab4b883e7f13477afe0fd91f2df3b722}"
-  VENDOR_DIR="$ROOT/.github/skills/base-hacker-claude-red/vendor"
+  VENDOR_DIR="$ROOT/skills/base-hacker-claude-red/vendor"
   DEST="$VENDOR_DIR/Claude-Red"
   if [ -d "$DEST/Skills" ]; then
     echo "[wagents] base-skills: existing claude-red copy found at vendor/Claude-Red — using it (manual placement respected)."
@@ -38,6 +38,6 @@ if [ "$INCLUDE_HACKER" = "1" ]; then
 else
   echo "[wagents] base-skills: claude-red vendoring skipped (use --include-hacker)"
 fi
-test -f "$ROOT/.github/skills/base-hacker-claude-red/SKILL.md" || { echo "[wagents][fail] base skill missing: base-hacker-claude-red" >&2; exit 1; }
+test -f "$ROOT/skills/base-hacker-claude-red/SKILL.md" || { echo "[wagents][fail] base skill missing: base-hacker-claude-red" >&2; exit 1; }
 
 echo "[wagents] base-skills: OK — 4 skills verified"

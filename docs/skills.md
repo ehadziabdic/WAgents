@@ -1,6 +1,6 @@
 # Skills — wagents
 
-**Source of truth:** `config/skills.json` (registry + `target_agents`) and `.github/skills/*/SKILL.md`.
+**Source of truth:** `config/skills.json` (registry + `target_agents`) and `skills/*/SKILL.md`.
 **Total: 98 skills** in 10 groups, plus 2 underscore-prefixed support directories.
 
 Verified by:
@@ -52,12 +52,12 @@ Every vendored set keeps upstream license text, a pinned ref, and a `PROVENANCE.
 
 | Set | Source | Pin | Location |
 |---|---|---|---|
-| claude-red (78 offensive skills, 22 categories) | `SnailSploit/Claude-Red` (MIT) | `24d7968bab4b883e7f13477afe0fd91f2df3b722` | `.github/skills/base-hacker-claude-red/vendor/Claude-Red/` + `vendor/PROVENANCE.md` |
-| office + utility skills | `anthropics/skills` | `34040c9c568585f6929bedeaad110ad08f079624` | `.github/skills/anth-*/` (+ `PROVENANCE.md` per skill, `LICENSE.txt` preserved) |
-| devops advisors (12) | `NotHarshhaa/devops-skills` (MIT) | `b3d56768774d11656c47bd7abbd81fbf2bd630e5` | `.github/skills/devops-*/` |
-| devops shared contract docs | same | same | `.github/skills/_devops-pack-docs/` (+ `PROVENANCE.md`) |
-| MLOps + LLMOps (28) | `timwukp/MLOps-agent-skills` (Apache-2.0) | upstream HEAD `6426013a15ee0e431dbb81938deac2f6e25c0941` at vendoring | `.github/skills/<ml,llm,model,data,feature>-*/` |
-| ML pack provenance | same | same | `.github/skills/_ml-pack-docs/PROVENANCE.md` |
+| claude-red (78 offensive skills, 22 categories) | `SnailSploit/Claude-Red` (MIT) | `24d7968bab4b883e7f13477afe0fd91f2df3b722` | `skills/base-hacker-claude-red/vendor/Claude-Red/` + `vendor/PROVENANCE.md` |
+| office + utility skills | `anthropics/skills` | `34040c9c568585f6929bedeaad110ad08f079624` | `skills/anth-*/` (+ `PROVENANCE.md` per skill, `LICENSE.txt` preserved) |
+| devops advisors (12) | `NotHarshhaa/devops-skills` (MIT) | `b3d56768774d11656c47bd7abbd81fbf2bd630e5` | `skills/devops-*/` |
+| devops shared contract docs | same | same | `skills/_devops-pack-docs/` (+ `PROVENANCE.md`) |
+| MLOps + LLMOps (28) | `timwukp/MLOps-agent-skills` (Apache-2.0) | upstream HEAD `6426013a15ee0e431dbb81938deac2f6e25c0941` at vendoring | `skills/<ml,llm,model,data,feature>-*/` |
+| ML pack provenance | same | same | `skills/_ml-pack-docs/PROVENANCE.md` |
 
 ### Deliberate omissions
 
@@ -68,9 +68,9 @@ Every vendored set keeps upstream license text, a pinned ref, and a `PROVENANCE.
 
 ### Support directories (`_`-prefixed, not skills)
 
-- `.github/skills/_devops-pack-docs/` — contract, finding format, templates. The 12 devops skills
+- `skills/_devops-pack-docs/` — contract, finding format, templates. The 12 devops skills
   link to them as `../_devops-pack-docs/<file>`.
-- `.github/skills/_ml-pack-docs/` — provenance record for the ML/LLM packs.
+- `skills/_ml-pack-docs/` — provenance record for the ML/LLM packs.
 
 Both are skipped by `smoke-skills.sh`, `validate-agent-guide.py`, and the skill counts.
 
@@ -86,7 +86,7 @@ Both are skipped by `smoke-skills.sh`, `validate-agent-guide.py`, and the skill 
 
 ## Adding a new skill
 
-1. Add `SKILL.md` under `.github/skills/<group-prefix>-<name>/` (frontmatter `name:` **must equal**
+1. Add `SKILL.md` under `skills/<group-prefix>-<name>/` (frontmatter `name:` **must equal**
    the directory name; `description:` is required).
 2. Add an entry in `config/skills.json` (`name`, `group`, `path`, `source`, `license`, `target_agents`, `status`).
 3. Scope it in `config/permissions.json` if the agent needs new tools/MCP.

@@ -3,6 +3,6 @@
   "type": "module",
   "description": "Dependencies for the draw.io diagram export skill",
   "dependencies": {
-    "puppeteer-core": "^25.11.0"
+    "puppeteer-core": "^24.39.1"
   }
 }

@@ -26,7 +26,7 @@ case "$cmd" in
     ;;
   install-security|install-ml|install-frontend)
     echo "[wagents] $cmd: selective install not yet needed — all core agents ship by default."
-    echo "  Optional third-party skills: see docs/skills.md and .github/skills/_third-party/README.md"
+    echo "  Optional third-party skills: see docs/skills.md and skills/_third-party/README.md"
     ;;
   help|*)
     echo "Usage: wagents <init|install|update|doctor|list|install-security|install-ml|install-frontend>"

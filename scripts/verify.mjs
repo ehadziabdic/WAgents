@@ -27,16 +27,16 @@ function json(relativePath) {
 const required = [
   'README.md', 'LICENSE', 'manifest.json', 'mcp/README.md',
   'config/agents.json', 'config/skills.json', 'config/permissions.json', 'config/providers.json',
-  'config/external-dependencies.json', '.github/agents/wagent.agent.md',
-  '.github/agents/wagent-hacker.agent.md', '.github/agents/frontend-designer.agent.md',
-  '.github/agents/backend-engineer.agent.md', '.github/agents/security-engineer.agent.md',
-  '.github/agents/code-reviewer.agent.md', '.github/agents/debugger.agent.md',
-  '.github/agents/qa-engineer.agent.md', '.github/agents/research-specialist.agent.md',
-  '.github/agents/documentation-specialist.agent.md', '.github/agents/ml-engineer.agent.md',
-  '.github/agents/devops-engineer.agent.md',
-  '.github/skills/base-design-references/SKILL.md',
-  '.github/skills/base-hacker-claude-red/SKILL.md',
-  '.github/skills/mcp-second-brain/SKILL.md', '.github/skills/mcp-shared-codebase-memory/SKILL.md'
+  'config/external-dependencies.json', 'agents/wagent.agent.md',
+  'agents/wagent-hacker.agent.md', 'agents/frontend-designer.agent.md',
+  'agents/backend-engineer.agent.md', 'agents/security-engineer.agent.md',
+  'agents/code-reviewer.agent.md', 'agents/debugger.agent.md',
+  'agents/qa-engineer.agent.md', 'agents/research-specialist.agent.md',
+  'agents/documentation-specialist.agent.md', 'agents/ml-engineer.agent.md',
+  'agents/devops-engineer.agent.md',
+  'skills/base-design-references/SKILL.md',
+  'skills/base-hacker-claude-red/SKILL.md',
+  'skills/mcp-second-brain/SKILL.md', 'skills/mcp-shared-codebase-memory/SKILL.md'
 ];
 for (const item of required) check(item, existsSync(join(root, item)));
 

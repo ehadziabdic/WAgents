@@ -18,6 +18,43 @@
     "copilot",
     "antigravity",
     "cline",
-    "hermes"
+    "hermes",
+    "brainstorm",
+    "debug",
+    "execute",
+    "plan",
+    "review",
+    "taste",
+    "verify"
+  ],
+  "commands": [
+    {
+      "name": "/wagents:brainstorm",
+      "file": "commands/brainstorm.md"
+    },
+    {
+      "name": "/wagents:debug",
+      "file": "commands/debug.md"
+    },
+    {
+      "name": "/wagents:execute",
+      "file": "commands/execute.md"
+    },
+    {
+      "name": "/wagents:plan",
+      "file": "commands/plan.md"
+    },
+    {
+      "name": "/wagents:review",
+      "file": "commands/review.md"
+    },
+    {
+      "name": "/wagents:taste",
+      "file": "commands/taste.md"
+    },
+    {
+      "name": "/wagents:verify",
+      "file": "commands/verify.md"
+    }
   ]
 }

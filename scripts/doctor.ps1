@@ -19,7 +19,7 @@ try {
   Write-Host "[invalid] agent/skill registry: $_"; $fail = 1
 }
 foreach ($f in @("typescript.instructions.md","python.instructions.md","react.instructions.md","security.instructions.md","testing.instructions.md","documentation.instructions.md")) {
-  Check "instruction:$f" "$Root/.github/instructions/$f"
+  Check "instruction:$f" "$Root/instructions/$f"
 }
 foreach ($f in @("mcp/servers.json","mcp/README.md","config/skills.json","config/plugins.json","config/agents.json","config/permissions.json","manifest.json",".env.example","install.sh","install.ps1","bin/wagents","bin/wagents.ps1",".github/hooks/README.md")) {
   Check $f "$Root/$f"
@@ -42,7 +42,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) { Write-Host "[ok] git" } els
 if (Get-Command gh -ErrorAction SilentlyContinue) { Write-Host "[ok] gh" } else { Write-Host "[warn] gh missing (optional)" }
 if (Get-Command node -ErrorAction SilentlyContinue) { Write-Host "[ok] node" } else { Write-Host "[warn] node missing (needed for some MCPs)" }
 if (Get-Command python -ErrorAction SilentlyContinue) { Write-Host "[ok] python" } else { Write-Host "[warn] python missing" }
-if (Test-Path "$Root/.github/skills/base-hacker-claude-red/vendor/Claude-Red/Skills") { Write-Host "[ok] hacker vendor" } else { Write-Host "[info] hacker vendor not installed (use -IncludeHacker)" }
+if (Test-Path "$Root/skills/base-hacker-claude-red/vendor/Claude-Red/Skills") { Write-Host "[ok] hacker vendor" } else { Write-Host "[info] hacker vendor not installed (use -IncludeHacker)" }
 if ($fail -ne 0) { throw "doctor failed" }
 Write-Host "[wagents] doctor complete."
 

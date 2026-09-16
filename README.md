@@ -38,7 +38,7 @@ cd wagents
 .\install.ps1 -IncludeHacker
 ```
 
-Windows Hacker note: vendor the pinned Claude-Red full copy via `CLAUDE_RED_REF=<pinned-sha> ./install.sh --include-hacker` (WSL/Git-Bash) or manual clone of `https://github.com/SnailSploit/Claude-Red` to `.github/skills/base-hacker-claude-red/vendor/Claude-Red`, add `PROVENANCE.md`, preserve LICENSE. See `docs/skills.md`.
+Windows Hacker note: vendor the pinned Claude-Red full copy via `CLAUDE_RED_REF=<pinned-sha> ./install.sh --include-hacker` (WSL/Git-Bash) or manual clone of `https://github.com/SnailSploit/Claude-Red` to `skills/base-hacker-claude-red/vendor/Claude-Red`, add `PROVENANCE.md`, preserve LICENSE. See `docs/skills.md`.
 
 ## Doctor / Update
 
@@ -132,7 +132,7 @@ Hacker (`wagent-hacker`) requires explicit target authorization. Only `wagent-ha
 
 Skills:
 
-1. Add `SKILL.md` under `.github/skills/<group-prefix>-<name>/` (frontmatter `name:` must equal the directory name).
+1. Add `SKILL.md` under `skills/<group-prefix>-<name>/` (frontmatter `name:` must equal the directory name).
 2. Add entry in `config/skills.json` (name, group, source, path, license, target_agents, status).
 3. Scope in `config/permissions.json` if needed.
 4. Add a group installer (`scripts/install-<group>-skills.sh`) if this is a new group, and wire it into `scripts/install-skills.sh` + `scripts/verify-install.sh` + `scripts/smoke-skills.sh`.
@@ -148,7 +148,7 @@ MCPs:
 
 ## How to add / change agents
 
-1. Add `.github/agents/<id>.agent.md` with frontmatter `name`, `description`, `tools`.
+1. Add `agents/<id>.agent.md` with frontmatter `name`, `description`, `tools`.
 2. Add entry in `config/agents.json` (id, file, role, delegates_to/exclusive_skills).
 3. Scope tools/MCP in `config/permissions.json` + `mcp/servers.json` scopes.
 4. Update `wagent.agent.md` routing if needed.

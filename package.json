@@ -20,9 +20,9 @@
     ".claude-plugin/marketplace.json",
     ".agents/plugins/marketplace.json",
     ".github/plugin/marketplace.json",
-    ".github/agents/",
-    ".github/instructions/",
-    ".github/skills/",
+    "agents/",
+    "instructions/",
+    "skills/",
     "README.md",
     "LICENSE"
   ],
@@ -30,7 +30,7 @@
     "build:plugin": "node scripts/build-plugin.mjs",
     "verify": "node scripts/verify.mjs",
     "prepack": "npm run build:plugin && npm run verify",
-    "test": "npm run verify"
+    "test": "node --test tests/*.test.mjs && npm run verify"
   },
   "engines": {
     "node": ">=20"

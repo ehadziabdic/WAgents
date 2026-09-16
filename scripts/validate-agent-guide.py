@@ -2,10 +2,10 @@
 """Validate wagents agent guide files.
 
 Integrated concept from third-party ui-ux/validate-agent-guide.py, adapted:
-- every .agent.md in .github/agents has a frontmatter with name + description
+- every .agent.md in agents has a frontmatter with name + description
 - the name matches the file name
 - any `skills/...` or skill-name references point to real skill directories
-- every SKILL.md in .github/skills has a frontmatter with name + description
+- every SKILL.md in skills has a frontmatter with name + description
 - the SKILL.md name matches its directory name
 """
 from __future__ import annotations
@@ -15,8 +15,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-AGENTS = ROOT / ".github" / "agents"
-SKILLS = ROOT / ".github" / "skills"
+AGENTS = ROOT / "agents"
+SKILLS = ROOT / "skills"
 
 FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---", re.DOTALL)
 
@@ -49,8 +49,8 @@ def validate_agent(path: Path) -> list[str]:
         errors.append(f"{path.name}: frontmatter name {name!r} != expected {expected_name!r}")
     if not fm.get("description"):
         errors.append(f"{path.name}: missing description in frontmatter")
-    # Skill references like "skills/<name>" or ".github/skills/<name>" must exist.
-    # Skill references like "skills/<name>" or ".github/skills/<name>" must exist.
+    # Skill references like "skills/<name>" or "skills/<name>" must exist.
+    # Skill references like "skills/<name>" or "skills/<name>" must exist.
     for ref in re.findall(r"(?:\.github/)?skills/([A-Za-z0-9_-]+)/", text):
         if ref.startswith("_"):
             continue  # underscore dirs are support dirs (no SKILL.md), e.g. _devops-pack-docs
@@ -81,20 +81,20 @@ def main() -> int:
     if AGENTS.exists():
         agents = sorted(AGENTS.glob("*.agent.md"))
         if not agents:
-            errors.append("no .agent.md files found in .github/agents")
+            errors.append("no .agent.md files found in agents")
         for path in agents:
             errors.extend(validate_agent(path))
     else:
-        errors.append(".github/agents directory not found")
+        errors.append("agents directory not found")
 
     if SKILLS.exists():
         skill_dirs = sorted(p for p in SKILLS.iterdir() if p.is_dir() and not p.name.startswith("_"))
         if not skill_dirs:
-            errors.append("no skill directories found in .github/skills")
+            errors.append("no skill directories found in skills")
         for skill_dir in skill_dirs:
             errors.extend(validate_skill(skill_dir))
     else:
-        errors.append(".github/skills directory not found")
+        errors.append("skills directory not found")
 
     if errors:
         print("Agent guide validation failed:", file=sys.stderr)

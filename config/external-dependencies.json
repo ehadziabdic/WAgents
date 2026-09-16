@@ -43,7 +43,7 @@
       "pinned_commit": "24d7968bab4b883e7f13477afe0fd91f2df3b722",
       "license": "MIT",
       "target_agents": ["wagent-hacker"],
-      "install": "Vendored in .github/skills/base-hacker-claude-red/vendor/Claude-Red. To refresh: set CLAUDE_RED_REF and run scripts/install-base-skills.sh --include-hacker.",
+      "install": "Vendored in skills/base-hacker-claude-red/vendor/Claude-Red. To refresh: set CLAUDE_RED_REF and run scripts/install-base-skills.sh --include-hacker.",
       "status": "vendored-included-authorized-only",
       "note": "Full copy, git metadata stripped; PROVENANCE.md next to the vendor. Stripped from the portable core plugin at build time (see scripts/build-plugin.mjs); local working copy only."
     },
@@ -54,7 +54,7 @@
       "pinned_commit": "34040c9c568585f6929bedeaad110ad08f079624",
       "license": "see LICENSE.txt in each skill dir (office/document skills declare Proprietary)",
       "target_agents": ["backend-engineer", "qa-engineer", "documentation-specialist"],
-      "install": "Vendored — ships in .github/skills/anth-*/. To refresh: scripts/install-anthropic-skills.sh.",
+      "install": "Vendored — ships in skills/anth-*/. To refresh: scripts/install-anthropic-skills.sh.",
       "status": "vendored-included",
       "note": "8 skills (docx/pdf/pptx/xlsx, claude-api, webapp-testing, doc-coauthoring, mcp-builder). Review the Proprietary office-skill terms before public distribution."
     },
@@ -65,7 +65,7 @@
       "pinned_commit": "b3d56768774d11656c47bd7abbd81fbf2bd630e5",
       "license": "MIT",
       "target_agents": ["devops-engineer"],
-      "install": "Vendored — ships in .github/skills/devops-*/ plus shared docs in _devops-pack-docs/. To refresh: scripts/install-devops-skills.sh.",
+      "install": "Vendored — ships in skills/devops-*/ plus shared docs in _devops-pack-docs/. To refresh: scripts/install-devops-skills.sh.",
       "status": "vendored-included"
     },
     {
@@ -75,7 +75,7 @@
       "pinned_commit": "6426013a15ee0e431dbb81938deac2f6e25c0941",
       "license": "Apache-2.0",
       "target_agents": ["ml-engineer"],
-      "install": "Vendored — ships in .github/skills/<ml,llm,model,data,feature>-*/. To refresh: scripts/install-ml-skills.sh.",
+      "install": "Vendored — ships in skills/<ml,llm,model,data,feature>-*/. To refresh: scripts/install-ml-skills.sh.",
       "status": "vendored-included",
       "note": "28 skills flattened from upstream container prefixes; provenance in _ml-pack-docs/PROVENANCE.md."
     },
@@ -85,7 +85,7 @@
       "source": "https://github.com/obra/superpowers",
       "license": "MIT",
       "target_agents": ["wagent", "wagent-hacker", "backend-engineer", "code-reviewer", "debugger", "qa-engineer"],
-      "install": "Adapted in-repo — ships as the super-* group. Upstream license reproduced in .github/skills/*/NOTICE.md.",
+      "install": "Adapted in-repo — ships as the super-* group. Upstream license reproduced in skills/*/NOTICE.md.",
       "status": "vendored-adapted"
     }
   ]

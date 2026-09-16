@@ -11,7 +11,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SKILLS_DIR="$ROOT/.github/skills"
+SKILLS_DIR="$ROOT/skills"
 
 EXPECTED_COUNT="${EXPECTED_SKILL_COUNT:-98}"
 

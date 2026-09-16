@@ -3,15 +3,15 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 fail=0
 check() { if eval "$2"; then echo "[ok] $1"; else echo "[missing] $1"; fail=1; fi; }
-check "wagent" "test -f $ROOT/.github/agents/wagent.agent.md"
+check "wagent" "test -f $ROOT/agents/wagent.agent.md"
 for a in frontend-designer backend-engineer security-engineer wagent-hacker code-reviewer debugger qa-engineer research-specialist documentation-specialist ml-engineer devops-engineer; do
-  check "agent:$a" "test -f $ROOT/.github/agents/$a.agent.md"
+  check "agent:$a" "test -f $ROOT/agents/$a.agent.md"
 done
 for s in base-architecture-blueprint base-design-references base-webapp-testing-basics base-hacker-claude-red awesome-security-review mcp-codebase-memory mcp-second-brain mcp-shared-codebase-memory super-systematic-debugging super-subagent-driven-development super-requesting-code-review anth-docx anth-pdf anth-pptx anth-xlsx anth-claude-api anth-webapp-testing anth-doc-coauthoring anth-mcp-builder devops-audit devops-runbook devops-terraform-review ml-solution-design model-serving llm-rag llm-guardrails; do
-  check "skill:$s" "test -f $ROOT/.github/skills/$s/SKILL.md"
+  check "skill:$s" "test -f $ROOT/skills/$s/SKILL.md"
 done
 for f in typescript.instructions.md python.instructions.md react.instructions.md security.instructions.md testing.instructions.md documentation.instructions.md; do
-  check "instruction:$f" "test -f $ROOT/.github/instructions/$f"
+  check "instruction:$f" "test -f $ROOT/instructions/$f"
 done
 check "mcp/servers.json" "test -f $ROOT/mcp/servers.json"
 check "mcp/README" "test -f $ROOT/mcp/README.md"
@@ -65,8 +65,8 @@ python3 -c "import json; [json.load(open(f)) for f in ['$ROOT/manifest.json','$R
 # deliberately document credential formats (e.g. `ghp_your_github_token`, `sk-ant-...`),
 # so scanning them produces false positives.
 if grep -RIn --exclude=verify-install.sh "sk-ant-\|ghp_\|github_pat_\|AKIA" \
-    "$ROOT/config" "$ROOT/mcp" "$ROOT/scripts" "$ROOT/.github/agents" \
-    "$ROOT/.github/instructions" "$ROOT/.github/copilot-instructions.md" 2>/dev/null; then
+    "$ROOT/config" "$ROOT/mcp" "$ROOT/scripts" "$ROOT/agents" \
+    "$ROOT/instructions" "$ROOT/.github/copilot-instructions.md" 2>/dev/null; then
   echo "[missing] secret-scan"; fail=1
 else echo "[ok] secret-scan"; fi
 exit $fail

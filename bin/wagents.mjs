@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { cpSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -51,41 +51,14 @@ function showOrRun(binary, binaryArgs, dryRun) {
   }
 }
 
-// Auto-install npm-based MCPs (codebase-memory-mcp is the primary one)
+// Auto-install npm-based MCPs via the single MCP installer
 function installMcps(dryRun) {
-  const npmProbe = process.platform === 'win32' ? 'where.exe' : 'command';
-  const npmArgs = process.platform === 'win32' ? ['npm'] : ['-v', 'npm'];
-  const npmAvailable = spawnSync(npmProbe, npmArgs, { stdio: 'ignore', shell: process.platform !== 'win32' }).status === 0;
-
-  if (!npmAvailable) {
-    console.log('[wagents][warn] npm not found — skipping MCP installation');
-    console.log('[wagents][info] Other MCPs are configured via mcp/servers.json');
-    console.log('[wagents][info]  and should be installed by your MCP client at runtime.');
+  if (dryRun) {
+    console.log('[wagents][dry-run] Would run scripts/install-mcp.mjs (installs pinned npm MCPs, prints manual setup for the rest)');
     return;
   }
-
-  console.log('[wagents] Installing MCPs...');
-
-  // Check if codebase-memory-mcp is already installed
-  const listResult = spawnSync('npm', ['list', '-g', 'codebase-memory-mcp'], { stdio: 'pipe', shell: process.platform === 'win32' });
-  const alreadyInstalled = listResult.status === 0 && listResult.stdout.toString().includes('codebase-memory-mcp');
-
-  if (alreadyInstalled) {
-    console.log('[wagents] codebase-memory-mcp already installed globally');
-  } else {
-    console.log('[wagents] Installing codebase-memory-mcp@0.10.0 (npm global)...');
-    const installResult = spawnSync('npm', ['install', '-g', 'codebase-memory-mcp@0.10.0'], {
-      stdio: dryRun ? 'pipe' : 'inherit',
-      shell: process.platform === 'win32'
-    });
-    if (installResult.status !== 0) {
-      console.error('[wagents][warn] Failed to install codebase-memory-mcp globally');
-    } else {
-      console.log('[wagents] codebase-memory-mcp installed');
-    }
-  }
-
-  console.log('[wagents] MCP installation complete.');
+  const result = spawnSync(process.execPath, [join(root, 'scripts', 'install-mcp.mjs')], { stdio: 'inherit' });
+  if (result.status !== 0) console.error('[wagents][warn] MCP installation reported problems — continuing with provider setup');
 }
 
 switch (command) {
@@ -103,21 +76,26 @@ switch (command) {
     runNode('scripts/build-plugin.mjs');
     break;
   case 'install': {
-    const provider = option('--provider');
+    const provider = option('--provider') ?? 'copilot';
     const dryRun = args.includes('--dry-run');
-    if (!provider || !providers[provider]) {
-      console.error('Choose one provider explicitly: wagents install --provider <name> [--dry-run]');
+    const skipMcps = args.includes('--skip-mcps');
+    if (!providers[provider]) {
+      console.error(`Unknown provider: ${provider}. Run: wagents list providers`);
       process.exitCode = 1;
       break;
     }
     // Auto-install npm-based MCPs before provider plugin installation
-    installMcps(dryRun);
-    runNode('scripts/build-plugin.mjs');
-    if (process.exitCode) break;
-    if (!commandExists(provider === 'claude-code' ? 'claude' : provider === 'antigravity' ? 'agy' : provider)) {
-      console.error(`[wagents] ${providers[provider].display_name} command is not installed or not on PATH.`);
-      process.exitCode = 1;
-      break;
+    if (!skipMcps) installMcps(dryRun);
+    if (dryRun) {
+      console.log(`[wagents][dry-run] Would build the portable plugin, then run the ${providers[provider].display_name} install steps below.`);
+    } else {
+      runNode('scripts/build-plugin.mjs');
+      if (process.exitCode) break;
+      if (!commandExists(provider === 'claude-code' ? 'claude' : provider === 'antigravity' ? 'agy' : provider)) {
+        console.error(`[wagents] ${providers[provider].display_name} command is not installed or not on PATH.`);
+        process.exitCode = 1;
+        break;
+      }
     }
     if (provider === 'claude-code') {
       showOrRun('claude', ['plugin', 'marketplace', 'add', root], dryRun);
@@ -143,12 +121,26 @@ switch (command) {
     break;
   }
   case 'init': {
-    const target = resolve(process.cwd(), args[1] ?? '.');
+    const dryRun = args.includes('--dry-run');
+    const target = resolve(process.cwd(), args.find(a => !a.startsWith('--') && a !== args[0]) ?? '.');
     const source = join(root, 'templates', 'project');
+    if (dryRun) {
+      console.log(`[wagents][dry-run] Would copy missing files from ${source} to ${target} (existing files are never overwritten).`);
+      break;
+    }
     if (!existsSync(source)) throw new Error('Project template is missing.');
-    mkdirSync(target, { recursive: true });
-    cpSync(source, target, { recursive: true, force: false, errorOnExist: true });
-    console.log(`[wagents] project template copied to ${target}`);
+    let copied = 0;
+    const copyMissing = (src, dest) => {
+      mkdirSync(dest, { recursive: true });
+      for (const entry of readdirSync(src, { withFileTypes: true })) {
+        const from = join(src, entry.name);
+        const to = join(dest, entry.name);
+        if (entry.isDirectory()) copyMissing(from, to);
+        else if (!existsSync(to)) { copyFileSync(from, to); copied += 1; }
+      }
+    };
+    copyMissing(source, target);
+    console.log(`[wagents] init complete: ${copied} file(s) copied to ${target}; existing files were not overwritten.`);
     break;
   }
   case 'provider': {

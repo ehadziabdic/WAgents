@@ -6,7 +6,7 @@ The recommended starting profile is `codebase-memory` + `notion` for the main ag
 
 ## 1. Shared codebase memory
 
-[DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) creates a persistent local structural graph. It has native Windows, macOS (Apple Silicon and Intel), and Linux builds, and its upstream also supports `npm install -g codebase-memory-mcp`. wagents records the reviewed upstream release `v0.10.0`; review changes before moving the pin.
+[DeusData/codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) creates a persistent local structural graph. It has native Windows, macOS (Apple Silicon and Intel), and Linux builds, and its upstream also supports `npm install -g codebase-memory-mcp`. wagents pins npm release `0.10.1` (Node >=18; WAgents itself requires Node >=20). The npm package runs a postinstall script to provision its native binary. The installer enforces this exact version, including replacing newer global versions; use `--skip-mcps` to preserve your existing installation. Package availability is verified, but that is not a source-security audit.
 
 Install it using the upstream installer or npm, then add the binary to the client.
 

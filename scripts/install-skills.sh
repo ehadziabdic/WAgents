@@ -28,7 +28,7 @@ load_group_installer "ml"
 
 echo "[wagents] skills: checking core skills..."
 for s in base-architecture-blueprint base-webapp-testing-basics awesome-security-review super-systematic-debugging super-subagent-driven-development super-requesting-code-review; do
-  test -f "$ROOT/.github/skills/$s/SKILL.md" || { echo "[wagents][fail] missing skill $s" >&2; exit 1; }
+  test -f "$ROOT/skills/$s/SKILL.md" || { echo "[wagents][fail] missing skill $s" >&2; exit 1; }
 done
 
 echo "[wagents] skills: OK"

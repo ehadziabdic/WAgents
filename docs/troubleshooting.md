@@ -24,7 +24,7 @@ Windows:
 
 ### `missing skill <name>`
 
-- Checked skills must exist under `.github/skills/<name>/SKILL.md` (frontmatter `name:`
+- Checked skills must exist under `skills/<name>/SKILL.md` (frontmatter `name:`
   must equal the directory name).
 - Run `bash scripts/install-skills.sh` to check all per-group sets, `bash scripts/smoke-skills.sh`
   for the full registry, `python scripts/validate-agent-guide.py` for agent references.
@@ -35,7 +35,7 @@ Windows:
 - Expected unless `--include-hacker` used.
 - Unix: `CLAUDE_RED_REF=<sha> ./install.sh --include-hacker`
 - Windows: WSL/Git-Bash with the same command, or manual clone of
-  `https://github.com/SnailSploit/Claude-Red` to `.github/skills/base-hacker-claude-red/vendor/Claude-Red`,
+  `https://github.com/SnailSploit/Claude-Red` to `skills/base-hacker-claude-red/vendor/Claude-Red`,
   plus `PROVENANCE.md`, preserve LICENSE.
 - Current pin lives in `config/external-dependencies.json` (`claude-red.pinned_commit`) and
   `scripts/install-base-skills.sh`. See `docs/skills.md` → "Updating a vendored set".

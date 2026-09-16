@@ -32,11 +32,11 @@ Concept:
 
 ```text
 Agent
- ├── specialized instructions (.github/agents/*.agent.md)
- ├── selected skills (.github/skills/*/SKILL.md)
+ ├── specialized instructions (agents/*.agent.md)
+ ├── selected skills (skills/*/SKILL.md)
  ├── selected MCP tools (mcp/servers.json + config/permissions.json)
  ├── strict permissions (config/permissions.json)
- └── delegation rules (.github/agents/wagent.agent.md + wagent-hacker.agent.md, mirrored in config/agents.json)
+ └── delegation rules (agents/wagent.agent.md + wagent-hacker.agent.md, mirrored in config/agents.json)
 ```
 
 ## Orchestration policy

@@ -16,9 +16,9 @@
     "cli_windows": "./bin/wagents.ps1"
   },
   "structure": {
-    "agents": ".github/agents",
-    "skills": ".github/skills",
-    "instructions": ".github/instructions",
+    "agents": "agents",
+    "skills": "skills",
+    "instructions": "instructions",
     "commands": "commands/",
     "hooks": "hooks",
     "mcp": "mcp/servers.json",

@@ -9,7 +9,7 @@
       "role": "main/default - intent, architecture decisions, routing, parallel delegation, integration, validation",
       "merged_from": ["orchestrator", "architect"],
       "file": "agents/wagent.agent.md",
-      "github_file": ".github/agents/wagent.agent.md",
+      "github_file": "agents/wagent.agent.md",
       "delegates_to": ["frontend-designer", "backend-engineer", "security-engineer", "code-reviewer", "debugger", "qa-engineer", "research-specialist", "documentation-specialist", "ml-engineer", "devops-engineer"],
       "cannot_call": ["wagent-hacker"],
       "note": "Merged orchestrator+architect. For authorized offensive work, direct the user to switch to the wagent-hacker agent."
@@ -18,7 +18,7 @@
       "id": "wagent-hacker",
       "role": "main - authorized offensive security mode; full engagement driver",
       "file": "agents/wagent-hacker.agent.md",
-      "github_file": ".github/agents/wagent-hacker.agent.md",
+      "github_file": "agents/wagent-hacker.agent.md",
       "delegates_to": ["frontend-designer", "backend-engineer", "security-engineer", "code-reviewer", "debugger", "qa-engineer", "research-specialist", "documentation-specialist", "ml-engineer", "devops-engineer"],
       "cannot_call": ["wagent"],
       "exclusive_skills": ["base-hacker-claude-red"],
@@ -29,49 +29,49 @@
       "id": "frontend-designer",
       "role": "UI/UX, visual hierarchy, aesthetic calibration, accessibility, frontend implementation, browser QA",
       "file": "agents/frontend-designer.agent.md",
-      "github_file": ".github/agents/frontend-designer.agent.md",
+      "github_file": "agents/frontend-designer.agent.md",
       "can_delegate": false
     },
     {
       "id": "backend-engineer",
       "role": "APIs, auth, database, business logic, performance",
       "file": "agents/backend-engineer.agent.md",
-      "github_file": ".github/agents/backend-engineer.agent.md",
+      "github_file": "agents/backend-engineer.agent.md",
       "can_delegate": false
     },
     {
       "id": "security-engineer",
       "role": "defensive security, threat modeling, review, scanning, remediation verification",
       "file": "agents/security-engineer.agent.md",
-      "github_file": ".github/agents/security-engineer.agent.md",
+      "github_file": "agents/security-engineer.agent.md",
       "can_delegate": false
     },
     {
       "id": "code-reviewer",
       "role": "independent correctness, maintainability, security, tests",
       "file": "agents/code-reviewer.agent.md",
-      "github_file": ".github/agents/code-reviewer.agent.md",
+      "github_file": "agents/code-reviewer.agent.md",
       "can_delegate": false
     },
     {
       "id": "debugger",
       "role": "root-cause analysis, minimal fix, regression test",
       "file": "agents/debugger.agent.md",
-      "github_file": ".github/agents/debugger.agent.md",
+      "github_file": "agents/debugger.agent.md",
       "can_delegate": false
     },
     {
       "id": "qa-engineer",
       "role": "code testing specialist - unit/integration/API/E2E/browser/regression",
       "file": "agents/qa-engineer.agent.md",
-      "github_file": ".github/agents/qa-engineer.agent.md",
+      "github_file": "agents/qa-engineer.agent.md",
       "can_delegate": false
     },
     {
       "id": "research-specialist",
       "role": "web research, docs verification, comparisons, evidence-backed recommendations",
       "file": "agents/research-specialist.agent.md",
-      "github_file": ".github/agents/research-specialist.agent.md",
+      "github_file": "agents/research-specialist.agent.md",
       "can_delegate": false,
       "renamed_from": "researcher"
     },
@@ -79,21 +79,21 @@
       "id": "documentation-specialist",
       "role": "documentation and knowledge lane - Diataxis docs, diagrams, slides, Obsidian vaults, Word/PDF/PPTX/XLSX deliverables",
       "file": "agents/documentation-specialist.agent.md",
-      "github_file": ".github/agents/documentation-specialist.agent.md",
+      "github_file": "agents/documentation-specialist.agent.md",
       "can_delegate": false
     },
     {
       "id": "ml-engineer",
       "role": "Python/data, ML experiments, evaluation, RAG/LLM, pipelines, reproducibility",
       "file": "agents/ml-engineer.agent.md",
-      "github_file": ".github/agents/ml-engineer.agent.md",
+      "github_file": "agents/ml-engineer.agent.md",
       "can_delegate": false
     },
     {
       "id": "devops-engineer",
       "role": "Docker, k8s, CI/CD, cloud, deployment, observability, release/rollback",
       "file": "agents/devops-engineer.agent.md",
-      "github_file": ".github/agents/devops-engineer.agent.md",
+      "github_file": "agents/devops-engineer.agent.md",
       "can_delegate": false
     }
   ]

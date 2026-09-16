@@ -9,7 +9,7 @@ Tier 1 (shared):
 - GitHub `github-mcp-server` — needs `GITHUB_TOKEN`
 - Playwright `@playwright/mcp` — browser testing, no secret
 - codebase-memory `codebase-memory-mcp` — persistent local structural index, no secret
-  (pinned release `v0.10.0`, upstream `DeusData/codebase-memory-mcp`; orchestrator owns
+  (pinned npm release `v0.10.1`, upstream `DeusData/codebase-memory-mcp`; orchestrator owns
   indexing, specialists query first — see `mcp/README.md` and `mcp-codebase-memory`)
 - Notion official remote MCP `https://mcp.notion.com/mcp` — OAuth in the client
   (main-agent read by default, writes need confirmation — see `mcp-second-brain`)
