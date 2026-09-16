@@ -9,7 +9,7 @@
       "name": "wagents",
       "description": "Orchestration, design, codebase-memory, and second-brain workflows for coding agents.",
       "version": "0.3.0",
-      "source": "./plugins/wagents",
+      "source": "./",
       "author": {
         "name": "wagents maintainers"
       }

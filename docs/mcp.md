@@ -1,32 +1,42 @@
 # MCP — wagents
 
 Source of truth: `mcp/servers.json`. Scopes: `config/permissions.json`.
+Install strategies (`install` key per server): `npm-pinned` (auto-installed at an exact
+version by `scripts/install-mcp.mjs`), `client-managed` (client launches npx/uvx on
+demand), `remote` (HTTP + OAuth in the client), `manual` (explicit setup required).
 
 ## Tiers (matches `mcp/servers.json`)
 
 Tier 1 (shared):
-- Context7 `@upstash/context7-mcp` — current docs, no secret
-- GitHub `github-mcp-server` — needs `GITHUB_TOKEN`
-- Playwright `@playwright/mcp` — browser testing, no secret
+- Context7 `@upstash/context7-mcp` — current docs, no secret (client-managed via npx)
+- GitHub official remote MCP `https://api.githubcopilot.com/mcp/` — OAuth/PAT in the
+  client, nothing to install (local `github-mcp-server` binary is a manual alternative)
+- Playwright `@playwright/mcp` — browser testing, no secret (client-managed via npx)
 - codebase-memory `codebase-memory-mcp` — persistent local structural index, no secret
-  (pinned npm release `v0.10.1`, upstream `DeusData/codebase-memory-mcp`; orchestrator owns
-  indexing, specialists query first — see `mcp/README.md` and `mcp-codebase-memory`)
+  (auto-installed, pinned npm release `0.10.1`, upstream `DeusData/codebase-memory-mcp`;
+  orchestrator owns indexing, specialists query first — see `mcp/README.md` and
+  `mcp-codebase-memory`)
 - Notion official remote MCP `https://mcp.notion.com/mcp` — OAuth in the client
   (main-agent read by default, writes need confirmation — see `mcp-second-brain`)
 
 Tier 2:
-- Tavily `tavily-mcp` — needs `TAVILY_API_KEY`, researcher/architect-read
-- Sentry `sentry-mcp` — needs `SENTRY_AUTH_TOKEN`, read-only
-- SonarQube `sonarqube-mcp` — needs `SONAR_TOKEN` + `SONAR_HOST_URL`, reviewer
-- Trivy `trivy-mcp` — filesystem/container/deps, no secret
-- Semgrep `semgrep-mcp` — needs `SEMGREP_APP_TOKEN` optional, local rules work without
+- Tavily `tavily-mcp` — needs `TAVILY_API_KEY`, researcher/architect-read (client-managed via npx)
+- Sentry `@sentry/mcp-server` — auto-installed pinned `0.39.0` (official getsentry
+  package; needs `SENTRY_AUTH_TOKEN` at runtime; requires Node >= 22.13)
+- SonarQube — manual: the community npm package is deprecated; verify an official
+  SonarSource server before adopting (needs `SONAR_TOKEN` + `SONAR_HOST_URL`)
+- Trivy `trivy mcp` — built-in MCP mode; install the Trivy binary first (manual)
+- Semgrep — official PyPI `semgrep-mcp` pinned `0.9.0`, launched on demand via
+  `uvx` (local rules work without `SEMGREP_APP_TOKEN`)
 - React Bits — project-managed commercial MCP for the design agent only
   (requires the project's own `components.json` + `REACTBITS_LICENSE_KEY` in project
   `.env.local`; wagents declares no guessed package — see `mcp/README.md`)
 
 Conditional (disabled by default):
-- Postgres `postgres-mcp` — needs `POSTGRES_CONNECTION_STRING`, backend only
-- Supabase `supabase-mcp` — needs `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`, backend only
+- Postgres `postgres-mcp` — launched on demand via `uvx` only when explicitly enabled,
+  needs `POSTGRES_CONNECTION_STRING`, backend only
+- Supabase `@supabase/mcp-server-supabase` — auto-installed pinned `0.12.0` (official;
+  needs `SUPABASE_ACCESS_TOKEN`, backend only)
 - Additional cloud MCPs — only when explicitly needed per project
 
 ## Least privilege

@@ -91,13 +91,11 @@ test('build:plugin packages commands/, hooks/, the right skill count, and an emp
   assert.ok(hookCmd.includes('${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd'), hookCmd);
   assert.ok(hookCmd.includes('session-start.sh'), hookCmd);
 
-  // Package count: 100 source skills minus the 5 stripped by license gates.
+  // Full skill set ships everywhere (personal-use repository): the bundle mirrors the source 1:1.
   const sourceSkills = readdirSync(join(root, 'skills'));
-  const stripped = ['anth-docx', 'anth-pdf', 'anth-pptx', 'anth-xlsx', 'base-hacker-claude-red'];
-  const expectedSkills = sourceSkills.length - stripped.length;
   const skills = readdirSync(join(out, 'skills'));
-  assert.equal(skills.length, expectedSkills);
-  for (const s of stripped) assert.equal(skills.includes(s), false, `stripped skill still present: ${s}`);
+  assert.equal(skills.length, sourceSkills.length);
+  for (const s of sourceSkills) assert.ok(skills.includes(s), `missing skill: ${s}`);
 
   // MCPs are deliberately empty in the portable core (credentials/OAuth/selection are user-specific).
   const mcp = JSON.parse(readFileSync(join(out, 'mcp.json'), 'utf8'));
@@ -115,3 +113,22 @@ test('build:plugin packages commands/, hooks/, the right skill count, and an emp
   assert.ok(readme.includes('commands/'), 'README missing commands/');
   assert.ok(readme.includes('hooks/'), 'README missing hooks/');
 });
+
+test('build:plugin without argument syncs root manifests (repo root is the plugin)', t => {
+  const build = spawnSync(process.execPath, [join(root, 'scripts/build-plugin.mjs')], {
+    encoding: 'utf8'
+  });
+  assert.equal(build.status, 0, build.stderr);
+  const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
+  const plugin = JSON.parse(readFileSync(join(root, 'plugin.json'), 'utf8'));
+  assert.equal(plugin.version, version);
+  assert.equal(JSON.parse(readFileSync(join(root, '.claude-plugin/plugin.json'), 'utf8')).name, 'wagents');
+  assert.equal(JSON.parse(readFileSync(join(root, '.codex-plugin/plugin.json'), 'utf8')).skills, './skills/');
+  const mcp = JSON.parse(readFileSync(join(root, 'mcp.json'), 'utf8'));
+  assert.deepEqual(mcp.mcpServers, {});
+  const keywords = plugin.keywords || [];
+  for (const c of readdirSync(join(root, 'commands'))) {
+    assert.ok(keywords.includes(c.replace(/\.md$/, '')), `keywords missing ${c}`);
+  }
+});
+

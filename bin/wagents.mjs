@@ -24,7 +24,7 @@ Usage:
   wagents mcp <server-id>
 
 This CLI never installs an MCP, external skill, or plugin without an explicit
-provider command from you. See docs/providers.md and mcp/README.md.`);
+provider command from you. See config/providers.json and mcp/README.md.`);
 }
 
 function runNode(script) {
@@ -107,13 +107,13 @@ switch (command) {
       showOrRun('copilot', ['plugin', 'marketplace', 'add', root], dryRun);
       showOrRun('copilot', ['plugin', 'install', 'wagents@wagents'], dryRun);
     } else if (provider === 'antigravity') {
-      showOrRun('agy', ['plugin', 'install', join(root, 'plugins', 'wagents')], dryRun);
+      showOrRun('agy', ['plugin', 'install', root], dryRun);
     } else if (provider === 'cline') {
       const target = join(process.cwd(), '.cline', 'skills');
-      console.log(`Copy skills to ${target}`);
+      console.log(`Copy skills to ${target} (full skill set)`);
       if (!dryRun) {
         mkdirSync(target, { recursive: true });
-        cpSync(join(root, 'plugins', 'wagents', 'skills'), target, { recursive: true, force: false, errorOnExist: true });
+        cpSync(join(root, 'skills'), target, { recursive: true, force: false, errorOnExist: true });
       }
     } else if (provider === 'hermes') {
       showOrRun('hermes', ['plugins', 'install', root, '--enable'], dryRun);
@@ -160,6 +160,7 @@ switch (command) {
       const server = mcpConfig.servers.find(s => s.id === id);
       if (!server) throw new Error(`Unknown MCP server: ${id}. Run: wagents mcp --list`);
       console.log(`MCP Server: ${server.id}`);
+      if (server.install) console.log(`  Install: ${server.install}`);
       console.log(`  Status: ${server.status}`);
       console.log(`  Transport: ${server.transport}`);
       console.log(`  Scope: ${server.scope.join(', ')}`);

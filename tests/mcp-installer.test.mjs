@@ -35,8 +35,14 @@ for (const version of [undefined, '0.10.0', '0.10.1', '0.10.2']) {
     const list = calls.find(([, args]) => args[0] === 'list');
     assert.ok(list[1].includes('--json'));
     const installs = calls.filter(([, args]) => args[0] === 'install');
-    assert.equal(installs.length, version === '0.10.1' ? 0 : 1);
-    if (installs.length) assert.ok(installs[0][1].includes('codebase-memory-mcp@0.10.1'));
+    // The mock registry only reports codebase-memory-mcp; the other two official
+    // pins (@sentry/mcp-server, @supabase/mcp-server-supabase) always (re)install.
+    assert.equal(installs.length, version === '0.10.1' ? 2 : 3);
+    const expected = ['codebase-memory-mcp@0.10.1', '@sentry/mcp-server@0.39.0', '@supabase/mcp-server-supabase@0.12.0']
+      .filter(pin => pin !== 'codebase-memory-mcp@0.10.1' || version !== '0.10.1');
+    for (const pin of expected) {
+      assert.ok(installs.some(([, args]) => args.includes(pin)), `missing install of ${pin}`);
+    }
   });
 }
 test('MCP dry-run never launches subprocesses', t => {
@@ -46,5 +52,5 @@ test('MCP dry-run never launches subprocesses', t => {
 });
 test('failed npm list does not count as an installed pin', t => {
   const { calls } = run(t, '0.10.1', [], 1);
-  assert.equal(calls.filter(([, args]) => args[0] === 'install').length, 1);
+  assert.equal(calls.filter(([, args]) => args[0] === 'install').length, 3);
 });

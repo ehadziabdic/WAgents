@@ -1,10 +1,10 @@
 {
   "version": "0.3.0",
-  "core_plugin": "plugins/wagents",
+  "core_plugin": ".",
   "marketplaces": {
     "claude_code": ".claude-plugin/marketplace.json",
     "codex": ".agents/plugins/marketplace.json",
     "copilot": ".github/plugin/marketplace.json"
   },
-  "policy": "The wagents plugin is generated from repository source. Upstream skill sets are vendored, pinned, and recorded in config/external-dependencies.json; they are never blindly bundled or updated. The authorized-offensive set is stripped from the portable core at build time (see scripts/build-plugin.mjs)."
+  "policy": "The repository root IS the plugin (superpowers-style); skills/, agents/, instructions/, commands/, and hooks/ are consumed in place. Upstream skill sets are vendored, pinned, and recorded in config/external-dependencies.json; they are never blindly bundled or updated. The full skill set ships in every bundle and selective copy (personal-use repository)."
 }

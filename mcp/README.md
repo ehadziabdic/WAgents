@@ -85,9 +85,27 @@ Use the [official React Bits MCP setup](https://www.reactbits.dev/get-started/mc
 
 wagents does not declare a guessed `npx` package for React Bits. This prevents a similarly named, unaffiliated package from being executed in users' projects.
 
-## Other catalogue entries
+## Install coverage (`scripts/install-mcp.mjs`)
 
-Context7, GitHub, Playwright, Tavily, Sentry, SonarQube, Trivy, Semgrep, Postgres, and Supabase remain optional. Their required environment variable names and intended scopes are in [`servers.json`](servers.json). Add one server at a time, grant the least access necessary, and run your client's connection test before relying on it.
+Run `node scripts/install-mcp.mjs` (it runs automatically during `wagents install`
+unless you pass `--skip-mcps`; `--dry-run` plans without installing):
+
+- **Auto-installed, exact-pinned (npm global):**
+  `codebase-memory-mcp@0.10.1`, `@sentry/mcp-server@0.39.0` (runtime needs Node >= 22.13),
+  `@supabase/mcp-server-supabase@0.12.0`. All three are official packages from the
+  upstream maintainers; the installer replaces mismatched global versions with the pin.
+- **Client-managed, nothing to pre-install:** context7, playwright, tavily (via `npx`),
+  semgrep (`uvx semgrep-mcp@0.9.0`, official PyPI package), postgres (`uvx postgres-mcp`,
+  disabled by default). The installer only checks that `npx`/`uvx` exist.
+- **Remote, nothing to install — OAuth/PAT in the client:**
+  GitHub (`https://api.githubcopilot.com/mcp/`, official remote MCP), Notion (`https://mcp.notion.com/mcp`).
+- **Manual, explicit instructions printed:**
+  SonarQube (the community npm package is deprecated — verify an official SonarSource
+  server first), Trivy (install the Trivy binary; its MCP mode is built in as `trivy mcp`),
+  React Bits (commercial, project-managed from the project root).
+
+Add one server at a time, grant the least access necessary, and run your client's
+connection test before relying on it.
 
 ## Security checklist
 

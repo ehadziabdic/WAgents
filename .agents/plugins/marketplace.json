@@ -8,7 +8,7 @@
       "name": "wagents",
       "source": {
         "source": "local",
-        "path": "./plugins/wagents"
+        "path": "./"
       },
       "policy": {
         "installation": "AVAILABLE",

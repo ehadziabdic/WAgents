@@ -18,7 +18,7 @@ dist/
 build/
 .DS_Store
 Thumbs.db
-# .github/skills/base-hacker-claude-red/vendor/ is committed (full Claude-Red copy ships in this setup).
-# It is stripped from the portable core plugin at build time (scripts/build-plugin.mjs).
+# skills/base-hacker-claude-red/vendor/ is committed (full Claude-Red copy ships everywhere;
+# this is a personal-use repository).
 # If you fork and prefer it local-only, uncomment the next line and re-vendor with scripts/install-base-skills.sh --include-hacker:
-# .github/skills/base-hacker-claude-red/vendor/
+# skills/base-hacker-claude-red/vendor/

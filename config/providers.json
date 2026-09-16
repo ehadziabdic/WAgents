@@ -39,7 +39,7 @@
       "display_name": "Google Antigravity",
       "plugin_format": "plugin.json (Agent Plugins 1.0)",
       "install": [
-        "agy plugin install https://github.com/ehadziabdic/wagents/tree/<release-commit>/plugins/wagents"
+        "agy plugin install https://github.com/ehadziabdic/wagents/tree/<release-commit>"
       ],
       "mcp": "mcp_config.json",
       "status": "supported"

@@ -36,13 +36,14 @@ const required = [
   'agents/devops-engineer.agent.md',
   'skills/base-design-references/SKILL.md',
   'skills/base-hacker-claude-red/SKILL.md',
-  'skills/mcp-second-brain/SKILL.md', 'skills/mcp-shared-codebase-memory/SKILL.md'
+  'skills/mcp-second-brain/SKILL.md', 'skills/mcp-shared-codebase-memory/SKILL.md',
+  'plugin.json', '.claude-plugin/plugin.json', '.codex-plugin/plugin.json', 'mcp.json'
 ];
 for (const item of required) check(item, existsSync(join(root, item)));
 
 for (const item of ['package.json', 'manifest.json', 'mcp/servers.json', 'config/skills.json', 'config/plugins.json', 'config/agents.json', 'config/permissions.json', 'config/providers.json', 'config/external-dependencies.json']) json(item);
 
-const skillDirectory = join(root, '.github', 'skills');
+const skillDirectory = join(root, 'skills');
 if (existsSync(skillDirectory)) {
   for (const name of readdirSync(skillDirectory)) {
     const directory = join(skillDirectory, name);
@@ -62,7 +63,7 @@ const docChecks = [
   { file: 'docs/skills.md', must: ['config/skills.json', 'Updating a vendored set', 'Adding a new skill', 'PROVENANCE.md'] },
   { file: 'docs/architecture.md', must: ['wagent-hacker', 'never call each other', 'merged into wagent'] },
   { file: 'docs/mcp.md', must: ['servers.json', 'codebase-memory', 'mcp-second-brain'] },
-  { file: 'docs/security.md', must: ['wagent-hacker', 'authorization', 'stripped'] },
+  { file: 'docs/security.md', must: ['wagent-hacker', 'authorization', 'base-hacker-claude-red'] },
   { file: 'docs/troubleshooting.md', must: ['verify-install', 'smoke-skills', 'validate-agent-guide'] },
   { file: 'mcp/README.md', must: ['servers.json', 'codebase-memory', 'mcp-second-brain'] },
 ];

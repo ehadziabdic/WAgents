@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "wagents",
-      "source": "./plugins/wagents",
+      "source": "./",
       "description": "Orchestration, design, quality, codebase-memory, and second-brain workflows.",
       "version": "0.3.0"
     }

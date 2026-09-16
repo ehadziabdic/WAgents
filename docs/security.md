@@ -13,8 +13,8 @@
 ## Agent privilege
 
 - `security-engineer`: read/search, scanning tools. No offensive actions.
-- `wagent-hacker`: read/search + exclusive `base-hacker-claude-red` (78 skills, stripped from
-  the portable core at build time — see `scripts/build-plugin.mjs`). Authorization gate mandatory.
+- `wagent-hacker`: read/search + exclusive `base-hacker-claude-red` (78 skills; ships in the
+  full bundle — this is a personal-use repository). Authorization gate mandatory.
 - `code-reviewer`: read/search only. No edit/deploy.
 - `research-specialist`: read/search only. No edit/deploy.
 - `devops-engineer`: infra/cloud tools only when explicitly enabled. No deploy without approval.

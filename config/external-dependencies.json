@@ -45,7 +45,7 @@
       "target_agents": ["wagent-hacker"],
       "install": "Vendored in skills/base-hacker-claude-red/vendor/Claude-Red. To refresh: set CLAUDE_RED_REF and run scripts/install-base-skills.sh --include-hacker.",
       "status": "vendored-included-authorized-only",
-      "note": "Full copy, git metadata stripped; PROVENANCE.md next to the vendor. Stripped from the portable core plugin at build time (see scripts/build-plugin.mjs); local working copy only."
+      "note": "Full copy, git metadata stripped; PROVENANCE.md next to the vendor. Ships in every bundle and selective copy (personal-use repository; not for public redistribution)."
     },
     {
       "id": "anthropic-skills",
