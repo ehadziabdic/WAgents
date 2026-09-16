@@ -1,0 +1,12 @@
+{
+  "description": "WAgents lifecycle automation hooks",
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd\" session-start.sh"
+      }
+    ]
+  }
+}
+

@@ -1,0 +1,24 @@
+# wagents — never commit secrets or local env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials.json
+service-account*.json
+.vscode/mcp.json
+.vscode/settings.local.json
+node_modules/
+__pycache__/
+.venv/
+dist/
+build/
+.DS_Store
+Thumbs.db
+# .github/skills/base-hacker-claude-red/vendor/ is committed (full Claude-Red copy ships in this setup).
+# It is stripped from the portable core plugin at build time (scripts/build-plugin.mjs).
+# If you fork and prefer it local-only, uncomment the next line and re-vendor with scripts/install-base-skills.sh --include-hacker:
+# .github/skills/base-hacker-claude-red/vendor/

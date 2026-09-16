@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "policy": "MCP declarations are an auditable catalogue, not permission grants. Configure only the selected profile in a supported client and complete its authentication flow there.",
+  "servers": [
+    {"id":"context7","tier":1,"transport":"stdio","command":"npx","args":["-y","@upstash/context7-mcp"],"required_env":[],"scope":["all-agents"],"status":"optional"},
+    {"id":"github","tier":1,"transport":"stdio","command":"github-mcp-server","args":[],"required_env":["GITHUB_TOKEN"],"scope":["wagent","backend-engineer","security-engineer","devops-engineer","read-only-specialists"],"status":"optional"},
+    {"id":"playwright","tier":1,"transport":"stdio","command":"npx","args":["-y","@playwright/mcp"],"required_env":[],"scope":["frontend-designer","debugger","qa-engineer"],"status":"optional"},
+    {"id":"codebase-memory","tier":1,"transport":"stdio","command":"codebase-memory-mcp","args":[],"required_env":[],"scope":["wagent-index-and-query","wagent-hacker-query","all-specialists-query"],"upstream":"https://github.com/DeusData/codebase-memory-mcp","pinned_release":"v0.10.0","status":"recommended-optional","notes":"Persistent local structural index. wagent owns indexing; specialists verify graph findings against current files."},
+    {"id":"notion","tier":1,"transport":"streamable-http","url":"https://mcp.notion.com/mcp","required_env":[],"authentication":"OAuth in the MCP client","scope":["wagent-read-default","documentation-specialist-read"],"upstream":"https://developers.notion.com/guides/mcp/get-started-with-mcp","status":"recommended-optional","notes":"Use only after the user connects the intended workspace. Writes require explicit confirmation."},
+    {"id":"react-bits","tier":2,"transport":"project-managed","required_env":["REACTBITS_LICENSE_KEY (project .env.local)"],"scope":["frontend-designer"],"upstream":"https://www.reactbits.dev/get-started/mcp","status":"optional-commercial","notes":"Use React Bits' official shadcn-based setup from the project root. Do not substitute an unverified community MCP package."},
+    {"id":"tavily","tier":2,"transport":"stdio","command":"npx","args":["-y","tavily-mcp"],"required_env":["TAVILY_API_KEY"],"scope":["research-specialist"],"status":"optional"},
+    {"id":"sentry","tier":2,"transport":"stdio","command":"sentry-mcp","args":[],"required_env":["SENTRY_AUTH_TOKEN"],"scope":["backend-engineer-read","security-engineer-read","debugger-read","devops-engineer-read"],"status":"optional"},
+    {"id":"sonarqube","tier":2,"transport":"stdio","command":"sonarqube-mcp","args":[],"required_env":["SONAR_TOKEN","SONAR_HOST_URL"],"scope":["code-reviewer-read","security-engineer-read"],"status":"optional"},
+    {"id":"trivy","tier":2,"transport":"stdio","command":"trivy-mcp","args":[],"required_env":[],"scope":["security-engineer"],"status":"optional"},
+    {"id":"semgrep","tier":2,"transport":"stdio","command":"semgrep-mcp","args":[],"required_env":["SEMGREP_APP_TOKEN"],"scope":["security-engineer"],"status":"optional"},
+    {"id":"postgres","tier":"conditional","transport":"stdio","command":"postgres-mcp","args":[],"required_env":["POSTGRES_CONNECTION_STRING"],"scope":["backend-engineer"],"status":"disabled-by-default"},
+    {"id":"supabase","tier":"conditional","transport":"stdio","command":"supabase-mcp","args":[],"required_env":["SUPABASE_URL","SUPABASE_SERVICE_ROLE_KEY"],"scope":["backend-engineer"],"status":"disabled-by-default"}
+  ]
+}

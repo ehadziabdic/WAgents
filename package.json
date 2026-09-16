@@ -1,0 +1,57 @@
+{
+  "name": "wagents",
+  "version": "0.3.0",
+  "description": "Portable, reproducible agent workflows, skills, and MCP setup for modern coding agents. wagent (main) + wagent-hacker (authorized offensive mode) + 10 specialists.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "wagents": "bin/wagents.mjs"
+  },
+  "files": [
+    "bin/",
+    "commands/",
+    "config/",
+    "docs/",
+    "mcp/",
+    "plugins/",
+    "scripts/",
+    "templates/",
+    ".claude-plugin/marketplace.json",
+    ".agents/plugins/marketplace.json",
+    ".github/plugin/marketplace.json",
+    ".github/agents/",
+    ".github/instructions/",
+    ".github/skills/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:plugin": "node scripts/build-plugin.mjs",
+    "verify": "node scripts/verify.mjs",
+    "prepack": "npm run build:plugin && npm run verify",
+    "test": "npm run verify"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "agents",
+    "agent-skills",
+    "mcp",
+    "codex",
+    "claude-code",
+    "copilot",
+    "antigravity",
+    "cline",
+    "hermes"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehadziabdic/wagents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ehadziabdic/wagents/issues"
+  },
+  "homepage": "https://github.com/ehadziabdic/wagents#readme"
+}

@@ -1,0 +1,493 @@
+---
+name: ml-pipeline-orchestration
+description: >
+  Automate end-to-end ML workflows with Apache Airflow DAGs, Kubeflow Pipelines, Prefect flows, Dagster ops and
+  assets, ZenML, and Argo Workflows. Covers pipeline scheduling (cron, event-driven, data-driven triggers), task
+  dependency management, fan-out/fan-in patterns, parameter passing via XComs and artifacts, retry and error
+  handling, pipeline monitoring and alerting, conditional branching, caching, artifact reuse, pipeline versioning,
+  reproducibility, and CI/CD integration. Use when building or scheduling ML pipelines, wiring training/evaluation/
+  deployment steps into a DAG, choosing or migrating between orchestrators, or debugging pipeline failures and retries.
+license: Apache-2.0
+metadata:
+  author: mlops-skills
+  version: "1.0"
+---
+
+# ML Pipeline Orchestration
+
+Guide to designing, building, scheduling, and operating ML pipelines across major orchestration frameworks. Covers platform-agnostic patterns and framework-specific implementations for Apache Airflow, Kubeflow Pipelines, Prefect, Dagster, and ZenML.
+
+For framework-specific deep dives (Kubeflow, Prefect, Dagster, ZenML), parameter passing, caching, environment management, templates, CI/CD, and migration guides, see `references/REFERENCE.md`.
+
+---
+
+## 1. ML Pipeline Design Patterns
+
+### 1.1 Training Pipeline
+
+The most common ML pipeline. Orchestrates the path from raw data to a registered, validated model.
+
+```
+Data Ingestion -> Data Validation -> Feature Engineering -> Data Splitting
+    -> Model Training -> Model Evaluation -> Model Registration -> Notification
+```
+
+**Design principles:**
+- Each stage is independently testable and idempotent.
+- Artifacts (datasets, models, metrics) are persisted in an artifact store (S3, GCS, ADLS).
+- The pipeline is parameterized: dataset version, hyperparameters, model type, target environment.
+- A gate between evaluation and registration enforces quality thresholds.
+
+### 1.2 Other Pipeline Types
+
+| Pipeline Type | Flow | Key Consideration |
+|---------------|------|-------------------|
+| **Inference (Batch)** | Load Model -> Fetch Data -> Predict -> Store Results -> Monitor Drift | Feature engineering MUST match training; log predictions for monitoring |
+| **Feature Pipeline** | Ingest Sources -> Transform -> Validate -> Write to Feature Store | Schedule aligned with freshness requirements; point-in-time correctness |
+| **Monitoring Pipeline** | Collect Predictions + Actuals -> Compute Drift -> Check Thresholds -> Alert | Runs independently; can trigger retraining (closed-loop MLOps) |
+| **Composite / Meta-Pipeline** | Orchestrates other pipelines in sequence | Example: nightly feature -> training -> deploy -> monitor |
+
+---
+
+## 2. Apache Airflow for ML
+
+### 2.1 Core Concepts
+
+| Concept | ML Usage |
+|---------|----------|
+| **DAG** | ML pipeline as a directed acyclic graph of tasks |
+| **Operator** | Single step (PythonOperator, KubernetesPodOperator) |
+| **Sensor** | Waits for external conditions (new data in S3, model registry update) |
+| **XCom** | Passes small metadata between tasks (metrics, file paths, model URIs) |
+| **Connection** | Stores credentials for external systems |
+| **Asset** (`Dataset` in 2.4-2.x) | Enables data-aware scheduling. Airflow 3.x renamed `Dataset` to `Asset` (`airflow.sdk.Asset`); `Dataset` remains as a deprecated alias |
+
+### 2.2 DAG Definition Best Practices
+
+```python
+from datetime import datetime, timedelta
+
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+
+default_args = {
+    "owner": "ml-team",
+    "depends_on_past": False,
+    "email_on_failure": True,
+    "email": ["ml-alerts@company.com"],
+    "retries": 2,
+    "retry_delay": timedelta(minutes=5),
+    "retry_exponential_backoff": True,
+    "max_retry_delay": timedelta(minutes=30),
+    "execution_timeout": timedelta(hours=2),
+}
+
+with DAG(
+    dag_id="ml_training_pipeline",
+    default_args=default_args,
+    description="End-to-end ML training pipeline",
+    # Airflow 3.x: `schedule_interval` was removed — use `schedule`.
+    schedule="0 2 * * *",  # Daily at 2 AM
+    # Airflow 3.x: `airflow.utils.dates.days_ago` was removed, and a relative
+    # start_date makes the first run window shift on every DAG parse. Pin it.
+    start_date=datetime(2025, 1, 1),
+    catchup=False,
+    max_active_runs=1,
+    tags=["ml", "training", "production"],
+) as dag:
+    pass
+```
+
+**Anti-patterns to avoid:**
+- Storing large objects (DataFrames, models) in XCom -- use artifact stores and pass URIs.
+- Top-level heavy code that runs at DAG parse time -- defer to task callables.
+- Excessive `depends_on_past=True` -- creates cascading failures.
+- Hard-coded paths and credentials -- use Connections and Variables.
+
+### 2.3 Key Operators for ML
+
+```python
+# PythonOperator - most common for ML tasks
+train_task = PythonOperator(
+    task_id="train_model",
+    python_callable=train_model_fn,
+    op_kwargs={"hyperparams": "{{ var.json.hyperparams }}"},
+)
+
+# KubernetesPodOperator - for GPU training or isolated environments
+# Airflow 3.x / cncf.kubernetes provider 5+: the module is
+# ...operators.pod (the old ...operators.kubernetes_pod path was removed).
+from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
+from kubernetes.client import models as k8s
+
+gpu_train = KubernetesPodOperator(
+    task_id="gpu_training",
+    name="gpu-training-pod",
+    namespace="ml-workloads",
+    image="ml-training:latest",
+    arguments=["--epochs", "100", "--lr", "0.001"],
+    # Airflow 3.x: the `resources={...}` dict was removed. Pass a typed
+    # V1ResourceRequirements via container_resources.
+    container_resources=k8s.V1ResourceRequirements(
+        requests={"cpu": "4", "memory": "16Gi", "nvidia.com/gpu": "1"},
+        limits={"cpu": "8", "memory": "32Gi", "nvidia.com/gpu": "1"},
+    ),
+    # Airflow 3.x: `is_delete_operator_pod` was replaced by on_finish_action
+    # ("delete_pod" | "delete_succeeded_pod" | "keep_pod").
+    on_finish_action="delete_pod",
+    get_logs=True,
+)
+
+# S3Sensor - wait for new data
+from airflow.providers.amazon.aws.sensors.s3 import S3KeySensor
+
+wait_for_data = S3KeySensor(
+    task_id="wait_for_new_data",
+    bucket_name="ml-data",
+    bucket_key="incoming/{{ ds }}/data.parquet",
+    poke_interval=300,
+    timeout=3600,
+    mode="reschedule",
+)
+```
+
+### 2.4 XCom for Metadata Passing
+
+```python
+def train_model_fn(**context):
+    metrics = {"accuracy": 0.95, "f1": 0.93, "model_uri": "s3://models/v42"}
+    context["ti"].xcom_push(key="training_metrics", value=metrics)
+    return metrics  # Also pushed automatically with key "return_value"
+
+def evaluate_model_fn(**context):
+    metrics = context["ti"].xcom_pull(task_ids="train_model", key="training_metrics")
+    model_uri = metrics["model_uri"]
+```
+
+**XCom size limits:** There is no fixed Airflow-level cap — the default backend
+serializes the value into a single metadata-DB column, so the ceiling is whatever
+your database allows: MySQL `BLOB` is ~64 KB (65,535 bytes), PostgreSQL `bytea`
+is up to ~1 GB, SQLite is effectively unbounded. Practically, keep XComs to a few
+KB regardless: every pull is a DB round-trip, and the scheduler reads them too.
+For anything larger, write to S3/GCS and pass the URI, or configure a custom XCom
+backend that offloads the payload to object storage.
+
+See `scripts/airflow_pipeline.py` for a complete, executable Airflow DAG.
+
+---
+
+## 3. Orchestrator Comparison
+
+| Criterion | Airflow | Kubeflow | Prefect | Dagster | ZenML |
+|-----------|---------|----------|---------|---------|-------|
+| **Best for** | General workflow orchestration | Kubernetes-native ML | Python-native ML pipelines | Data asset management | Multi-orchestrator abstraction |
+| **Learning curve** | Moderate | Steep | Low | Moderate | Low |
+| **K8s required** | No | Yes | No | No | No |
+| **Dynamic pipelines** | Good (2.3+) | Limited | Excellent | Good | Good |
+| **Data lineage** | Limited | Limited | Moderate | Excellent | Good |
+| **Managed offering** | Astronomer, MWAA, Composer | GCP Vertex, AWS native | Prefect Cloud | Dagster Cloud | ZenML Cloud |
+| **GPU support** | Via K8s/Docker operators | Native | Via infra blocks | Via resources | Via stack config |
+
+For detailed framework-specific guides (Kubeflow, Prefect, Dagster, ZenML), see `references/REFERENCE.md` sections 8-11.
+
+---
+
+## 4. Pipeline Scheduling Strategies
+
+### 4.1 Cron-Based Scheduling
+
+```
+0 2 * * *          # Daily at 2 AM (nightly retraining)
+0 */6 * * *        # Every 6 hours (frequent retraining)
+0 2 * * 1          # Weekly on Monday at 2 AM
+*/30 * * * *       # Every 30 minutes (feature pipeline)
+```
+
+### 4.2 Event-Driven Scheduling
+
+```python
+# Airflow - asset-aware scheduling.
+# Airflow 3.x: Dataset was renamed to Asset (airflow.sdk.Asset). On 2.4-2.x use
+# `from airflow.datasets import Dataset`; the Dataset name still resolves in 3.x
+# as a deprecated alias.
+from airflow.sdk import Asset
+
+data_landing = Asset("s3://ml-data/incoming/")
+
+# Producer DAG
+with DAG("data_producer", ...):
+    task = PythonOperator(
+        task_id="produce_data",
+        python_callable=produce_data_fn,
+        outlets=[data_landing],
+    )
+
+# Consumer DAG - triggered when the asset is updated
+with DAG("training_pipeline", schedule=[data_landing], ...):
+    pass
+```
+
+### 4.3 Hybrid Scheduling
+
+Combine strategies: run on a cron schedule but skip if no new data.
+
+```python
+with DAG("smart_training", schedule="0 */4 * * *", ...):   # Airflow 3.x: schedule=
+    check = ShortCircuitOperator(
+        task_id="check_data",
+        python_callable=check_new_data,
+    )
+    train = PythonOperator(task_id="train", ...)
+    check >> train  # train only runs if check returns True
+```
+
+---
+
+## 5. Task Dependency Management
+
+### 5.1 Linear Dependencies
+
+```python
+# Airflow
+ingest >> validate >> feature_eng >> train >> evaluate >> register
+
+# Prefect - implicit via function calls
+data = ingest()
+validated = validate(data)
+model = train(engineer(validated))
+
+# Dagster - implicit via asset dependencies
+@asset
+def features(raw_data): ...  # Depends on raw_data automatically
+```
+
+### 5.2 Fan-Out / Fan-In (Parallel Branches)
+
+```python
+# Airflow - fan-out to multiple evaluation tasks, fan-in to registration
+train_task >> [eval_accuracy, eval_fairness, eval_latency] >> register_task
+
+# Airflow - dynamic fan-out with mapped tasks (Airflow 2.3+)
+@task
+def get_model_configs() -> list[dict]:
+    return [{"algorithm": "rf"}, {"algorithm": "xgb"}, {"algorithm": "lgbm"}]
+
+@task
+def train_single_model(config: dict) -> dict:
+    return {"config": config, "accuracy": 0.95}
+
+with DAG("ensemble_training", ...):
+    configs = get_model_configs()
+    results = train_single_model.expand(config=configs)  # Dynamic fan-out
+    best = select_best_model(results)  # Fan-in
+```
+
+### 5.3 Cross-DAG Dependencies
+
+```python
+# Airflow - TriggerDagRunOperator
+# Airflow 3.x: core operators moved to the standard provider —
+# airflow.providers.standard.operators.trigger_dagrun
+from airflow.providers.standard.operators.trigger_dagrun import TriggerDagRunOperator
+
+trigger_deployment = TriggerDagRunOperator(
+    task_id="trigger_deployment",
+    trigger_dag_id="model_deployment_pipeline",
+    conf={"model_uri": "{{ ti.xcom_pull(task_ids='register') }}"},
+    wait_for_completion=True,
+)
+```
+
+---
+
+## 6. Error Handling, Retries, and Failure Notifications
+
+### 6.1 Retry Strategies
+
+```python
+# Airflow - per-task retry configuration
+PythonOperator(
+    task_id="train_model",
+    python_callable=train_fn,
+    retries=3,
+    retry_delay=timedelta(minutes=5),
+    retry_exponential_backoff=True,
+    max_retry_delay=timedelta(hours=1),
+    on_retry_callback=lambda context: log_retry(context),
+)
+```
+
+### 6.2 Custom Failure Callbacks
+
+```python
+def on_failure_callback(context):
+    task_id = context["task_instance"].task_id
+    dag_id = context["dag"].dag_id
+    exception = context.get("exception", "Unknown")
+    log_url = context["task_instance"].log_url
+    message = f"Task FAILED: {dag_id}.{task_id}\nException: {exception}\nLog: {log_url}"
+    send_slack_alert(channel="#ml-alerts", message=message)
+
+with DAG("training_pipeline", on_failure_callback=on_failure_callback, ...):
+    ...
+```
+
+### 6.3 Graceful Degradation
+
+```python
+# Pattern: Fallback to previous model if training fails
+@task
+def training_with_fallback(data_path: str, config: dict) -> str:
+    try:
+        model = train_new_model(data_path, config)
+        if validate_model(model):
+            return save_model(model)
+        else:
+            return get_current_production_model_uri()
+    except Exception as e:
+        logger.error(f"Training failed: {e}, falling back to current model")
+        return get_current_production_model_uri()
+```
+
+---
+
+## 7. Pipeline Testing
+
+### 7.1 Unit Testing Pipeline Steps
+
+```python
+def test_feature_engineering():
+    input_df = pd.DataFrame({"age": [25, 30], "income": [50000, 75000], "target": [0, 1]})
+    result = engineer_features_fn(input_df)
+    assert "age_income_ratio" in result.columns
+    assert not result.isnull().any().any()
+
+def test_data_validation():
+    bad_df = pd.DataFrame({"age": [25, None], "income": [50000, -1]})
+    report = validate_data_fn(bad_df)
+    assert not report["passed"]
+```
+
+### 7.2 DAG Validation Testing (Airflow)
+
+```python
+def test_dag_loading():
+    from airflow.models import DagBag
+    dag_bag = DagBag(dag_folder="dags/", include_examples=False)
+    assert len(dag_bag.import_errors) == 0
+
+def test_dag_structure():
+    dag_bag = DagBag(dag_folder="dags/", include_examples=False)
+    dag = dag_bag.get_dag("ml_training_pipeline")
+    assert dag is not None
+    assert "train_model" in dag.task_ids
+```
+
+For comprehensive testing strategies (integration, contract, performance tests), see `references/REFERENCE.md` Section 4.
+
+---
+
+## 8. Pipeline Monitoring and Alerting
+
+### 8.1 Metrics to Monitor
+
+| Category | Metrics |
+|----------|---------|
+| **Pipeline Health** | Success rate, failure rate, SLA compliance |
+| **Task Performance** | Duration per task, duration trends, queue time |
+| **Resource Usage** | CPU, memory, GPU utilization per task |
+| **Data Quality** | Schema changes, null rates, distribution drift |
+| **Model Quality** | Training metrics over time, evaluation score trends |
+
+### 8.2 Alerting Rules
+
+Airflow emits metrics over **StatsD**, not natively over Prometheus, and the
+metric names are dotted with the `dag_id` embedded in the name (not as a label).
+The relevant emitters are:
+
+| StatsD metric | Type | Meaning |
+|---------------|------|---------|
+| `dagrun.duration.success.<dag_id>` | timer | Duration of successful DAG runs |
+| `dagrun.duration.failed.<dag_id>` | timer | Duration of failed DAG runs |
+| `dagrun.<dag_id>.first_task_scheduling_delay` | timer | Scheduling latency |
+| `ti.finish.<dag_id>.<task_id>.<state>` | counter | Task instance terminal state |
+| `ti.start.<dag_id>.<task_id>` | counter | Task instance starts |
+
+To alert in Prometheus, run `statsd_exporter` in front of Airflow and use a
+mapping that lifts `dag_id` out of the name into a label. With the mapping below,
+`dagrun.duration.failed.training_pipeline` becomes
+`airflow_dagrun_duration_failed{dag_id="training_pipeline"}`:
+
+```yaml
+# statsd_exporter mapping
+mappings:
+  - match: "airflow.dagrun.duration.*.*"
+    name: "airflow_dagrun_duration_${1}"
+    labels: { dag_id: "$2" }
+  - match: "airflow.ti.finish.*.*.*"
+    name: "airflow_ti_finish"
+    labels: { dag_id: "$1", task_id: "$2", state: "$3" }
+```
+
+```yaml
+# Prometheus alerting rules (names produced by the mapping above)
+groups:
+  - name: ml_pipeline_alerts
+    rules:
+      - alert: PipelineFailureRate
+        expr: |
+          sum(rate(airflow_ti_finish{dag_id="training_pipeline", state="failed"}[1h]))
+          /
+          sum(rate(airflow_ti_finish{dag_id="training_pipeline"}[1h])) > 0.3
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Training pipeline task failure rate > 30%"
+
+      - alert: PipelineRunTooSlow
+        expr: |
+          airflow_dagrun_duration_success{dag_id="training_pipeline", quantile="0.9"} > 7200
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Training pipeline P90 runtime exceeds 2 hours"
+```
+
+Verify metric names against your Airflow version before shipping alerts —
+`airflow config list --section metrics` shows the prefix and any renames in effect.
+
+---
+
+## Quick Reference
+
+| Topic | Key Guidance |
+|-------|-------------|
+| **Scheduling** | Use cron for stable patterns, event-driven for irregular data, hybrid for cost efficiency |
+| **Dependencies** | Linear for simple flows, fan-out/fan-in for parallel work, cross-DAG for pipeline chaining |
+| **Data passing** | Small metadata via XCom/returns; large artifacts via S3/GCS URIs |
+| **Error handling** | Exponential backoff retries, failure callbacks to Slack/PagerDuty, graceful degradation |
+| **Testing** | Unit test steps, validate DAG structure, integration test with synthetic data |
+| **Monitoring** | Track success rates, task durations, SLA compliance; alert on anomalies |
+| **Caching** | Input-hash caching (Prefect, KFP native); manual for Airflow |
+| **Environment** | Container-per-step (KubernetesPodOperator, KFP components) for isolation |
+| **CI/CD** | Lint + unit test + DAG validation in PR; deploy to staging then production |
+| **Migration** | Extract business logic first; run old/new in parallel; migrate incrementally |
+
+---
+
+## Scripts
+
+- **`scripts/airflow_pipeline.py`** - Complete Airflow DAG for an end-to-end ML training pipeline with data validation, feature engineering, model training, evaluation, and conditional registration.
+- **`scripts/prefect_pipeline.py`** - Complete Prefect flow with cached tasks, retries, deployment configuration, and parameterized execution.
+
+## References
+
+- **`references/REFERENCE.md`** - Detailed orchestrator comparisons, framework-specific deep dives (Kubeflow, Prefect, Dagster, ZenML), design pattern catalog, parameter passing, versioning, dynamic pipelines, caching, environment management, templates, CI/CD, testing strategies, migration guides, production checklist, and troubleshooting.
+
+## Related skills
+
+**Cross-cutting:** automates the whole MLOps chain — `data-ingestion` → `data-validation` → `feature-engineering` → `model-training` → `model-registry` as DAG steps
+**Upstream:** `ml-solution-design` (pipeline architecture decision) · **Downstream:** `ml-cicd` (pipeline definitions are themselves versioned and deployed via CI)
+**See also:** `ml-experiment-tracking` for logging from inside pipeline runs

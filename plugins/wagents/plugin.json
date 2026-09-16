@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "wagents",
+  "version": "0.3.0",
+  "description": "Portable, reproducible agent workflows, skills, and MCP setup for modern coding agents. wagent (main) + wagent-hacker (authorized offensive mode) + 10 specialists.",
+  "author": {
+    "name": "wagents maintainers"
+  },
+  "homepage": "https://github.com/ehadziabdic/wagents#readme",
+  "repository": "https://github.com/ehadziabdic/wagents.git",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "agent-skills",
+    "mcp",
+    "codex",
+    "claude-code",
+    "copilot",
+    "antigravity",
+    "cline",
+    "hermes"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "wagents",
+  "owner": {
+    "name": "wagents maintainers"
+  },
+  "metadata": {
+    "description": "Portable agent workflows, skills, and safely documented MCP profiles.",
+    "version": "0.3.0"
+  },
+  "plugins": [
+    {
+      "name": "wagents",
+      "source": "./plugins/wagents",
+      "description": "Orchestration, design, quality, codebase-memory, and second-brain workflows.",
+      "version": "0.3.0"
+    }
+  ]
+}

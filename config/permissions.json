@@ -1,0 +1,81 @@
+{
+  "version": "0.3.0",
+  "model": "least-privilege per agent; no wildcard full-access unless explicitly enabled",
+  "agents": {
+    "wagent": {
+      "tools": ["read", "edit", "search", "github-read", "context7", "playwright"],
+      "mcp": ["github", "context7", "codebase-memory", "notion-read"],
+      "note": "Merged orchestrator+architect. Owns codebase-memory indexing. Notion is read-only by default; knowledge-base writes require explicit confirmation. Must not delegate to wagent-hacker.",
+      "may_delegate_to": ["frontend-designer", "backend-engineer", "security-engineer", "code-reviewer", "debugger", "qa-engineer", "research-specialist", "documentation-specialist", "ml-engineer", "devops-engineer"],
+      "must_not_call": ["wagent-hacker"]
+    },
+    "wagent-hacker": {
+      "tools": ["read", "edit", "search", "github-read", "context7", "playwright"],
+      "mcp": ["context7", "github-read", "semgrep", "trivy", "codebase-memory-read"],
+      "exclusive_skills": ["base-hacker-claude-red"],
+      "authorization": "explicit-user-authorization-required per target; owned-lab-staging-ctf-only",
+      "forbidden": ["unauthorized-targets", "destructive-without-approval", "exfiltration-without-approval", "secret-commit"],
+      "may_delegate_to": ["frontend-designer", "backend-engineer", "security-engineer", "code-reviewer", "debugger", "qa-engineer", "research-specialist", "documentation-specialist", "ml-engineer", "devops-engineer"],
+      "must_not_call": ["wagent"]
+    },
+    "frontend-designer": {
+      "tools": ["read", "edit", "search"],
+      "mcp": ["context7", "playwright", "codebase-memory-read", "react-bits-conditional"],
+      "forbidden": ["deploy", "infra-write", "offensive-security", "db-write", "delegation"]
+    },
+    "backend-engineer": {
+      "tools": ["read", "edit", "search"],
+      "mcp": ["context7", "github", "postgres-conditional", "supabase-conditional", "sentry-read", "codebase-memory-read"],
+      "forbidden": ["deploy-without-approval", "offensive-security", "delegation"]
+    },
+    "security-engineer": {
+      "tools": ["read", "search"],
+      "mcp": ["context7", "github-read", "semgrep", "trivy", "sonarqube-read", "sentry-read", "codebase-memory-read"],
+      "forbidden": ["offensive-security", "exfiltration", "destructive-actions", "secret-write", "delegation"]
+    },
+    "code-reviewer": {
+      "tools": ["read", "search"],
+      "mcp": ["github-read", "context7", "sonarqube-read", "codebase-memory-read"],
+      "forbidden": ["edit", "deploy", "offensive-security", "delegation"]
+    },
+    "debugger": {
+      "tools": ["read", "edit", "search"],
+      "mcp": ["context7", "github-read", "sentry-read", "playwright", "codebase-memory-read"],
+      "forbidden": ["deploy", "offensive-security", "delegation"]
+    },
+    "qa-engineer": {
+      "tools": ["read", "edit", "search"],
+      "mcp": ["playwright", "context7", "github-read", "codebase-memory-read"],
+      "forbidden": ["deploy", "offensive-security", "delegation"]
+    },
+    "research-specialist": {
+      "tools": ["read", "search"],
+      "mcp": ["tavily", "context7", "github-read", "codebase-memory-read"],
+      "forbidden": ["edit", "deploy", "offensive-security", "delegation"]
+    },
+    "documentation-specialist": {
+      "tools": ["read", "edit", "search", "github-read", "context7"],
+      "mcp": ["context7", "codebase-memory-read", "notion-read"],
+      "forbidden": ["deploy", "offensive-security", "delegation"],
+      "note": "Writes documentation and office-format deliverables. Vault/Notion writes require explicit confirmation."
+    },
+    "ml-engineer": {
+      "tools": ["read", "edit", "search"],
+      "mcp": ["context7", "github-read", "codebase-memory-read"],
+      "forbidden": ["deploy-without-approval", "offensive-security", "delegation"]
+    },
+    "devops-engineer": {
+      "tools": ["read", "edit", "search"],
+      "mcp": ["github", "context7", "sentry-read", "codebase-memory-read"],
+      "note": "Infra/cloud MCPs only when explicitly enabled per project.",
+      "forbidden": ["deploy-without-approval", "secret-commit", "offensive-security", "delegation"]
+    }
+  },
+  "global_rules": [
+    "never-commit-secrets",
+    "never-expose-credentials-in-logs",
+    "destructive-and-deployment-actions-require-explicit-authorization",
+    "offensive-security-only-in-wagent-hacker-with-explicit-target-authorization",
+    "only-main-agents-delegate; specialists-never-delegate; main-agents-never-call-each-other"
+  ]
+}

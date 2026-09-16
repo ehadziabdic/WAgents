@@ -1,0 +1,60 @@
+{
+  "name": "wagents",
+  "version": "0.3.0",
+  "description": "Portable, reproducible personal Agent OS for GitHub Copilot / Copilot CLI / VS Code. wagent (main; orchestrator+architect merged) + wagent-hacker (authorized offensive mode) + 10 specialists.",
+  "license": "MIT",
+  "repository": "https://github.com/ehadziabdic/wagents.git",
+  "entrypoints": {
+    "install_unix": "./install.sh",
+    "install_windows": "./install.ps1",
+    "doctor_unix": "./scripts/doctor.sh",
+    "doctor_windows": "./scripts/doctor.ps1",
+    "update_unix": "./scripts/update.sh",
+    "update_windows": "./scripts/update.ps1",
+    "verify": "./scripts/verify-install.sh",
+    "cli_unix": "./bin/wagents",
+    "cli_windows": "./bin/wagents.ps1"
+  },
+  "structure": {
+    "agents": ".github/agents",
+    "skills": ".github/skills",
+    "instructions": ".github/instructions",
+    "commands": "commands/",
+    "hooks": "hooks",
+    "mcp": "mcp/servers.json",
+    "config": "config/",
+    "scripts": "scripts/",
+    "docs": "docs/",
+    "bin": "bin/"
+  },
+  "docs": [
+    "docs/architecture.md",
+    "docs/skills.md",
+    "docs/mcp.md",
+    "docs/security.md",
+    "docs/troubleshooting.md",
+    "docs/ui-references.md",
+    "mcp/README.md"
+  ],
+  "agents": [
+    "wagent",
+    "wagent-hacker",
+    "frontend-designer",
+    "backend-engineer",
+    "security-engineer",
+    "code-reviewer",
+    "debugger",
+    "qa-engineer",
+    "research-specialist",
+    "documentation-specialist",
+    "ml-engineer",
+    "devops-engineer"
+  ],
+  "principles": [
+    "evidence-over-assumptions",
+    "current-docs-over-stale-knowledge",
+    "least-privilege",
+    "no-secrets-in-git",
+    "independent-review-for-substantial-changes"
+  ]
+}

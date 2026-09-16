@@ -1,0 +1,68 @@
+{
+  "version": "0.3.0",
+  "policy": "The portable plugin contains skills. Provider-specific agent, marketplace, and MCP commands are generated/documented rather than silently changing a user's configuration.",
+  "providers": {
+    "claude-code": {
+      "display_name": "Claude Code",
+      "plugin_format": ".claude-plugin/plugin.json",
+      "marketplace_format": ".claude-plugin/marketplace.json",
+      "install": [
+        "claude plugin marketplace add ehadziabdic/wagents",
+        "claude plugin install wagents@wagents"
+      ],
+      "mcp": "claude mcp add",
+      "status": "supported"
+    },
+    "codex": {
+      "display_name": "OpenAI Codex",
+      "plugin_format": ".codex-plugin/plugin.json",
+      "marketplace_format": ".agents/plugins/marketplace.json",
+      "install": [
+        "codex plugin marketplace add ehadziabdic/wagents --ref <release-commit>",
+        "codex plugin add wagents@wagents"
+      ],
+      "mcp": "codex mcp add",
+      "status": "supported"
+    },
+    "copilot": {
+      "display_name": "GitHub Copilot CLI",
+      "plugin_format": "plugin.json (Agent Plugins 1.0)",
+      "marketplace_format": ".github/plugin/marketplace.json",
+      "install": [
+        "copilot plugin marketplace add ehadziabdic/wagents",
+        "copilot plugin install wagents@wagents"
+      ],
+      "mcp": "VS Code / Copilot MCP configuration",
+      "status": "supported"
+    },
+    "antigravity": {
+      "display_name": "Google Antigravity",
+      "plugin_format": "plugin.json (Agent Plugins 1.0)",
+      "install": [
+        "agy plugin install https://github.com/ehadziabdic/wagents/tree/<release-commit>/plugins/wagents"
+      ],
+      "mcp": "mcp_config.json",
+      "status": "supported"
+    },
+    "cline": {
+      "display_name": "Cline",
+      "plugin_format": "Agent Skills / Cline plugin",
+      "install": [
+        "npx skills add https://github.com/ehadziabdic/wagents",
+        "cline plugin install https://github.com/ehadziabdic/wagents"
+      ],
+      "mcp": "cline mcp",
+      "status": "supported-with-skill-adapter"
+    },
+    "hermes": {
+      "display_name": "Hermes Agent",
+      "plugin_format": "Agent Plugins 1.0",
+      "install": [
+        "hermes plugins install ehadziabdic/wagents --ref <release-commit>",
+        "hermes plugins enable wagents"
+      ],
+      "mcp": "hermes mcp add",
+      "status": "supported"
+    }
+  }
+}
