@@ -13,6 +13,7 @@
     "commands/",
     "config/",
     "docs/",
+    "hooks/",
     "mcp/",
     "scripts/",
     "templates/",
@@ -31,9 +32,11 @@
   ],
   "scripts": {
     "build:plugin": "node scripts/build-plugin.mjs",
+    "audit": "node scripts/audit.cjs",
     "verify": "node scripts/verify.mjs",
     "prepack": "npm run build:plugin && npm run verify",
-    "test": "node --test tests/*.test.mjs && npm run verify"
+    "test": "node --test tests/*.test.mjs && npm run verify",
+    "memory": "npx -y @agentmemory/agentmemory@latest"
   },
   "engines": {
     "node": ">=20"
@@ -47,7 +50,8 @@
     "copilot",
     "antigravity",
     "cline",
-    "hermes"
+    "hermes",
+    "deepseek"
   ],
   "repository": {
     "type": "git",

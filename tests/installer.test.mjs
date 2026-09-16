@@ -17,7 +17,7 @@ function cli(cwd, args, env = {}) {
     cwd, encoding: 'utf8', env: { ...process.env, ...env }
   });
 }
-for (const provider of ['cline', 'claude-code', 'copilot', 'codex', 'antigravity', 'hermes']) {
+for (const provider of ['cline', 'claude-code', 'copilot', 'codex', 'antigravity', 'hermes', 'deepseek-harness']) {
   test(`install dry-run for ${provider} does not launch subprocesses or write files`, t => {
     const cwd = sandbox(t);
     const preload = join(cwd, 'intercept.cjs');
@@ -74,13 +74,15 @@ test('build:plugin packages commands/, hooks/, the right skill count, and an emp
   const sourceCommands = readdirSync(join(root, 'commands'));
   for (const c of sourceCommands) assert.ok(commands.includes(c), `missing ${c}`);
 
-  // Lifecycle hooks: hooks.json, run-hook.cmd (referenced by hooks.json), and both session-start scripts.
+  // Lifecycle hooks: hooks.json, run-hook.cmd (referenced by hooks.json), both session-start
+  // scripts, plus the vendored agentmemory/ hook-script directory (12 lifecycle hooks).
   const hooks = readdirSync(join(out, 'hooks'));
-  assert.equal(hooks.length, 4);
+  assert.equal(hooks.length, 5);
   assert.ok(hooks.includes('hooks.json'));
   assert.ok(hooks.includes('run-hook.cmd'));
   assert.ok(hooks.includes('session-start.ps1'));
   assert.ok(hooks.includes('session-start.sh'));
+  assert.ok(hooks.includes('agentmemory'));
 
   // hooks.json SessionStart must point at ${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd so the
   // command resolves once hooks/ is packaged under the plugin root.

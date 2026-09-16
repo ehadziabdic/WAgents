@@ -13,7 +13,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILLS_DIR="$ROOT/skills"
 
-EXPECTED_COUNT="${EXPECTED_SKILL_COUNT:-98}"
+EXPECTED_COUNT="${EXPECTED_SKILL_COUNT:-115}"
 
 if [ ! -d "$SKILLS_DIR" ]; then
   echo "FAIL: skills directory not found at $SKILLS_DIR" >&2

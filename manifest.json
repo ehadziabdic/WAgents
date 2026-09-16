@@ -29,6 +29,7 @@
   },
   "docs": [
     "docs/architecture.md",
+    "docs/install.md",
     "docs/skills.md",
     "docs/mcp.md",
     "docs/security.md",

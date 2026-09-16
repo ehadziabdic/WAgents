@@ -6,7 +6,7 @@ switch ($cmd) {
   "init" {
     throw "[wagents] init is not implemented; no project files were created. See $Root/docs/architecture.md for project configuration guidance."
   }
-  "install" { & "$Root/install.ps1" }
+  "install" { & "$Root/install.ps1" @args }
   "update" { & "$Root/scripts/update.ps1" }
   "doctor" { & "$Root/scripts/doctor.ps1" }
   "list" {

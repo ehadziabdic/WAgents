@@ -8,6 +8,11 @@ demand), `remote` (HTTP + OAuth in the client), `manual` (explicit setup require
 ## Tiers (matches `mcp/servers.json`)
 
 Tier 1 (shared):
+- agentmemory `agentmemory-mcp` — persistent cross-agent memory for every agent
+  (auto-installed, pinned `@agentmemory/mcp@0.9.29` shim + `@agentmemory/agentmemory@0.9.29`
+  runtime; server on REST :3111 / viewer :3113, keyless BM25 by default,
+  `EMBEDDING_PROVIDER=local` opt-in; ships 17 vendored skills in the `memory` group
+  and 12 auto-capture lifecycle hooks in `hooks/agentmemory/` — see `mcp/README.md`)
 - Context7 `@upstash/context7-mcp` — current docs, no secret (client-managed via npx)
 - GitHub official remote MCP `https://api.githubcopilot.com/mcp/` — OAuth/PAT in the
   client, nothing to install (local `github-mcp-server` binary is a manual alternative)
@@ -44,7 +49,7 @@ Conditional (disabled by default):
 Do not expose every server to every agent. See `config/permissions.json` for per-agent `mcp` allow-list and `forbidden` list.
 
 Examples (scopes live in `mcp/servers.json`, enforced in `config/permissions.json`):
-- main agents (`wagent`, `wagent-hacker`): codebase-memory (index + query), notion read-default, context7
+- main agents (`wagent`, `wagent-hacker`): codebase-memory (index + query), agentmemory (save/recall, all agents), notion read-default, context7
 - frontend-designer: context7, playwright, codebase-memory query, react-bits (project-managed)
 - researcher: tavily, context7, github-read
 - security-engineer: context7, github-read, semgrep, trivy, sonarqube-read, sentry-read

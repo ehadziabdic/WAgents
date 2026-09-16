@@ -1,14 +1,14 @@
 # Skills — wagents
 
 **Source of truth:** `config/skills.json` (registry + `target_agents`) and `skills/*/SKILL.md`.
-**Total: 98 skills** in 10 groups, plus 2 underscore-prefixed support directories.
+**Total: 115 skills** in 11 groups, plus 3 underscore-prefixed support directories.
 
 Verified by:
 
 ```bash
 bash scripts/verify-install.sh        # structural checks (agents, skills, configs, secrets)
 bash scripts/install-skills.sh        # per-group installers
-bash scripts/smoke-skills.sh          # all 98 skills: SKILL.md + frontmatter present
+bash scripts/smoke-skills.sh          # all 115 skills: SKILL.md + frontmatter present
 python scripts/validate-agent-guide.py  # agent/skill frontmatter + references
 ```
 
@@ -20,6 +20,7 @@ python scripts/validate-agent-guide.py  # agent/skill frontmatter + references
 | `awesome` | 4 | `awesome-` | documentation writer (Diátaxis), draw.io diagrams, Microsoft docs, security review |
 | `base` | 4 | `base-` | architecture blueprint, design references, webapp testing basics, claude-red vendor (hacker-exclusive) |
 | `devops` | 12 | `devops-` | read-only DevOps advisors: audit, incident, runbook, k8s/terraform/docker/db review, pipeline, release readiness, observability, cost, DR |
+| `memory` | 17 | `agentmemory-`, `remember`, `recall`, `recap`, `forget`, `handoff`, `lesson`, `commit-context`, `commit-history`, `session-history`, `memory-discipline`, `write-agentmemory-skill` | persistent cross-agent memory operations (vendored from rohitg00/agentmemory at a pinned commit; requires the agentmemory MCP — every agent may use it) |
 | `mcp` | 3 | `mcp-` | codebase memory, shared codebase memory, second brain |
 | `ml` | 28 | `ml-`, `llm-`, `model-`, `data-`, `feature-` | 17 MLOps + 11 LLMOps lifecycle skills |
 | `obsidian` | 6 | `obsidian-` | vault authoring: markdown, bases, canvas, defuddle, knap, CLI |
@@ -28,6 +29,10 @@ python scripts/validate-agent-guide.py  # agent/skill frontmatter + references
 | `ui-ux` | 7 | `ui-ux-` | design intelligence, design systems, brand, banners, slides, styling |
 
 ## Agent → skill mapping (authoritative: `config/skills.json`)
+
+Every agent (all 12, mains and specialists alike) may use the `memory` group skills —
+they operate on the shared agentmemory MCP server, so anything one agent remembers is
+recallable by another.
 
 | Agent | Skills |
 |---|---|
@@ -58,6 +63,7 @@ Every vendored set keeps upstream license text, a pinned ref, and a `PROVENANCE.
 | devops shared contract docs | same | same | `skills/_devops-pack-docs/` (+ `PROVENANCE.md`) |
 | MLOps + LLMOps (28) | `timwukp/MLOps-agent-skills` (Apache-2.0) | upstream HEAD `6426013a15ee0e431dbb81938deac2f6e25c0941` at vendoring | `skills/<ml,llm,model,data,feature>-*/` |
 | ML pack provenance | same | same | `skills/_ml-pack-docs/PROVENANCE.md` |
+| engineering workflow (adapted) | `obra/superpowers` (MIT) | upstream main tree `b36e0829c6d0140e93cfef2ca599b1b07d4a7797` at the 2026-09-16 audit; super-* skills are adapted in-repo and diverge | `skills/super-*/` |
 
 ### Deliberate omissions
 

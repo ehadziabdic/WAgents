@@ -63,6 +63,17 @@
       ],
       "mcp": "hermes mcp add",
       "status": "supported"
+    },
+    "deepseek-harness": {
+      "display_name": "DeepSeek Harness (dsh)",
+      "plugin_format": "cordis.yml loader entry (everything-is-a-plugin)",
+      "install": [
+        "npx -y @deepseek-ai/dsh web   (developer preview; dsh itself needs Node ^22.19 || >=24)",
+        "npm install github:ehadziabdic/wagents   (in the dsh workspace)",
+        "register 'wagents:' under 'plugins:' in cordis.yml"
+      ],
+      "mcp": "$DSH_HOME/cordis.patch.yml (home-level patch layer every profile loads; tools surface as mcp__agentmemory__* — see skills/agentmemory-agents/REFERENCE.md)",
+      "status": "supported-preview"
     }
   }
 }

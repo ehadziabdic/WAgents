@@ -18,10 +18,15 @@ Usage:
   wagents list [agents|skills|providers]
   wagents doctor
   wagents build
-  wagents install --provider <name> [--dry-run]
+  wagents install --provider <name> [--dry-run] [--skip-mcps]
+      providers: claude-code, codex, copilot, antigravity, cline, hermes, deepseek-harness
   wagents init [directory]
   wagents provider <name>
   wagents mcp <server-id>
+
+Works on Linux, macOS, and Windows (Windows spawns provider CLIs through cmd.exe so
+npm .cmd shims resolve; bash scripts need Git Bash/WSL, PowerShell entry points are
+provided: install.ps1, bin/wagents.ps1, scripts/doctor.ps1, scripts/update.ps1).
 
 This CLI never installs an MCP, external skill, or plugin without an explicit
 provider command from you. See config/providers.json and mcp/README.md.`);
@@ -45,10 +50,17 @@ function commandExists(name) {
 
 function showOrRun(binary, binaryArgs, dryRun) {
   console.log(`$ ${[binary, ...binaryArgs].join(' ')}`);
-  if (!dryRun) {
-    const result = spawnSync(binary, binaryArgs, { stdio: 'inherit' });
-    if (result.status !== 0) process.exitCode = result.status ?? 1;
+  if (dryRun) return;
+  let result;
+  if (process.platform === 'win32') {
+    // npm-installed CLIs (claude, codex, copilot, npx, ...) are .cmd shims on Windows;
+    // they only spawn through cmd.exe, and shell mode joins args, so pre-quote spaces.
+    const line = [binary, ...binaryArgs.map(a => (/\s/.test(a) ? `"${a}"` : a))].join(' ');
+    result = spawnSync(line, { stdio: 'inherit', shell: true });
+  } else {
+    result = spawnSync(binary, binaryArgs, { stdio: 'inherit' });
   }
+  if (result.status !== 0) process.exitCode = result.status ?? 1;
 }
 
 // Auto-install npm-based MCPs via the single MCP installer
@@ -91,7 +103,9 @@ switch (command) {
     } else {
       runNode('scripts/build-plugin.mjs');
       if (process.exitCode) break;
-      if (!commandExists(provider === 'claude-code' ? 'claude' : provider === 'antigravity' ? 'agy' : provider)) {
+      const binaryMap = { 'claude-code': 'claude', antigravity: 'agy', 'deepseek-harness': null };
+      const requiredBinary = provider in binaryMap ? binaryMap[provider] : provider;
+      if (requiredBinary && !commandExists(requiredBinary)) {
         console.error(`[wagents] ${providers[provider].display_name} command is not installed or not on PATH.`);
         process.exitCode = 1;
         break;
@@ -117,6 +131,21 @@ switch (command) {
       }
     } else if (provider === 'hermes') {
       showOrRun('hermes', ['plugins', 'install', root, '--enable'], dryRun);
+    } else if (provider === 'deepseek-harness') {
+      // dsh is npx-first with a loader-config plugin model (no marketplace subcommand in
+      // the developer preview). Everything below is printed, never executed: dsh ships
+      // compatibility-breaking changes and wagents never rewrites a user's cordis.yml.
+      console.log(`dsh (DeepSeek Harness) is npx-first — no marketplace subcommand yet. Setup steps:
+  1. Start the harness:       npx -y @deepseek-ai/dsh web   (Web UI http://127.0.0.1:3080; dsh itself needs Node ^22.19 || >=24)
+  2. Make this repo loadable: npm install github:ehadziabdic/wagents   (in the dsh workspace)
+  3. Register the plugin in cordis.yml:
+       plugins:
+         wagents:
+  4. MCP servers: add them to $DSH_HOME/cordis.patch.yml (the home-level patch layer every
+     profile loads); tools surface as mcp__agentmemory__* etc. See skills/agentmemory-agents/REFERENCE.md.
+  5. Auto-capture hooks: dsh bridges Claude Code hooks — wire the hooks/agentmemory/*.mjs
+     scripts through dsh's hook bridge if you want memory hooks (see mcp/README.md).
+  Note: developer preview — compatibility-breaking changes are expected; pin the dsh version you test with.`);
     }
     break;
   }

@@ -23,7 +23,11 @@ const servers = json('mcp/servers.json').servers;
 const NPM_PINS = {
   'codebase-memory': { pkg: 'codebase-memory-mcp', version: '0.10.1' },
   'sentry': { pkg: '@sentry/mcp-server', version: '0.39.0' },
-  'supabase': { pkg: '@supabase/mcp-server-supabase', version: '0.12.0' }
+  'supabase': { pkg: '@supabase/mcp-server-supabase', version: '0.12.0' },
+  'agentmemory': {
+    pkg: '@agentmemory/mcp', version: '0.9.29',
+    runtime: { pkg: '@agentmemory/agentmemory', version: '0.9.29' }
+  }
 };
 // Launched on demand by the client through npx/uvx — nothing to pre-install.
 const CLIENT_MANAGED_LAUNCHERS = {
@@ -82,7 +86,7 @@ if (dryRun) {
     const pin = NPM_PINS[server.id];
     const launcher = CLIENT_MANAGED_LAUNCHERS[server.id];
     let plan;
-    if (pin) plan = `would check/install ${pin.pkg}@${pin.version} (npm global)`;
+    if (pin) plan = `would check/install ${pin.pkg}@${pin.version}` + (pin.runtime ? ` + runtime ${pin.runtime.pkg}@${pin.runtime.version}` : '') + ' (npm global)';
     else if (launcher) plan = `client-managed via ${launcher} (nothing to pre-install)`;
     else if (isRemote(server.id)) plan = 'remote server (nothing to install; OAuth in the client)';
     else plan = `manual: ${MANUAL_NOTES[server.id] ?? 'see mcp/README.md'}`;
@@ -92,8 +96,11 @@ if (dryRun) {
   process.exit(0);
 }
 
-// 1. Install npm-deliverable servers (pinned).
-for (const [id, { pkg, version }] of Object.entries(NPM_PINS)) {
+// 1. Install npm-deliverable servers (pinned). Runtime companions install alongside their shim.
+const PIN_TARGETS = Object.entries(NPM_PINS).flatMap(([id, pin]) =>
+  pin.runtime ? [[id, pin], [id, { pkg: pin.runtime.pkg, version: pin.runtime.version }]] : [[id, pin]]
+);
+for (const [id, { pkg, version }] of PIN_TARGETS) {
   if (!commandExists('npm')) {
     console.error('[wagents][fail] npm not found; cannot install ' + pkg);
     process.exitCode = 1;
@@ -122,6 +129,16 @@ for (const [id, { pkg, version }] of Object.entries(NPM_PINS)) {
     process.exitCode = 1;
   } else {
     console.log(`[wagents] ${pkg}: installed ${version}`);
+  }
+}
+
+// 1b. agentmemory runtime probe (the stdio shim falls back to 7 local tools without the server).
+if (NPM_PINS.agentmemory) {
+  try {
+    const res = await fetch('http://localhost:3111/livez', { signal: AbortSignal.timeout(1500) });
+    console.log(`[wagents] agentmemory server: running (livez ${res.status})`);
+  } catch {
+    console.warn('[wagents][warn] agentmemory server not reachable at http://localhost:3111 — start it with: npm run memory  (npx -y @agentmemory/agentmemory@latest). On native Windows also extract the pinned iii.exe to %USERPROFILE%\\.agentmemory\\bin, use WSL2, or set AGENTMEMORY_USE_DOCKER=1 (see mcp/README.md).');
   }
 }
 

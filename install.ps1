@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 param(
-  [ValidateSet("claude-code", "codex", "copilot", "antigravity", "cline", "hermes")]
+  [ValidateSet("claude-code", "codex", "copilot", "antigravity", "cline", "hermes", "deepseek-harness")]
   [string]$Provider = "copilot",
   [switch]$DryRun,
   [switch]$SkipMcps
