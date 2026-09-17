@@ -18,7 +18,7 @@
       "plugin_format": ".codex-plugin/plugin.json",
       "marketplace_format": ".agents/plugins/marketplace.json",
       "install": [
-        "codex plugin marketplace add ehadziabdic/wagents --ref v0.3.0",
+        "codex plugin marketplace add ehadziabdic/wagents --ref v0.4.0",
         "codex plugin add wagents@wagents"
       ],
       "mcp": "codex mcp add",
@@ -39,7 +39,7 @@
       "display_name": "Google Antigravity",
       "plugin_format": "plugin.json (Agent Plugins 1.0)",
       "install": [
-        "agy plugin install https://github.com/ehadziabdic/wagents/tree/v0.3.0"
+        "agy plugin install https://github.com/ehadziabdic/wagents/tree/v0.4.0"
       ],
       "mcp": "mcp_config.json",
       "status": "supported"
@@ -58,7 +58,7 @@
       "display_name": "Hermes Agent",
       "plugin_format": "Agent Plugins 1.0",
       "install": [
-        "hermes plugins install ehadziabdic/wagents --ref v0.3.0",
+        "hermes plugins install ehadziabdic/wagents --ref v0.4.0",
         "hermes plugins enable wagents"
       ],
       "mcp": "hermes mcp add",
