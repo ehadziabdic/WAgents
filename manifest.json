@@ -1,6 +1,6 @@
 {
   "name": "wagents",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Portable, reproducible personal Agent OS for GitHub Copilot / Copilot CLI / VS Code. wagent (main; orchestrator+architect merged) + wagent-hacker (authorized offensive mode) + 10 specialists.",
   "license": "MIT",
   "repository": "https://github.com/ehadziabdic/wagents.git",

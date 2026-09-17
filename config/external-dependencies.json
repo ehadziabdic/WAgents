@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "1.0.0",
   "policy": "Vendored third-party skill sets ship in the repo, pinned and attributed. Optional installs are opt-in CLI workflows recorded here. Upstream bodies are never modified; only the directory rename, name: fix, and adjacent PROVENANCE.md are ours.",
   "vendored": [
     {

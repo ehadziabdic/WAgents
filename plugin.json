@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "wagents",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Portable, reproducible agent workflows, skills, and MCP setup for modern coding agents. wagent (main) + wagent-hacker (authorized offensive mode) + 10 specialists.",
   "author": {
     "name": "wagents maintainers"

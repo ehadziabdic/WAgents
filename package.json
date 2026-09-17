@@ -1,9 +1,14 @@
 {
   "name": "wagents",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Portable, reproducible agent workflows, skills, and MCP setup for modern coding agents. wagent (main) + wagent-hacker (authorized offensive mode) + 10 specialists.",
   "license": "MIT",
   "private": true,
+  "author": {
+    "name": "Emin Hadziabdic",
+    "email": "emin.hadziabdic05@gmail.com",
+    "url": "https://ehadziabdic-portfolio.vercel.app/"
+  },
   "type": "module",
   "bin": {
     "wagents": "bin/wagents.mjs"

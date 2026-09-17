@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "1.0.0",
   "main_agents": ["wagent", "wagent-hacker"],
   "default": "wagent",
   "delegation_policy": "Only main agents delegate. wagent may call every specialist except wagent-hacker. wagent-hacker may call every specialist except wagent. Main agents never call each other. Specialists never delegate.",

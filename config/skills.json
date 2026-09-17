@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "1.0.0",
   "policy": "target_agents is the authoritative agent-to-skill mapping; agents must also follow the delegation rules in config/agents.json. Third-party sets are vendored, pinned, and carry PROVENANCE.md next to the files. Upstream bodies are never modified; only the directory rename, name: fix, and adjacent PROVENANCE.md are ours.",
   "groups": {
     "awesome": "curated third-party/adapted capabilities (docs, diagrams, Microsoft docs, security review)",
