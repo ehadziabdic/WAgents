@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Portable agent workflows, skills, and safely documented MCP profiles.",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "plugins": [
     {
       "name": "wagents",
       "source": "./",
       "description": "Orchestration, design, quality, codebase-memory, and second-brain workflows.",
-      "version": "0.3.0"
+      "version": "0.4.0"
     }
   ]
 }

@@ -514,6 +514,7 @@ WAgents/                         ← the repo root IS the plugin
 | [`docs/mcp.md`](docs/mcp.md) | MCP tiers, scopes, env, profiles |
 | [`docs/security.md`](docs/security.md) | privilege model, hacker gate, MCP review checklist |
 | [`docs/troubleshooting.md`](docs/troubleshooting.md) | doctor, common failures |
+| [`docs/post-release.md`](docs/post-release.md) | CI, Dependabot, release automation, marketplace smoke test |
 | [`mcp/README.md`](mcp/README.md) | per-server deep dive (source of truth for MCP setup) |
 
 ## License & acknowledgements
