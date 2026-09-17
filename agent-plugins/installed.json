@@ -1,0 +1,40 @@
+{
+	"version": 1,
+	"installed": [
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/obra/superpowers",
+			"marketplace": "https://github.com/obra/superpowers",
+			"name": "superpowers"
+		},
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/Leonxlnx/taste-skill",
+			"marketplace": "https://github.com/Leonxlnx/taste-skill",
+			"name": "taste-skill"
+		},
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/Leonxlnx/claude-red",
+			"marketplace": "https://github.com/SnailSploit/Claude-Red",
+			"name": "claude-red"
+		},
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+			"marketplace": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+			"name": "ui-ux-pro-max"
+		},
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/kepano/obsidian-skills",
+			"marketplace": "https://github.com/kepano/obsidian-skills",
+			"name": "obsidian"
+		},
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/anthropics/skills",
+			"marketplace": "https://github.com/anthropics/skills",
+			"name": "document-skills"
+		},
+		{
+			"pluginUri": "file:///c%3A/Users/eminha/.vscode/agent-plugins/github.com/rohitg00/agentmemory/plugin",
+			"marketplace": "https://github.com/rohitg00/agentmemory",
+			"name": "agentmemory"
+		}
+	]
+}

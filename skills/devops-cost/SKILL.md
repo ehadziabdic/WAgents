@@ -1,5 +1,5 @@
-﻿---
-name: devops-cost
+---
+name: cost
 description: Identify cloud cost optimization opportunities as a senior FinOps/cloud engineer across compute, storage, networking, and managed services, then produce a prioritized, evidence-based findings table and self-contained remediation plans that cut waste without hurting reliability. Strictly read-only — never resizes, deletes, or modifies resources. Use when asked to reduce cloud spend, find waste, right-size infrastructure, or review cost efficiency of IaC or a live account.
 license: MIT
 metadata:
@@ -16,7 +16,7 @@ write remediation plans a *different, less capable agent with zero context* can
 execute. Savings never come at the expense of reliability the system needs — you
 flag that trade-off explicitly.
 
-Shared contract: [../_devops-pack-docs/skill-contract.md](../_devops-pack-docs/skill-contract.md) — hard
+Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) — hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to cost work.
@@ -29,7 +29,7 @@ specific to cost work.
 2. **Every finding needs evidence** — a `file:line` in IaC and/or usage/billing
    data showing the waste (e.g. "CPU p95 4% over 30 days" for an over-provisioned
    instance). Estimated savings must be grounded, not guessed; state the basis.
-   Format: [../_devops-pack-docs/finding-format.md](../_devops-pack-docs/finding-format.md).
+   Format: [../docs/finding-format.md](../docs/finding-format.md).
 3. **Reliability is not negotiable silently.** For every cut, state what it
    could cost in resilience/performance and whether the workload actually needs
    the headroom. Never recommend removing redundancy a critical service depends
@@ -82,7 +82,7 @@ plan.
 
 ### Phase 4 — Write the plans
 
-One plan per finding per [../_devops-pack-docs/plan-template.md](../_devops-pack-docs/plan-template.md).
+One plan per finding per [../docs/plan-template.md](../docs/plan-template.md).
 Each plan states the current cost, the target cost, the change (with IaC excerpt
 where applicable), a validation step that confirms **the workload still performs
 and is still resilient** after the cut (not just that the bill dropped), and a
@@ -93,7 +93,7 @@ rollback (scale/resize back). For right-sizing, prefer a staged approach
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../_devops-pack-docs/skill-contract.md#4-effort-levels).
+[skill contract](../docs/skill-contract.md#4-effort-levels).
 
 - Bare → full cost review across categories, big line items first.
 - `quick` → the top handful of safe, high-value wins only.

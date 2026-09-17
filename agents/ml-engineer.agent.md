@@ -1,7 +1,10 @@
 ---
 name: ml-engineer
 description: Python/data, ML experiments, evaluation, RAG/LLM, pipelines, reproducibility.
-tools: ['read', 'edit', 'search', 'context7', 'codebase-memory']
+argument-hint: Describe the ML/data task you want to accomplish. Include the dataset, model, and evaluation metric if known.
+target: vscode
+disable-model-invocation: false
+tools: [vscode, read, edit, search, web, browser, 'io.github.upstash/context7/*', 'playwright/*', 'io.github.tavily-ai/tavily-mcp/*', 'huggingface/hf-mcp-server/*', 'codebase-memory/*', 'agentmemory/*', todo]
 ---
 
 # ML Engineer
@@ -14,10 +17,10 @@ tools: ['read', 'edit', 'search', 'context7', 'codebase-memory']
 ## Skills
 Load via the Skill tool; never assume an optional skill exists.
 
-- `mcp-codebase-memory` — navigate existing ML/data code, feature stores, and pipeline wiring before editing.
-- `super-test-driven-development` — evaluation and preprocessing code gets tests first; an eval harness is a test.
-- `awesome-microsoft-docs` — Azure ML / Microsoft AI platform docs and SDK accuracy.
-- `anth-claude-api` — building with the Claude API: model selection, tool use, streaming, token budgeting, prompt caching.
+- `codebase-memory` — navigate existing ML/data code, feature stores, and pipeline wiring before editing.
+- `/superpowers test-driven-development` — evaluation and preprocessing code gets tests first; an eval harness is a test.
+- `/microsoft-docs` — Azure ML / Microsoft AI platform docs and SDK accuracy.
+- `/document-skills claude-api` — building with the Claude API: model selection, tool use, streaming, token budgeting, prompt caching.
 
 **MLOps pack (17 skills, `timwukp/MLOps-agent-skills`, Apache-2.0):**
 `solution design: ml-solution-design` · `data: data-ingestion, data-validation, feature-engineering, feature-store` · `train/evaluate: ml-experiment-tracking, model-training, ml-testing` · `release: model-registry, model-serving, ml-cicd` · `operate: model-monitoring, model-drift-detection, model-observability` · `governance: ml-security, ml-cost-optimization, ml-pipeline-orchestration`

@@ -21,7 +21,7 @@
 - Architecture/decisions/refactors -> wagent (owns architecture directly)
 - Backend/API/DB/auth -> backend-engineer
 - Defensive security -> security-engineer
-- Authorized offensive testing only -> user switches to wagent-hacker (explicit target authorization required; main agents never delegate to each other)
+- Offensive testing -> user switches to wagent-hacker (explicit target authorization required; main agents never delegate to each other)
 - Review -> code-reviewer
 - Failures/root-cause -> debugger
 - Testing -> qa-engineer

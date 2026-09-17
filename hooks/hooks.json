@@ -4,78 +4,91 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd\" session-start.sh"
+        "command": "& \".copilot/hooks/run-hook.cmd\" session-start.sh",
+        "windows": "& 'D:/Program Files/Git/bin/bash.exe' \"$env:USERPROFILE/.copilot/hooks/session-start.sh\""
       },
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/session-start.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/session-start.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/session-start.mjs\""
       }
     ],
     "UserPromptSubmit": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/prompt-submit.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/prompt-submit.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/prompt-submit.mjs\""
       }
     ],
     "PreToolUse": [
       {
         "matcher": "Edit|Write|Read|Glob|Grep",
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/pre-tool-use.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/pre-tool-use.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/pre-tool-use.mjs\""
       }
     ],
     "PostToolUse": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/post-tool-use.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/post-tool-use.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/post-tool-use.mjs\""
       }
     ],
     "PostToolUseFailure": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/post-tool-failure.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/post-tool-failure.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/post-tool-failure.mjs\""
       }
     ],
     "PreCompact": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/pre-compact.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/pre-compact.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/pre-compact.mjs\""
       }
     ],
     "SubagentStart": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/subagent-start.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/subagent-start.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/subagent-start.mjs\""
       }
     ],
     "SubagentStop": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/subagent-stop.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/subagent-stop.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/subagent-stop.mjs\""
       }
     ],
     "Notification": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/notification.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/notification.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/notification.mjs\""
       }
     ],
     "TaskCompleted": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/task-completed.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/task-completed.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/task-completed.mjs\""
       }
     ],
     "Stop": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/stop.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/stop.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/stop.mjs\""
       }
     ],
     "SessionEnd": [
       {
         "type": "command",
-        "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/agentmemory/session-end.mjs\""
+        "command": "node \".copilot/hooks/agentmemory/session-end.mjs\"",
+        "windows": "node \"$env:USERPROFILE/.copilot/hooks/agentmemory/session-end.mjs\""
       }
     ]
   }

@@ -1,5 +1,5 @@
-﻿---
-name: devops-dr-review
+---
+name: dr-review
 description: Review backup, restore, and disaster-recovery readiness as a senior SRE — whether backups exist, are recoverable, meet the stated RTO/RPO, survive deletion or ransomware, and whether failover has actually been tested — then produce an evidence-based findings table and self-contained remediation plans. Strictly read-only — never triggers a restore, failover, snapshot deletion, or any change. Use when asked about backups, restore testing, RTO/RPO, data-loss risk, multi-region or multi-AZ failover, business continuity, or "what happens if this database/region/account is lost".
 license: MIT
 metadata:
@@ -18,7 +18,7 @@ zero context* can execute.
 The guiding question: **has anyone ever restored from this backup, and do we know
 how long it takes?** An untested backup is a hypothesis, not a recovery plan.
 
-Shared contract: [../_devops-pack-docs/skill-contract.md](../_devops-pack-docs/skill-contract.md) — hard
+Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) — hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to recovery work.
@@ -115,7 +115,7 @@ findings by data-loss exposure first, then leverage. Ask which to plan.
 ### Phase 4 — Write the plans
 
 One plan per selected finding per
-[../_devops-pack-docs/plan-template.md](../_devops-pack-docs/plan-template.md), into `plans/`, with an
+[../docs/plan-template.md](../docs/plan-template.md), into `plans/`, with an
 index. DR plans must always include:
 
 - The **restore drill** itself as a first-class step — restore into an isolated
@@ -133,7 +133,7 @@ index. DR plans must always include:
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../_devops-pack-docs/skill-contract.md#4-effort-levels).
+[skill contract](../docs/skill-contract.md#4-effort-levels).
 
 - Bare → full recovery review of the stateful assets in scope.
 - `quick` → the posture table for the top critical assets plus any

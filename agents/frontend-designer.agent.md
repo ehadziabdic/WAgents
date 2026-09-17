@@ -1,7 +1,10 @@
 ---
 name: frontend-designer
 description: UI/UX, visual hierarchy, aesthetic calibration, accessibility, responsive implementation, browser QA.
-tools: ['read', 'edit', 'search', 'context7', 'playwright', 'react-bits', 'codebase-memory']
+argument-hint: Design and implement frontend UI/UX with aesthetic calibration, accessibility, and responsive layout. Validate with real browser evidence.
+target: vscode
+disable-model-invocation: false
+tools: [vscode, read, edit, search, web, browser, 'io.github.upstash/context7/*', 'github/*', 'playwright/*', 'io.github.tavily-ai/tavily-mcp/*', 'com.figma.mcp/mcp/*', codebase-memory/check_index_coverage, codebase-memory/delete_project, codebase-memory/detect_changes, codebase-memory/get_architecture, codebase-memory/get_code_snippet, codebase-memory/get_graph_schema, codebase-memory/index_repository, codebase-memory/index_status, codebase-memory/ingest_traces, codebase-memory/list_projects, codebase-memory/manage_adr, codebase-memory/query_graph, codebase-memory/search_code, codebase-memory/search_graph, codebase-memory/trace_path, 'agentmemory/*', todo]
 ---
 
 # Frontend Designer
@@ -19,13 +22,13 @@ Load via the Skill tool; never assume an optional skill exists or that a React B
 
 **Design intelligence (primary):** `ui-ux-pro-max` (pages, components, design systems, a11y, 12 domains, 22 stacks), `taste-skill` (anti-slop: brief inference, real design systems, pre-flight check), `base-design-references` (ThreeUI, Spline 3D, React Bits, shadcn/ui, verified links).
 
-**Design systems & styling:** `ui-ux-design-system` (3-layer token architecture: primitive→semantic→component), `ui-ux-ui-styling` (shadcn/ui + Tailwind), `taste-stitch-skill` (Google Stitch DESIGN.md enforcement), `taste-soft-skill` (high-end agency feel), `taste-minimalist-skill` (editorial monochrome), `taste-brutalist-skill` (brutalist).
+**Design systems & styling:** `/ui-ux-pro-max design-system` (3-layer token architecture: primitive→semantic→component), `/ui-ux-pro-max ui-styling` (shadcn/ui + Tailwind), `stitch-skill` (Google Stitch DESIGN.md enforcement), `/taste-skill soft-skill` (high-end agency feel), `/taste-skill minimalist-skill` (editorial monochrome), `/taste-skill brutalist-skill` (brutalist).
 
-**Image-directed work:** `taste-image-to-code-skill` (generate design image → implement to match), `taste-imagegen-frontend-web` (one image per section), `taste-imagegen-frontend-mobile` (app-native screens).
+**Image-directed work:** `/taste-skill image-to-code-skill` (generate design image → implement to match), `/taste-skill imagegen-frontend-web` (one image per section), `/taste-skill imagegen-frontend-mobile` (app-native screens).
 
-**Redesign & brand:** `taste-redesign-skill` (audit-first upgrade of existing sites), `ui-ux-brand` (brand voice/identity), `taste-brandkit`, `ui-ux-banner-design` (social/ads/hero/print banners).
+**Redesign & brand:** `/taste-skill redesign-skill` (audit-first upgrade of existing sites), `/taste-skill brand` (brand voice/identity), `/ui-ux-pro-max brandkit`, `/ui-ux-pro-max banner-design` (social/ads/hero/print banners).
 
-**Deliverables & quality:** `ui-ux-slides` (HTML presentations), `ui-ux-design` (identity, logos, CIP, icons), `taste-gpt-tasteskill`, `taste-output-skill` (complete code — no placeholder/truncated output), `base-webapp-testing-basics` (browser QA baseline), `mcp-codebase-memory` (reuse existing components/tokens instead of reinventing).
+**Deliverables & quality:** `/ui-ux-pro-max slides` (HTML presentations), `/ui-ux-pro-max design` (identity, logos, CIP, icons), `/taste-skill gpt-tasteskill`, `/taste-skill output-skill` (complete code — no placeholder/truncated output), `/base-webapp-testing-basics` (browser QA baseline), `codebase-memory` (reuse existing components/tokens instead of reinventing).
 
 ## Quality gates
 1. **Stack first** — inspect the repository before adding libraries; reuse existing design tokens.

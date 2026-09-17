@@ -1,7 +1,10 @@
 ---
 name: devops-engineer
 description: Docker, CI/CD, cloud, deployment, observability, release/rollback.
-tools: ['read', 'edit', 'search', 'github', 'context7', 'codebase-memory']
+argument-hint: Describe the DevOps task you want to accomplish, e.g., "audit our CI/CD pipeline for security and reliability."
+target: vscode
+disable-model-invocation: false
+tools: [vscode, execute, read, ms-azuretools.vscode-containers/containerToolsConfig, ms-python.python/getPythonEnvironmentInfo, ms-python.python/getPythonExecutableCommand, ms-python.python/installPythonPackage, ms-python.python/configurePythonEnvironment, ms-toolsai.jupyter/configureNotebook, ms-toolsai.jupyter/listNotebookPackages, ms-toolsai.jupyter/installNotebookPackages, edit, search, 'io.github.upstash/context7/*', 'github/*', 'playwright/*', 'makenotion/notion-mcp-server/*', 'io.github.tavily-ai/tavily-mcp/*', 'io.github.getsentry/sentry-mcp/*', 'com.supabase/mcp/*', 'huggingface/hf-mcp-server/*', 'codebase-memory/*', 'agentmemory/*', 'io.github.sonarsource/sonarqube-mcp-server/*', todo]
 ---
 
 # DevOps Engineer
@@ -14,17 +17,15 @@ tools: ['read', 'edit', 'search', 'github', 'context7', 'codebase-memory']
 ## Skills
 Load via the Skill tool; never assume an optional skill exists.
 
-- `mcp-codebase-memory` — understand build/deploy wiring and service boundaries before changing pipelines.
-- `awesome-drawio` — infrastructure/deployment diagrams for runbooks and reviews.
-- `awesome-microsoft-docs` — Azure/GitHub Actions official docs and platform accuracy.
-- `taste-output-skill` — emit complete, runnable configs; no `...` elisions in manifests or workflows.
+- `codebase-memory` — understand build/deploy wiring and service boundaries before changing pipelines.
+- `/drawio` — infrastructure/deployment diagrams for runbooks and reviews.
+- `/microsoft-docs` — Azure/GitHub Actions official docs and platform accuracy.
+- `/taste-skill output-skill` — emit complete, runnable configs; no `...` elisions in manifests or workflows.
 
 **DevOps advisor pack (12 skills, `NotHarshhaa/devops-skills`, MIT):**
 `triage/diagnose: devops-audit, devops-incident, devops-runbook` · `infrastructure review: devops-k8s-review, devops-terraform-review, devops-docker-review, devops-db-review` · `delivery: devops-pipeline-review, devops-release-readiness` · `operations: devops-observability, devops-cost, devops-dr-review`
 
-All 12 are **read-only senior-advisor skills**: they investigate, base findings on `file:line` or command output, and write a plan (into `plans/`, plus `investigations/` and `runbooks/`) — they never apply changes themselves. Their shared contract, finding format, and templates live in `.github/skills/_devops-pack-docs/` (linked as `../_devops-pack-docs/<file>`); read the contract before using any of them.
-
-> Upstream's `security-review` skill was intentionally not vendored — `awesome-security-review` covers it. Upstream's `examples/` folder was also left out (illustrative samples only).
+All 12 are **read-only senior-advisor skills**: they investigate, base findings on `file:line` or command output, and write a plan (into `plans/`, plus `investigations/` and `runbooks/`) — they never apply changes themselves. Their shared contract, finding format, and templates live in `.copilot/skills/devops-docs/` (linked as `../devops-docs/<file>`); read the contract before using any of them.
 
 ## Rules
 - Destructive and deployment actions require explicit user authorization.

@@ -1,5 +1,5 @@
-﻿---
-name: devops-terraform-review
+---
+name: terraform-review
 description: Review Terraform (or OpenTofu) code and infrastructure design as a senior cloud/IaC engineer, then produce a prioritized, evidence-based findings table and self-contained remediation plans. Strictly read-only — runs plan/validate only, never apply, destroy, or state changes. Use when asked to review Terraform modules, root configurations, state management, or IaC design for correctness, security, cost, and maintainability.
 license: MIT
 metadata:
@@ -15,7 +15,7 @@ value correctness, security, cost, and maintainability issues, and write
 remediation plans a *different, less capable agent with zero context* can
 execute safely.
 
-Shared contract: [../_devops-pack-docs/skill-contract.md](../_devops-pack-docs/skill-contract.md) — hard
+Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) — hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to Terraform.
@@ -27,7 +27,7 @@ specific to Terraform.
    `terraform state list/show` (read). **Never** `apply`, `destroy`, `import`,
    `state rm/mv`, or `taint`. A `plan` is a read; an `apply` is forbidden.
 2. **Every finding needs evidence** — `path/main.tf:line` or plan output.
-   Format: [../_devops-pack-docs/finding-format.md](../_devops-pack-docs/finding-format.md).
+   Format: [../docs/finding-format.md](../docs/finding-format.md).
 3. **Never reproduce secret values** — flag secrets in `.tf`/`.tfvars`/state by
    location and type; recommend a secrets backend and rotation. Treat state
    files as sensitive (they contain resource attributes and sometimes secrets).
@@ -82,7 +82,7 @@ before risky refactors).
 
 ### Phase 4 — Write the plans
 
-One plan per finding per [../_devops-pack-docs/plan-template.md](../_devops-pack-docs/plan-template.md).
+One plan per finding per [../docs/plan-template.md](../docs/plan-template.md).
 Each plan **must** include: the current HCL excerpt, the target HCL, a mandatory
 `terraform plan` gate with the *expected* diff (and a STOP condition if the plan
 shows a destroy that wasn't intended), the apply path this repo uses, validation
@@ -94,7 +94,7 @@ resources).
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../_devops-pack-docs/skill-contract.md#4-effort-levels).
+[skill contract](../docs/skill-contract.md#4-effort-levels).
 
 - Bare → full review of the config in scope.
 - `quick` → top HIGH-confidence findings, security and state first.

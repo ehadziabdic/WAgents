@@ -1,5 +1,5 @@
-﻿---
-name: devops-runbook
+---
+name: runbook
 description: Write or audit operational runbooks as a senior SRE — one document per failure mode, with detection signal, triage decision tree, verified read-only diagnostics, mitigation with rollback, escalation path, and verification — grounded in the real repo, alerts, and dashboards rather than generic advice. Strictly read-only on systems — it drafts documents under runbooks/ and never executes a mitigation itself. Use when asked to write a runbook or on-call playbook, document a failure mode or recovery procedure, close a "no runbook for this alert" gap, or review existing runbooks for staleness and accuracy.
 license: MIT
 metadata:
@@ -18,7 +18,7 @@ The test of a runbook: **could a new team member, half-awake, follow this withou
 asking anyone a question?** Generic advice fails that test. Every command must be
 real for *this* system, with the expected output written down.
 
-Shared contract: [../_devops-pack-docs/skill-contract.md](../_devops-pack-docs/skill-contract.md) — hard
+Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) — hard
 rules, environment preflight, effort levels, output paths, and the finishing
 quality bar. Read it first; the rules below are the ones specific to runbooks.
 
@@ -148,7 +148,7 @@ valuable output.
 ## Invocation variants
 
 Effort keywords (`quick` / `standard` / `deep`) behave as defined in the
-[skill contract](../_devops-pack-docs/skill-contract.md#4-effort-levels).
+[skill contract](../docs/skill-contract.md#4-effort-levels).
 
 - `<service> <failure mode>` → write that runbook (e.g. `/runbook api
   connection-pool-exhaustion`).

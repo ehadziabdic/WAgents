@@ -1,5 +1,5 @@
-﻿---
-name: devops-observability
+---
+name: observability
 description: Review monitoring, metrics, logging, tracing, dashboards, and alerting as a senior SRE, then produce a prioritized, evidence-based findings table and self-contained remediation plans that close observability gaps and reduce alert noise. Strictly read-only — never edits dashboards, alert rules, or config. Use when asked to review observability posture, assess whether incidents would be detected, evaluate SLOs/alerts, or fix noisy or missing monitoring.
 license: MIT
 metadata:
@@ -17,7 +17,7 @@ plans a *different, less capable agent with zero context* can execute.
 The guiding question: **if this system broke right now, would we know — and
 would the signal point to the cause?**
 
-Shared contract: [../_devops-pack-docs/skill-contract.md](../_devops-pack-docs/skill-contract.md) — hard
+Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) — hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to observability tooling.
@@ -29,7 +29,7 @@ specific to observability tooling.
    metrics/logs read-only. Never edit dashboards, silence/modify alerts, or
    change config.
 2. **Every finding needs evidence** — `rules.yml:line`, a dashboard/alert
-   definition, or a query result. Format: [../_devops-pack-docs/finding-format.md](../_devops-pack-docs/finding-format.md).
+   definition, or a query result. Format: [../docs/finding-format.md](../docs/finding-format.md).
 3. **Never reproduce secret values** (API keys in exporter/agent config →
    location and type only; recommend rotation).
 4. **Never modify config.** Only `plans/` files are written.
@@ -81,7 +81,7 @@ Ask which to plan.
 
 ### Phase 4 — Write the plans
 
-One plan per finding per [../_devops-pack-docs/plan-template.md](../_devops-pack-docs/plan-template.md).
+One plan per finding per [../docs/plan-template.md](../docs/plan-template.md).
 Inline the current config excerpt and the target rule/dashboard/SLO. Validation
 is "the metric now exists / the alert fires in a test / the noisy alert's firing
 rate dropped"; rollback is "revert the config". For new alerts, the plan must
@@ -92,7 +92,7 @@ a runbook link.
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../_devops-pack-docs/skill-contract.md#4-effort-levels).
+[skill contract](../docs/skill-contract.md#4-effort-levels).
 
 - Bare → full observability review across the pillars.
 - `quick` → the "would we detect the top failure modes?" gap analysis only.
