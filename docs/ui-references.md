@@ -10,10 +10,6 @@ Curated references for `frontend-designer`. Inspect project stack first. Select 
 - `Radix` — headless primitives. Prefer where customization needed.
 - `React Aria` — accessibility-focused primitives. Prefer where a11y critical.
 
-## Unverified
-
-- `ThreeUI` resource mentioned in handoff §13 — exact URL/project not verified. Do not invent URL. Verify with user before documenting or using.
-
 ## Rules
 
 - Prefer existing design system components over reinventing UI.

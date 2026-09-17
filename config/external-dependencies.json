@@ -53,7 +53,7 @@
       ],
       "install": "Vendored in skills/base-hacker-claude-red/vendor/Claude-Red. To refresh: set CLAUDE_RED_REF and run scripts/install-base-skills.sh --include-hacker.",
       "status": "vendored-included-authorized-only",
-      "note": "Full copy, git metadata stripped; PROVENANCE.md next to the vendor. Ships in every bundle and selective copy (personal-use repository; not for public redistribution)."
+      "note": "Full copy, git metadata stripped; PROVENANCE.md next to the vendor. Ships in every bundle and selective copy; exclusive to wagent-hacker by permissions policy."
     },
     {
       "id": "anthropic-skills",
@@ -68,7 +68,7 @@
       ],
       "install": "Vendored — ships in skills/anth-*/. To refresh: scripts/install-anthropic-skills.sh.",
       "status": "vendored-included",
-      "note": "8 skills (docx/pdf/pptx/xlsx, claude-api, webapp-testing, doc-coauthoring, mcp-builder). Review the Proprietary office-skill terms before public distribution."
+      "note": "8 skills (docx/pdf/pptx/xlsx, claude-api, webapp-testing, doc-coauthoring, mcp-builder). The four office-format skills are Anthropic's source-available reference material: vendored unmodified with upstream LICENSE.txt retained (maintainer decision, 2026-09)."
     },
     {
       "id": "devops-skills",

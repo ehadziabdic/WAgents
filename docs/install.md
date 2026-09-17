@@ -51,7 +51,7 @@ Or, once the repo is on GitHub, install straight from the remote:
 ```bash
 claude plugin marketplace add ehadziabdic/wagents
 copilot plugin marketplace add ehadziabdic/wagents
-codex plugin marketplace add ehadziabdic/wagents --ref <release-commit>
+codex plugin marketplace add ehadziabdic/wagents --ref v0.3.0
 ```
 
 The all-in-one equivalent for any provider is:
@@ -108,8 +108,9 @@ before any tarball is produced.
 
 1. Push this repo to GitHub (`origin` → `github.com/ehadziabdic/wagents`). GitHub slugs are
    case-insensitive, so `WAgents` and `wagents` resolve identically.
-2. Tag the release so `<release-commit>` refs are meaningful:
-   `git tag v0.3.0 && git push origin v0.3.0` (or run `scripts/bump-version.sh` first).
+2. Tag the release: `git tag v0.3.0 && git push origin v0.3.0` (or run `scripts/bump-version.sh`
+   first). The `--ref v0.3.0` refs in the provider commands above point at this tag. Bump the
+   refs in `config/providers.json` when you cut a newer tag.
 3. That's it for the manifests — all three already point at the repo root. Users then run
    the `marketplace add ehadziabdic/wagents` commands above; no separate marketplace repo
    is needed (superpowers-style: repository root = marketplace + plugin).

@@ -147,7 +147,7 @@ copilot plugin marketplace add ehadziabdic/WAgents
 copilot plugin install WAgents@WAgents
 
 # OpenAI Codex
-codex plugin marketplace add ehadziabdic/WAgents --ref <release-commit>
+codex plugin marketplace add ehadziabdic/WAgents --ref v0.3.0
 codex plugin add WAgents@WAgents
 ```
 
@@ -522,6 +522,34 @@ MIT: see [LICENSE](LICENSE). Third-party skill sets keep their upstream licenses
 attribution (`PROVENANCE.md` in each vendored set); MCP servers remain the property of
 their respective maintainers and are pinned to verified official packages wherever one
 exists.
+
+wagents stands on the work of these projects. Full pins and commit hashes live in
+[`config/external-dependencies.json`](config/external-dependencies.json).
+
+| Project | Author(s) | Repository | What we use | License |
+|---|---|---|---|---|
+| Superpowers | Jesse Vincent ([obra](https://github.com/obra)) | [obra/superpowers](https://github.com/obra/superpowers) | The `super-*` workflow skills: brainstorming, test-driven development, systematic debugging, code review, plans, git worktrees | MIT |
+| Claude-Red | Kai Aizen ([SnailSploit](https://github.com/SnailSploit)); original checklists by Sahar Shlichov | [SnailSploit/Claude-Red](https://github.com/SnailSploit/Claude-Red) | `base-hacker-claude-red`: the offensive-security skill library powering the `wagent-hacker` agent | MIT |
+| Taste Skill | [Leonxlnx](https://github.com/Leonxlnx) | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | The `taste-*` frontend design-taste skills (anti-slop styling, redesign, brandkit) | MIT |
+| UI/UX Pro Max | [nextlevelbuilder](https://github.com/nextlevelbuilder) | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | The `ui-ux-*` skills: design catalogs, stack guides, token and slide tooling | MIT |
+| Obsidian Skills | Steph Ango ([kepano](https://github.com/kepano)) | [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills) | The `obsidian-*` vault authoring skills (markdown, bases, canvas, CLI) | MIT |
+| Anthropic Skills | [Anthropic](https://github.com/anthropics) | [anthropics/skills](https://github.com/anthropics/skills) | The `anth-*` skills: claude-api, webapp-testing, mcp-builder, doc-coauthoring (Apache-2.0), plus the source-available office-format skills (docx, pdf, pptx, xlsx), included unmodified with their upstream license files | Apache-2.0 / Source-available |
+| DevOps Skills | [NotHarshhaa](https://github.com/NotHarshhaa) | [NotHarshhaa/devops-skills](https://github.com/NotHarshhaa/devops-skills) | The `devops-*` advisor skills (audit, incident, DR, Kubernetes/Terraform/Docker reviews) | MIT |
+| MLOps Agent Skills | [timwukp](https://github.com/timwukp) | [timwukp/MLOps-agent-skills](https://github.com/timwukp/MLOps-agent-skills) | The `ml-*`, `llm-*`, `model-*`, `data-*`, `feature-*` skills (28 total) | Apache-2.0 |
+| Agentmemory | [rohitg00](https://github.com/rohitg00) | [rohitg00/agentmemory](https://github.com/rohitg00/agentmemory) | Cross-agent memory: MCP server pins, lifecycle hooks, and the memory skill group | Apache-2.0 |
+
+Bundled fonts under `skills/ui-ux-ui-styling/canvas-fonts/` are licensed under the
+SIL Open Font License 1.1 (license files included next to each font). MCP servers
+catalogued in `mcp/servers.json` (codebase-memory-mcp by [DeusData](https://github.com/DeusData),
+Playwright, Sentry, Supabase, Semgrep, and others) remain the property of their
+maintainers; wagents only installs and references them.
+
+> **Source-available notice.** `skills/anth-docx`, `skills/anth-pdf`, `skills/anth-pptx`,
+> and `skills/anth-xlsx` are (c) Anthropic, PBC, shared by Anthropic as source-available
+> reference material (not open source). They are vendored here unmodified, with the
+> upstream `LICENSE.txt` and `PROVENANCE.md` retained in each directory. All other
+> vendored sets ship under their open licenses (MIT / Apache-2.0) with attribution
+> preserved. Full pins: `config/external-dependencies.json`.
 
 <p align="center">
   <img src="pictures/banner.png" alt="WAgents stats: 12 agents, 115 skills, 14 MCP servers, 7 providers, Linux, macOS and Windows" width="50%" />

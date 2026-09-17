@@ -1,6 +1,6 @@
 # Architecture — wagents
 
-## Layout conventions (relation to obra/superpowers)
+## Layout conventions
 
 wagents deliberately follows the superpowers model where it applies and extends it where a
 personal-use Agent OS needs more. Verified against `obra/superpowers` upstream
