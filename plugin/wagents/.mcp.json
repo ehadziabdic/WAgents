@@ -1,0 +1,89 @@
+{
+	"mcpServers": {
+		"codebase-memory": {
+			"type": "stdio",
+			"command": "codebase-memory-mcp",
+			"env": {
+				"CBM_RUNTIME_DIR": "C:\\Users\\eminha\\cbm-runtime"
+			}
+		},
+		"com.figma.mcp/mcp": {
+			"type": "http",
+			"url": "https://mcp.figma.com/mcp"
+		},
+		"com.supabase/mcp": {
+			"type": "http",
+			"url": "https://mcp.supabase.com/mcp"
+		},
+		"huggingface/hf-mcp-server": {
+			"type": "http",
+			"url": "https://huggingface.co/mcp?login"
+		},
+		"io.github.getsentry/sentry-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"@sentry/mcp-server@0.25.0"
+			],
+			"env": {
+				"SENTRY_ACCESS_TOKEN": "${input:SENTRY_ACCESS_TOKEN}"
+			}
+		},
+		"io.github.github/github-mcp-server": {
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp/"
+		},
+		"io.github.SonarSource/sonarqube-mcp-server": {
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"-e",
+				"SONARQUBE_TOKEN",
+				"-e",
+				"SONARQUBE_ORG",
+				"-e",
+				"SONARQUBE_URL",
+				"docker.io/sonarsource/sonarqube-mcp"
+			],
+			"env": {
+				"SONARQUBE_TOKEN": "${input:SONARQUBE_TOKEN}",
+				"SONARQUBE_ORG": "${input:SONARQUBE_ORG}",
+				"SONARQUBE_URL": "${input:SONARQUBE_URL}"
+			}
+		},
+		"io.github.tavily-ai/tavily-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"tavily-mcp@0.2.15"
+			],
+			"env": {
+				"TAVILY_API_KEY": "${input:TAVILY_API_KEY}",
+				"DEFAULT_PARAMETERS": "${input:DEFAULT_PARAMETERS}"
+			}
+		},
+		"makenotion/notion-mcp-server": {
+			"type": "http",
+			"url": "https://mcp.notion.com/sse"
+		},
+		"microsoft/playwright-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"@playwright/mcp@latest"
+			]
+		},
+		"io.github.upstash/context7": {
+			"type": "http",
+			"url": "https://mcp.context7.com/mcp",
+			"headers": {
+				"Authorization": "${input:Authorization}"
+			},
+			"gallery": "https://api.mcp.github.com",
+			"version": "4.1.1"
+		}
+	}
+}
