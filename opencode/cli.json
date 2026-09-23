@@ -1,0 +1,46 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "dracula"
+  },
+  "animations": true,
+  "session": {
+    "sidebar": "auto",
+    "scrollbar": true,
+    "thinking": "show",
+    "markdown": "rendered",
+    "grouping": "auto",
+    "image_preview": true,
+    "permissions": "autoaccept"
+  },
+  "tabs": {
+    "mode": "on",
+    "layout": "horizontal",
+    "indicators": "status"
+  },
+  "diffs": {
+    "view": "auto",
+    "wrap": "word",
+    "tree": true
+  },
+  "prompt": {
+    "paste": "compact",
+    "image_preview": true
+  },
+  "leader": {
+    "timeout": 2000
+  },
+  "attention": {
+    "notifications": true,
+    "sound": true,
+    "volume": 0.6
+  },
+  "terminal": {
+    "copy": "manual"
+  },
+  "debug": {
+    "devtools": true,
+    "timing": false,
+    "turn_tokens": false
+  }
+}

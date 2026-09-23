@@ -1,0 +1,17 @@
+# Keep the repo free of regenerable/machine state
+__pycache__/
+*.pyc
+node_modules/
+*.out/
+*.log
+*.sent
+last-state.txt
+.brave-debug-profile/
+.opencode-debug
+# Secrets must never be committed (public repo)
+telegram/.telegram.env
+telegram/.voice-target-session
+local-share/*.json
+**/.jupyter.env
+**/rclone.conf
+**/credentials.json

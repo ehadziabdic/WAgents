@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "jev-1.13-free",
+  "provider": {
+    "vercel": {
+      "options": {
+        "apiKey": "PUT-YOUR-KEY-HERE"
+      }
+    }
+  }
+}

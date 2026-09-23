@@ -1,0 +1,116 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": [
+      "~/.config/opencode/skills"
+    ]
+  },
+  "mcp": {
+    "servers": {
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "headers": {
+          "Authorization": "Bearer PUT-YOUR-TOKEN-HERE"
+        }
+      },
+      "github-mcp-server": {
+        "type": "remote",
+        "url": "https://api.githubcopilot.com/mcp/",
+        "headers": {
+          "Authorization": "Bearer PUT-YOUR-TOKEN-HERE"
+        }
+      },
+      "playwright-mcp": {
+        "type": "local",
+        "command": [
+          "npx",
+          "@playwright/mcp@latest"
+        ]
+      },
+      "notion-mcp-server": {
+        "type": "remote",
+        "url": "https://mcp.notion.com/mcp"
+      },
+      "tavily-mcp": {
+        "type": "local",
+        "command": [
+          "npx",
+          "tavily-mcp@0.2.15"
+        ],
+        "environment": {
+          "TAVILY_API_KEY": "PUT-YOUR-TOKEN-HERE",
+          "DEFAULT_PARAMETERS": "${input:DEFAULT_PARAMETERS}"
+        }
+      },
+      "sentry-mcp": {
+        "type": "local",
+        "command": [
+          "npx",
+          "@sentry/mcp-server@0.25.0"
+        ],
+        "environment": {
+          "SENTRY_ACCESS_TOKEN": "PUT-YOUR-TOKEN-HERE"
+        }
+      },
+      "sonarqube-mcp-server": {
+        "type": "local",
+        "command": [
+          "docker",
+          "run",
+          "--init",
+          "-i",
+          "--rm",
+          "-e",
+          "SONARQUBE_TOKEN",
+          "-e",
+          "SONARQUBE_ORG",
+          "-e",
+          "SONARQUBE_URL",
+          "docker.io/sonarsource/sonarqube-mcp"
+        ],
+        "environment": {
+          "SONARQUBE_TOKEN": "PUT-YOUR-TOKEN-HERE",
+          "SONARQUBE_ORG": "ehadziabdic",
+          "SONARQUBE_URL": "https://sonarcloud.io"
+        }
+      },
+      "supabase-mcp": {
+        "type": "remote",
+        "url": "https://mcp.supabase.com/mcp"
+      },
+      "figma-mcp": {
+        "type": "remote",
+        "url": "https://mcp.figma.com/mcp",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer PUT-YOUR-TOKEN-HERE"
+        }
+      },
+      "huggingface-mcp": {
+        "type": "remote",
+        "url": "https://huggingface.co/mcp?login"
+      },
+      "codebase-memory": {
+        "type": "local",
+        "command": [
+          "codebase-memory-mcp"
+        ],
+        "environment": {
+          "CBM_RUNTIME_DIR": "~/.cbm-runtime"
+        }
+      }
+    }
+  },
+  "disabled_providers": [],
+  "instructions": [
+    "instructions/wagents-global.md",
+    "instructions/wagents-documentation.md",
+    "instructions/wagents-python.md",
+    "instructions/wagents-react.md",
+    "instructions/wagents-security.md",
+    "instructions/wagents-testing.md",
+    "instructions/wagents-typescript.md"
+  ],
+  "plugin": []
+}

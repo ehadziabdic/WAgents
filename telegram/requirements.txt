@@ -1,0 +1,3 @@
+httpx
+faster-whisper
+imageio-ffmpeg
