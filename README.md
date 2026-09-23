@@ -4,15 +4,17 @@
 
 # WAgents
 
-**A complete, portable home AI setup: 3 main agents, 10 specialists, 190+ skills, Telegram remote control with voice, Google Drive bridge, training watchers, and a configured MCP stack. Clone, run the installer, paste one prompt, done.**
+**Turn your home PC into your personal AI crew, reachable from your phone. Chat, speak, or type: it codes, designs, secures, researches, watches your AI training, grabs your files, and talks back. Full remote control over Telegram with voice mode, a complete agent ecosystem for development, security, and design, plus a ready-wired MCP stack. Clone, install, paste one prompt, done.**
+
+*Control your computer from anywhere · Talk instead of typing · AI that designs, codes & guards · Training watched while you sleep*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-pink.svg)](https://github.com/sponsors/ehadziabdic)
 [![Coffee](https://img.shields.io/badge/buy%20me%20a-coffee-FFDD00.svg)](https://buymeacoffee.com/ehadziabdic)
 ![Windows](https://img.shields.io/badge/platform-Windows-lightgrey)
 ![PowerShell](https://img.shields.io/badge/shell-powershell-blue?logo=powershell&logoColor=white)
-![Host](https://img.shields.io/badge/host-OpenCode%20first-8A2BE2)](#harness-portability)
-![Secrets](https://img.shields.io/badge/secrets-zero%20in%20git-red.svg)](#security-model)
+[![Host](https://img.shields.io/badge/host-OpenCode%20first-8A2BE2)](#harness-portability)
+[![Secrets](https://img.shields.io/badge/secrets-zero%20in%20git-red.svg)](#security-model)
 
 *OpenCode-first · Brave-only · Tailscale-only remote · session-only operation · no secrets in git*
 
@@ -61,7 +63,7 @@ becomes your exact environment in minutes instead of a weekend.
 |---|---|
 | **3 main agents** | Ask (chat/plan only), Build (implements), Hacker (sole holder of 78 offensive skills) |
 | **10 specialists** | frontend, backend, security, reviewer, debugger, QA, research, docs, ML, devops |
-| **190+ skills** | `think-*` workflow family (brainstorm, plan, execute, verify, review), offensive library, taste/UI design, office formats, LLM/ML/DevOps packs, Obsidian, Figma/MCP builders |
+| **190+ skills** | `think` workflow family (brainstorm, plan, execute, verify, review), `offensive` library, `taste/UI` design, `office` formats, `LLM/ML/DevOps` packs, `Obsidian`, `Figma/MCP` builders |
 | **Telegram remote** | 13 commands + free text and voice that run in chat, screenshots, files both ways, Drive uploads |
 | **Training watchers** | SSO-aware JupyterHub poller, heartbeat inbox, hourly retention sweep |
 | **MCP stack** | context7, GitHub, Playwright, Notion, Tavily, Sentry, SonarQube, Supabase, Figma, HuggingFace |
