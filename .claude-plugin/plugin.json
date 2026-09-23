@@ -1,0 +1,11 @@
+{
+  "name": "wagents",
+  "description": "Portable home AI setup: 3 main agents, 10 specialists, 190+ skills, Telegram remote with voice, Drive bridge, training watchers, MCP stack",
+  "version": "0.1.0",
+  "author": {
+    "name": "Emin Hadziabdic"
+  },
+  "homepage": "https://github.com/ehadziabdic/WAgents",
+  "repository": "https://github.com/ehadziabdic/WAgents",
+  "license": "MIT"
+}

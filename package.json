@@ -1,0 +1,19 @@
+{
+  "name": "wagents",
+  "version": "0.1.0",
+  "description": "Portable home AI setup: agents, skills, Telegram remote, watchers, MCP stack",
+  "license": "MIT",
+  "files": [
+    "opencode/",
+    "telegram/",
+    "docs/",
+    "pictures/",
+    "install.ps1",
+    "import-credentials.ps1",
+    "AGENTS.md",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE",
+    ".claude-plugin/"
+  ]
+}
