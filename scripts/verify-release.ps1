@@ -17,8 +17,10 @@ foreach ($p in @("package.json", ".claude-plugin/plugin.json", ".claude-plugin/m
 }
 
 # 3. Skill hygiene: every skill dir has SKILL.md with matching name
-# (devops-docs is templates-only by design, not a skill).
-Get-ChildItem (Join-Path $Repo "opencode/skills") -Directory | Where-Object { $_.Name -ne "devops-docs" } | ForEach-Object {
+# (devops-docs is templates-only by design, not a skill;
+# scientific-* is the vendored K-Dense set, kept upstream-verbatim
+# including upstream short names, so it is exempt from name matching).
+Get-ChildItem (Join-Path $Repo "opencode/skills") -Directory | Where-Object { $_.Name -ne "devops-docs" -and $_.Name -notlike "scientific-*" } | ForEach-Object {
   $sk = Join-Path $_.FullName "SKILL.md"
   if (-not (Test-Path $sk)) { Fail ("no SKILL.md in " + $_.Name); return }
   $head = (Get-Content $sk -TotalCount 5) -join "`n"
@@ -26,9 +28,14 @@ Get-ChildItem (Join-Path $Repo "opencode/skills") -Directory | Where-Object { $_
 }
 
 # 4. Agent files present
-foreach ($a in @("opencode/agents/wagent.md","opencode/agents/wagent-ask.md","opencode/agents/wagent-hacker.md")) {
+foreach ($a in @("opencode/agents/wagent.md","opencode/agents/wagent-ask.md")) {
   if (-not (Test-Path (Join-Path $Repo $a))) { Fail ("missing " + $a) }
 }
+
+# 4b. Redteam removal guard (2026-10-07 decision): the offensive lane is
+# gone on purpose. Fail if it ever creeps back in.
+if (Test-Path (Join-Path $Repo "opencode/agents/wagent-hacker.md")) { Fail ("banned file present: opencode/agents/wagent-hacker.md") }
+if (Get-ChildItem (Join-Path $Repo "opencode/skills") -Directory | Where-Object { $_.Name -like "offensive*" }) { Fail ("banned dirs present: opencode/skills/offensive-*") }
 
 # 5. Secret sweep (tight patterns: values, not doc examples)
 $hits = Get-ChildItem (Join-Path $Repo "opencode"), (Join-Path $Repo "telegram"), (Join-Path $Repo "local-share"), (Join-Path $Repo "rclone"), (Join-Path $Repo "docs"), (Join-Path $Repo "install.ps1") -Recurse -File -ErrorAction SilentlyContinue |
