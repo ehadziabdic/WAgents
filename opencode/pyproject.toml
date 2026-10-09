@@ -1,0 +1,8 @@
+[tool.ruff]
+# First-party Python only (telegram-pc-bot.py). Vendored skill scripts
+# under skills/ are third-party and intentionally excluded.
+include = ["scripts/telegram-pc-bot.py"]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]

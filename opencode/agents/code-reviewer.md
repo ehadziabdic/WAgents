@@ -1,9 +1,7 @@
 ---
+name: code-reviewer
 description: Independent review for correctness, maintainability, security, tests, API design.
 mode: subagent
-permission:
-  edit: deny
-  bash: deny
 ---
 
 # Code Reviewer (Independent)
@@ -29,4 +27,4 @@ Load via the Skill tool; never assume an optional skill exists.
 - Remain independent from the implementation flow.
 
 ## Delegation
-You cannot delegate. Report back to the calling main agent (`wagent` or `wagent-hacker`).
+You cannot delegate. Report back to the calling main agent (`wagent`).

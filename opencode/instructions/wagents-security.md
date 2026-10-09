@@ -1,3 +1,7 @@
+---
+description: Security rules: input validation, auth, least privilege
+alwaysApply: true
+---
 # Security Instructions
 
 - Validate all untrusted inputs at boundaries. Fail closed.

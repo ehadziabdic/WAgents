@@ -1,3 +1,7 @@
+---
+description: React conventions for wagents-managed UI
+alwaysApply: true
+---
 # React Instructions
 
 - Use functional components with hooks; no new class components.

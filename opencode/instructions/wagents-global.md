@@ -1,3 +1,7 @@
+---
+description: Global coding conventions (evidence, small diffs, no secrets)
+alwaysApply: true
+---
 # wagents — Copilot Instructions (Global)
 
 - Prefer evidence over assumptions.
@@ -21,7 +25,7 @@
 - Architecture/decisions/refactors -> wagent (owns architecture directly)
 - Backend/API/DB/auth -> backend-engineer
 - Defensive security -> security-engineer
-- Offensive testing -> user switches to wagent-hacker (explicit target authorization required; main agents never delegate to each other)
+- Offensive testing -> not installed: decline, offer defensive review (main agents never delegate to each other)
 - Review -> code-reviewer
 - Failures/root-cause -> debugger
 - Testing -> qa-engineer

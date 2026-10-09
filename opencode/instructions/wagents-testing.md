@@ -1,3 +1,7 @@
+---
+description: Testing standards: deterministic, realistic checks
+alwaysApply: true
+---
 # Testing Instructions
 
 - Write tests for new behavior. Cover happy path and failure paths.

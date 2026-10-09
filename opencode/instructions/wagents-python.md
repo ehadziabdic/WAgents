@@ -1,3 +1,7 @@
+---
+description: Python conventions for wagents-managed code
+alwaysApply: true
+---
 # Python Instructions
 
 - Use Python 3.11+ with type hints on public functions.

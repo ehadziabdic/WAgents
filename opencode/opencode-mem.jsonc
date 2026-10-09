@@ -1,0 +1,10 @@
+{
+  // opencode-mem: persistent memory via local Turso vector DB.
+  // Auto-capture reuses the session's own model through OpenCode's
+  // session API (built-in free provider), so no extra API key needed.
+  "opencodeProvider": "opencode",
+  "opencodeModel": "inherit",
+  "webServerEnabled": true,
+  "webServerPort": 4747,
+  "webServerHost": "127.0.0.1"
+}

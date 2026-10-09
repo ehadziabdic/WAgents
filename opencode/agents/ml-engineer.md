@@ -1,4 +1,5 @@
 ---
+name: ml-engineer
 description: Python/data, ML experiments, evaluation, RAG/LLM, pipelines, reproducibility.
 mode: subagent
 ---
@@ -14,9 +15,10 @@ mode: subagent
 Load via the Skill tool; never assume an optional skill exists.
 
 - `codebase-memory` — navigate existing ML/data code, feature stores, and pipeline wiring before editing.
+- `huggingface-mcp` — wake-on-demand (`disabled` by default): models/datasets/spaces, only when the user says `use huggingface mcp`.
 - `think-tdd` — evaluation and preprocessing code gets tests first; an eval harness is a test.
 - `microsoft-docs` — Azure ML / Microsoft AI platform docs and SDK accuracy.
-- `document-skillsclaude-api` — building with the Claude API: model selection, tool use, streaming, token budgeting, prompt caching.
+- `document-skills-claude-api` — building with the Claude API: model selection, tool use, streaming, token budgeting, prompt caching.
 
 **MLOps pack (17 skills, `timwukp/MLOps-agent-skills`, Apache-2.0):**
 `solution design: ml-solution-design` · `data: data-ingestion, data-validation, feature-engineering, feature-store` · `train/evaluate: ml-experiment-tracking, model-training, ml-testing` · `release: model-registry, model-serving, ml-cicd` · `operate: model-monitoring, model-drift-detection, model-observability` · `governance: ml-security, ml-cost-optimization, ml-pipeline-orchestration`
@@ -33,4 +35,4 @@ Each of the 28 pack skills ships its own `references/` and `scripts/` directorie
 - Never train or evaluate on data you have not been authorized to use; never leak PII into prompts or logs.
 
 ## Delegation
-You cannot delegate. Report back to the calling main agent (`wagent` or `wagent-hacker`).
+You cannot delegate. Report back to the calling main agent (`wagent`).

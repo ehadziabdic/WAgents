@@ -66,7 +66,7 @@ becomes your exact environment in minutes instead of a weekend.
 | **190+ skills** | `think` workflow family (brainstorm, plan, execute, verify, review), `offensive` library, `taste/UI` design, `office` formats, `LLM/ML/DevOps` packs, `Obsidian`, `Figma/MCP` builders |
 | **Telegram remote** | 13 commands + free text and voice that run in chat, screenshots, files both ways, Drive uploads |
 | **Training watchers** | SSO-aware JupyterHub poller, heartbeat inbox, hourly retention sweep |
-| **MCP stack** | context7, GitHub, Playwright, Notion, Tavily, Sentry, SonarQube, Supabase, Figma, HuggingFace |
+| **MCP stack** | context7, GitHub, Playwright, Notion, Tavily, Sentry, Airtable, Figma, HuggingFace, Iris, Scrapling (+ Vercel wake-on-demand) |
 | **Zero secrets in git** | installer + agent prompt walk you through creating every key yourself |
 
 ---
@@ -167,10 +167,13 @@ Configured in `opencode/opencode.jsonc`, OAuth/tokens created per user:
 | `notion-mcp-server` | remote | OAuth + workspace | mains, docs (read-default) |
 | `tavily-mcp` | local (`npx`) | `TAVILY_API_KEY` | research-specialist |
 | `sentry-mcp` | local (pinned npm) | `SENTRY_ACCESS_TOKEN` | backend, security, debugger |
-| `sonarqube-mcp-server` | local | server URL + token | code-reviewer, security |
-| `supabase-mcp` | remote | access token | backend-engineer |
+| `airtable-mcp` | local (`npx`) | `AIRTABLE_API_KEY` | mains, portfolio data |
 | `figma-mcp` | remote | Bearer token | design-to-code and back |
 | `huggingface-mcp` | remote | login | ML/LLM lanes |
+| `scrapling` | local (exe) | nothing | research, live web data |
+| `codebase-memory` | local (binary) | nothing | all agents, repo index |
+| `iris` | local (binary) | nothing | screenshots, QA, Telegram |
+| `vercel` | remote | login | deployments (wake-on-demand) |
 
 ## Using it day to day
 
@@ -228,7 +231,7 @@ artifacts; phone photos are never touched.
 Built opencode-first, portable by design. The five small seams
 (session bridge, session IDs, MCP file, installer, config default)
 are documented in [`docs/HARNESS.md`](docs/HARNESS.md) with the exact
-per-harness swap for Codex, Claude, and Copilot.
+per-harness adapters for Codex, DeepSeek Harness, and Copilot CLI.
 
 ## Updating
 
@@ -287,7 +290,7 @@ WAgents/
 |---|---|
 | [`docs/SETUP.md`](docs/SETUP.md) | fresh-machine guide + manual steps with reasons |
 | [`docs/AGENT-SETUP-PROMPT.md`](docs/AGENT-SETUP-PROMPT.md) | paste-into-chat installer prompt + action-request pattern |
-| [`docs/HARNESS.md`](docs/HARNESS.md) | Codex/Claude/Copilot portability seams |
+| [`docs/HARNESS.md`](docs/HARNESS.md) | Codex/dsh/Copilot portability adapters |
 | [`docs/PUBLIC-RELEASE.md`](docs/PUBLIC-RELEASE.md) | how this public tree was stripped (audit trail) |
 | [`telegram/README.md`](telegram/README.md) | bot commands and files |
 

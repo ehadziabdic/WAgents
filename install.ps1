@@ -39,6 +39,9 @@ Write-Host "[6/9] Node deps..."
 Push-Location "$Repo\opencode"; npm install; Pop-Location
 Push-Location "$Repo\opencode\skills\drawio\scripts"; npm install; Pop-Location
 
+Write-Host "[6b/9] Harness scanner warmup (cached, no install)..."
+npx -y harness-score --version
+
 Write-Host "[7/9] Python deps + whisper model..."
 pip install -r "$Repo\telegram\requirements.txt"
 python -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8'); print('whisper-small ready')"

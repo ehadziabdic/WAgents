@@ -1,3 +1,7 @@
+---
+description: Documentation standards for wagents-managed docs
+alwaysApply: true
+---
 # Documentation Instructions
 
 - Document why, not only what. Record decisions and tradeoffs.

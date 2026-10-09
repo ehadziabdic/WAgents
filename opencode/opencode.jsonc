@@ -2,23 +2,33 @@
   "$schema": "https://opencode.ai/config.json",
   "skills": {
     "paths": [
-      "~/.config/opencode/skills"
+      "C:\\Users\\eminha\\.config\\opencode\\skills"
     ]
   },
   "mcp": {
+    "timeout": {
+      "startup": 15000,
+      "catalog": 15000
+    },
     "servers": {
+      "vercel": {
+        "type": "remote",
+        "url": "https://mcp.vercel.com",
+        "disabled": true
+      },
       "context7": {
         "type": "remote",
         "url": "https://mcp.context7.com/mcp",
         "headers": {
-          "Authorization": "Bearer PUT-YOUR-TOKEN-HERE"
+          "Authorization": "PUT-YOUR-TOKEN-HERE"
         }
       },
       "github-mcp-server": {
         "type": "remote",
         "url": "https://api.githubcopilot.com/mcp/",
+        "disabled": true,
         "headers": {
-          "Authorization": "Bearer PUT-YOUR-TOKEN-HERE"
+          "Authorization": "PUT-YOUR-TOKEN-HERE"
         }
       },
       "playwright-mcp": {
@@ -28,9 +38,17 @@
           "@playwright/mcp@latest"
         ]
       },
+      "scrapling": {
+        "type": "local",
+        "command": [
+          "C:\\Users\\eminha\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\scrapling.exe",
+          "mcp"
+        ]
+      },
       "notion-mcp-server": {
         "type": "remote",
-        "url": "https://mcp.notion.com/mcp"
+        "url": "https://mcp.notion.com/mcp",
+        "disabled": true
       },
       "tavily-mcp": {
         "type": "local",
@@ -45,6 +63,7 @@
       },
       "sentry-mcp": {
         "type": "local",
+        "disabled": true,
         "command": [
           "npx",
           "@sentry/mcp-server@0.25.0"
@@ -53,43 +72,30 @@
           "SENTRY_ACCESS_TOKEN": "PUT-YOUR-TOKEN-HERE"
         }
       },
-      "sonarqube-mcp-server": {
+      "airtable-mcp": {
         "type": "local",
         "command": [
-          "docker",
-          "run",
-          "--init",
-          "-i",
-          "--rm",
-          "-e",
-          "SONARQUBE_TOKEN",
-          "-e",
-          "SONARQUBE_ORG",
-          "-e",
-          "SONARQUBE_URL",
-          "docker.io/sonarsource/sonarqube-mcp"
+          "npx",
+          "-y",
+          "airtable-mcp-server"
         ],
         "environment": {
-          "SONARQUBE_TOKEN": "PUT-YOUR-TOKEN-HERE",
-          "SONARQUBE_ORG": "ehadziabdic",
-          "SONARQUBE_URL": "https://sonarcloud.io"
+          "AIRTABLE_API_KEY": "PUT-YOUR-TOKEN-HERE"
         }
-      },
-      "supabase-mcp": {
-        "type": "remote",
-        "url": "https://mcp.supabase.com/mcp"
       },
       "figma-mcp": {
         "type": "remote",
         "url": "https://mcp.figma.com/mcp",
+        "disabled": true,
         "oauth": false,
         "headers": {
-          "Authorization": "Bearer PUT-YOUR-TOKEN-HERE"
+          "Authorization": "PUT-YOUR-TOKEN-HERE"
         }
       },
       "huggingface-mcp": {
         "type": "remote",
-        "url": "https://huggingface.co/mcp?login"
+        "url": "https://huggingface.co/mcp?login",
+        "disabled": true
       },
       "codebase-memory": {
         "type": "local",
@@ -97,12 +103,42 @@
           "codebase-memory-mcp"
         ],
         "environment": {
-          "CBM_RUNTIME_DIR": "~/.cbm-runtime"
+          "CBM_RUNTIME_DIR": "C:\\Users\\eminha\\cbm-runtime"
         }
+      },
+      "iris": {
+        "type": "local",
+        "command": [
+          "C:\\Users\\eminha\\.cargo\\bin\\iris.exe",
+          "mcp",
+          "--chrome",
+          "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+        ]
       }
     }
   },
   "disabled_providers": [],
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "allow" },
+    { "action": "external_directory", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*.env", "effect": "allow" },
+    { "action": "read", "resource": "*.env.*", "effect": "allow" },
+    { "action": "read", "resource": "*.env.example", "effect": "allow" }
+  ],
+  "provider": {
+    "omniroute": {
+      "name": "Omni Route",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:20128/v1"
+      },
+      "models": {
+        "openrouter/nex-agi/nex-n2.5-pro:free": {
+          "name": "Nex N2.5 Pro"
+        }
+      }
+    }
+  },
   "instructions": [
     "instructions/wagents-global.md",
     "instructions/wagents-documentation.md",
