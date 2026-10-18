@@ -19,6 +19,95 @@
     "omniroute",
     "google",
     "github-copilot"
-  ]
+  ],
+  "websearch": {
+    "provider": "random"
+  },
+  "mcp": {
+    "servers": {
+      "github": {
+        "type": "remote",
+        "url": "https://api.githubcopilot.com/mcp/",
+        "headers": {
+          "Authorization": "Bearer PUT-YOUR-KEY-HERE"
+        },
+        "disabled": true
+      },
+      "canva": {
+        "type": "remote",
+        "url": "https://mcp.canva.com/mcp",
+        "disabled": true
+      },
+      "airtable": {
+        "type": "remote",
+        "url": "https://mcp.airtable.com/mcp",
+        "disabled": true
+      },
+      "playwright": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@playwright/mcp@0.0.83"
+        ],
+        "disabled": false,
+        "timeout": {
+          "startup": 60000
+        }
+      },
+      "tavily": {
+        "type": "remote",
+        "url": "https://mcp.tavily.com/mcp",
+        "disabled": false
+      },
+      "sentry": {
+        "type": "remote",
+        "url": "https://mcp.sentry.dev/mcp",
+        "disabled": true
+      },
+      "figma": {
+        "type": "remote",
+        "url": "https://mcp.figma.com/mcp",
+        "disabled": true
+      },
+      "notion": {
+        "type": "remote",
+        "url": "https://mcp.notion.com/mcp",
+        "disabled": true
+      },
+      "markitdown": {
+        "type": "local",
+        "command": [
+          "uvx",
+          "markitdown-mcp"
+        ],
+        "disabled": true,
+        "timeout": {
+          "startup": 30000
+        }
+      },
+      "huggingface": {
+        "type": "remote",
+        "url": "https://huggingface.co/mcp",
+        "disabled": true
+      },
+      "rea": {
+        "type": "local",
+        "command": [
+          "cmd.exe",
+          "/d",
+          "/c",
+          "npx",
+          "-y",
+          "rea-agents@6.7.0",
+          "mcp"
+        ],
+        "disabled": true,
+        "timeout": {
+          "startup": 90000
+        }
+      }
+    }
+  }
   
 }

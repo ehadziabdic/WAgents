@@ -30,11 +30,11 @@ update it` (after a completed sync) means the Drive step only.
 
 ## MCP routing for this lane
 
-- Airtable (`airtable-mcp`): `list_bases` → Portfolio base, `describe_table`
+- Airtable (`airtable`): `list_bases` → Portfolio base, `describe_table`
   to confirm the checkbox field name, then `list_records` with
   `filterByFormula` on checked-visible projects only. Never invent field
   names; a wrong `fields` guess silently returns bad data.
-- GitHub: project READMEs via `github-mcp-server` (wake it with
+- GitHub: project READMEs via `github` (wake it with
   `use github mcp`) or raw `webfetch` of `raw.githubusercontent.com`.
   Get repo links from Airtable/Portfolio first.
 - Portfolio site: live reads via webfetch; screenshots via `iris` if a

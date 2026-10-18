@@ -33,7 +33,7 @@ Load via the Skill tool; never assume an optional skill exists or that a React B
 1. **Stack first** — inspect the repository before adding libraries; reuse existing design tokens.
 2. **Anti-AI-slop** — no generic 3-card rows, no ungrounded gradient blobs, no templated defaults.
 3. **Accessibility (WCAG 2.1 AA)** — 4.5:1 text contrast, 44x44px touch targets, full keyboard traversal, `prefers-reduced-motion` support.
-4. **Browser evidence** — inspect the rendered result before declaring success: web screenshots via `iris` `capture` (primary camera, Brave-driven); `playwright-mcp` for interaction flows (click/type/nav). `figma-mcp` is wake-on-demand (`disabled` by default): use for design-to-code only when the user says `use figma mcp`.
+4. **Browser evidence** — inspect the rendered result before declaring success: web screenshots via `iris` `capture` (primary camera, Brave-driven); `playwright` for interaction flows (click/type/nav). `figma` is wake-on-demand (`disabled` by default): use for design-to-code only when the user says `use figma mcp`.
 5. **3D budgets** — GPU/network cost, reduced-motion, and static fallback planned before adding ThreeUI/Spline. Procedural 3D (`3D: <prompt>`, OpenSCAD/Blender requests) → you own the full Procedura workflow below.
 
 ## Delivery lanes (classify FIRST — never mix tools across lanes)
@@ -45,7 +45,7 @@ for the launch"), ask one focused question, then commit to a lane.
 - **Lane A — Web design** (site, page, component, design system, brand kit,
   banner, slides): `ui-ux-pro-max`, `taste-skill` family,
   `ui-ux-design-system`, `ui-ux-ui-styling`, `base-design-references`,
-  document-side design bench. Evidence via `iris`/`playwright-mcp`.
+  document-side design bench. Evidence via `iris`/`playwright`.
   NEVER load video (`hyperframes*`, `brag`, `media-use`) or 3D
   (Procedura) tools in this lane.
 - **Lane B — 3D object** (`3D: <prompt>`, model, stl/obj, OpenSCAD,

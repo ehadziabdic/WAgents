@@ -15,7 +15,7 @@ mode: subagent
 Load via the Skill tool; never assume an optional skill exists.
 
 - `codebase-memory` — navigate existing ML/data code, feature stores, and pipeline wiring before editing.
-- `huggingface-mcp` — wake-on-demand (`disabled` by default): models/datasets/spaces, only when the user says `use huggingface mcp`.
+- `huggingface` — wake-on-demand (`disabled` by default): models/datasets/spaces, only when the user says `use huggingface mcp`.
 - `think-tdd` — evaluation and preprocessing code gets tests first; an eval harness is a test.
 - `microsoft-docs` — Azure ML / Microsoft AI platform docs and SDK accuracy.
 - `document-skills-claude-api` — building with the Claude API: model selection, tool use, streaming, token budgeting, prompt caching.

@@ -15,7 +15,7 @@ Load via the Skill tool; never assume an optional skill exists.
 - `think-debug` — the primary method: symptom → reproduce → evidence → hypotheses → test → root cause → minimal fix → regression test.
 - `codebase-memory` — locate the real code path fast (`find_callers`, `find_references`, call graphs) instead of guessing.
 - `base-webapp-testing-basics` — build the deterministic reproduction and regression test.
-- `sentry-mcp` — wake-on-demand (`disabled` by default): stack/trace correlation, only when the user says `use sentry mcp`. `playwright-mcp` — reproduce visual/interactive failures in the browser.
+- `sentry` — wake-on-demand (`disabled` by default): stack/trace correlation, only when the user says `use sentry mcp`. `playwright` — reproduce visual/interactive failures in the browser.
 
 ## Rules
 - Never guess root cause before gathering evidence when tools exist.

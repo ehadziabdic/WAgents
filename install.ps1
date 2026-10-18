@@ -42,6 +42,11 @@ Push-Location "$Repo\opencode\skills\drawio\scripts"; npm install; Pop-Location
 Write-Host "[6b/9] Harness scanner warmup (cached, no install)..."
 npx -y harness-score --version
 
+Write-Host "[6c/9] MCP warmup (npx caches, no prompts)..."
+npx -y @playwright/mcp@0.0.83 --version
+npx -y tavily-mcp@0.2.15 --version
+npx -y airtable-mcp-server --help | Out-Null
+
 Write-Host "[7/9] Python deps + whisper model..."
 pip install -r "$Repo\telegram\requirements.txt"
 python -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8'); print('whisper-small ready')"

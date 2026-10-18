@@ -7,8 +7,8 @@
   },
   "mcp": {
     "timeout": {
-      "startup": 15000,
-      "catalog": 15000
+      "startup": 60000,
+      "catalog": 30000
     },
     "servers": {
       "vercel": {
@@ -23,79 +23,12 @@
           "Authorization": "PUT-YOUR-TOKEN-HERE"
         }
       },
-      "github-mcp-server": {
-        "type": "remote",
-        "url": "https://api.githubcopilot.com/mcp/",
-        "disabled": true,
-        "headers": {
-          "Authorization": "PUT-YOUR-TOKEN-HERE"
-        }
-      },
-      "playwright-mcp": {
-        "type": "local",
-        "command": [
-          "npx",
-          "@playwright/mcp@latest"
-        ]
-      },
       "scrapling": {
         "type": "local",
         "command": [
           "C:\\Users\\eminha\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\scrapling.exe",
           "mcp"
         ]
-      },
-      "notion-mcp-server": {
-        "type": "remote",
-        "url": "https://mcp.notion.com/mcp",
-        "disabled": true
-      },
-      "tavily-mcp": {
-        "type": "local",
-        "command": [
-          "npx",
-          "tavily-mcp@0.2.15"
-        ],
-        "environment": {
-          "TAVILY_API_KEY": "PUT-YOUR-TOKEN-HERE",
-          "DEFAULT_PARAMETERS": "${input:DEFAULT_PARAMETERS}"
-        }
-      },
-      "sentry-mcp": {
-        "type": "local",
-        "disabled": true,
-        "command": [
-          "npx",
-          "@sentry/mcp-server@0.25.0"
-        ],
-        "environment": {
-          "SENTRY_ACCESS_TOKEN": "PUT-YOUR-TOKEN-HERE"
-        }
-      },
-      "airtable-mcp": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "airtable-mcp-server"
-        ],
-        "environment": {
-          "AIRTABLE_API_KEY": "PUT-YOUR-TOKEN-HERE"
-        }
-      },
-      "figma-mcp": {
-        "type": "remote",
-        "url": "https://mcp.figma.com/mcp",
-        "disabled": true,
-        "oauth": false,
-        "headers": {
-          "Authorization": "PUT-YOUR-TOKEN-HERE"
-        }
-      },
-      "huggingface-mcp": {
-        "type": "remote",
-        "url": "https://huggingface.co/mcp?login",
-        "disabled": true
       },
       "codebase-memory": {
         "type": "local",

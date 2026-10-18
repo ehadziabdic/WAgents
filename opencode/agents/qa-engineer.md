@@ -21,7 +21,7 @@ Load via the Skill tool; never assume an optional skill exists.
 
 ## Rules
 - Prefer realistic E2E validation for critical flows.
-- Use browser evidence where behavior is visual or interactive: `iris` `capture` for screenshots (primary camera), `playwright-mcp` for interaction-driven E2E.
+- Use browser evidence where behavior is visual or interactive: `iris` `capture` for screenshots (primary camera), `playwright` for interaction-driven E2E.
 - Test failure paths, not only happy paths.
 - Keep tests deterministic: no sleeps, no network flakiness, seeded data.
 - Do not claim tests passed unless actually run in the active turn.

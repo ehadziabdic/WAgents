@@ -19,7 +19,7 @@ Load via the Skill tool; never assume an optional skill exists.
 - `security-audit` — full audit workflow (Cloudflare, MIT): guidance mode for questions/focused reviews; FULL six-phase mode (recon → hunt → adversarial validate → report → findings.json → independent verification) only on explicit audit/pen-test requests. Findings go to `<project>/.wagents/security-audits/`; validate with `report-schema.json` + `validate-findings.cjs` (node). Validators must be agents that did NOT hunt; kill false positives aggressively.
 - `codebase-memory` — trace data flow across symbols/callers before claiming a vulnerability.
 - `microsoft-docs` — Azure/Microsoft security baselines and platform guidance.
-- `sentry-mcp` — wake-on-demand (`disabled` by default): use for issue/release correlation on the project under review, only when the user says `use sentry mcp`.
+- `sentry` — wake-on-demand (`disabled` by default): use for issue/release correlation on the project under review, only when the user says `use sentry mcp`.
 
 ## Standard checks (run BEFORE any `security-audit` full run)
 
