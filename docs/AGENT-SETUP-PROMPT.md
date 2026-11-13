@@ -9,22 +9,35 @@ PHASE 0 (do this by hand BEFORE opening opencode - 10 minutes):
    machine if it stays pending.
 3. Install Python 3.12+, Node 22+, Git (or let install.ps1 try).
 4. Clone this repo, e.g. next to your home folder.
-5. `opencode auth login` (repeat per account) so your FIRST chat has
-   models. Then open opencode and paste everything below the line.
+5. Fill the placeholder credentials you have, or let `opencode auth
+   login` create them after the first launch. The public repo ships
+   placeholders only: `local-share/*.json`, `telegram/.telegram.env`,
+   `rclone/rclone.conf`, and the provider tokens in
+   `opencode/opencode.json`. Then open opencode and paste everything
+   below the line. The installer also sets up OpenCode Browse (agents
+   in your real Brave) automatically; it opens one browser window for a
+   one-click confirm. Hex (voice dictation) is optional and is not
+   installed automatically; install it by hand with
+   `irm https://anoma.ly/hex/install-windows.ps1 | iex` if you want it.
+6. Optional: the `[WAgent] Unrestricted` prompt collection, if you have
+   access to it. `install.ps1` installs the resolver and model map but
+   not the prompts. Pass the URL when you run it
+   (`.\install.ps1 -JailbreaksRepo <url>`), or clone it into
+   `%USERPROFILE%\.config\opencode\jailbreaks`. Skip it and that agent
+   simply answers STATUS=no-match.
 
-NOTE ON SECRETS: this public repo ships ZERO secrets. You will create
-every key yourself during setup: provider logins, Figma Bearer token,
-Google Drive OAuth, Telegram bot token + your chat ID, service password.
-The agent collects them in ONE ask (see action-request pattern below).
+NOTE ON CREDENTIALS: this public repo contains no live keys. Use your
+own provider accounts, Telegram bot, Drive remote, and JupyterHub
+token. Anything in `local-share/` is a template until you replace it.
 
 ---
 
 You are setting up the WAgents environment on a fresh Windows machine from
-the WAgents-private repo cloned beside this session (./WAgents-private).
+the WAgents repo cloned beside this session (./WAgents).
 
 Goal: replicate the full setup so opencode, skills, agents, Telegram bot,
 Drive remote, and watchers all work exactly as documented in
-WAgents-private/docs/SETUP.md.
+WAgents/docs/SETUP.md.
 
 Rules:
 - Never git push or commit unless I explicitly say so.
@@ -40,25 +53,22 @@ Rules:
   blockers out one message at a time. Collect them and ask once.
 
 Steps:
-1. Read WAgents-private/README.md, docs/SETUP.md, and AGENTS.md fully
+1. Read WAgents/README.md, docs/SETUP.md, and AGENTS.md fully
    before touching anything.
-2. Run WAgents-private/install.ps1 from an elevated PowerShell. Report
+2. Run WAgents/install.ps1 from an elevated PowerShell. Report
    each numbered stage pass/fail with evidence. Fix failures before
    continuing (missing winget packages, pip errors, npm errors).
 3. Work through docs/SETUP.md section 2 WITH me, one item at a time.
    Do ALL automatable items first without asking. Then use the
    ACTION-REQUEST PATTERN once to collect every manual item:
-   - Provider + service secrets I must create/paste: opencode logins
-     (already done in Phase 0), Figma Bearer token for
-     opencode.jsonc, service password for service.json, Google Drive
-     OAuth (via rclone config), Telegram bot token from @BotFather.
-   - Telegram: my numeric chat ID from @userinfobot, written into
-     telegram/.telegram.env as TELEGRAM_ALLOWED_CHAT_ID.
-   - JupyterHub: I will paste MY Hub token, or we skip the watcher
-     if I have no such server.
+   - Telegram: my Telegram numeric ID is MINE, not a template value. I
+     will get it from @userinfobot and you will write it into
+     telegram/.telegram.env AND the live copy as TELEGRAM_ALLOWED_CHAT_ID.
+   - JupyterHub: I will paste MY OWN Hub token, or we skip the watcher
+     if I have no ETF account.
    - Tailscale: approve the machine if pending, confirm Private profile.
    - Telegram bot start + `.voice-target-session` must point at THIS
-     session ID.
+     session ID (never a stale one).
 4. Verify with docs/SETUP.md section 3 and report every check pass/fail
    with concrete output. Do not claim done until all green.
 5. End with a short list of what works and what still needs me.

@@ -1,7 +1,8 @@
 {
   "$schema": "https://opencode.ai/v2/cli.json",
   "theme": {
-    "name": "dracula"
+    "name": "lucent-orng",
+    "mode": "system"
   },
   "animations": true,
   "session": {

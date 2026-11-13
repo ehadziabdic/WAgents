@@ -1,7 +1,7 @@
 {
   "name": "wagents",
   "version": "0.1.0",
-  "description": "Portable home AI setup: agents, skills, Telegram remote, watchers, MCP stack",
+  "description": "Portable home AI setup: 3 main agents, 13 specialists, 300+ skills, Telegram remote, watchers, MCP stack",
   "license": "MIT",
   "files": [
     "opencode/",

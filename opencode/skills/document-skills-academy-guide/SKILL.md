@@ -1,4 +1,4 @@
-﻿---
+---
 name: document-skills-academy-guide
 description: >
   Stop and check this skill before finishing any reply to a question about how

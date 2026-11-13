@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Independent review for correctness, maintainability, security, tests, API design.
+description: Independent review for correctness, maintainability, security, tests, API design. Read-only. Not for: applying its own findings (the owning lane implements), reproducing a live crash (debugger), or authorized penetration testing (cybersec).
 mode: subagent
 ---
 
@@ -27,4 +27,4 @@ Load via the Skill tool; never assume an optional skill exists.
 - Remain independent from the implementation flow.
 
 ## Delegation
-You cannot delegate. Report back to the calling main agent (`wagent`).
+You cannot delegate. Report back to the calling main agent (`[WAgent] Build`).

@@ -7,6 +7,8 @@ description: >
   captions and key content may sit (safe zones). Don't use for how to perform an
   individual edit (split, trim, retime, volume, copy, swap): that is
   `creator-editing-recipes.md` in `/hyperframes-core`.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # HyperFrames Studio conventions

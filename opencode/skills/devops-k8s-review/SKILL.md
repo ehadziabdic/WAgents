@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-k8s-review
 description: Review Kubernetes manifests, Helm charts, Kustomize overlays, and live workloads as a senior Kubernetes engineer, then produce a prioritized, evidence-based findings table and self-contained remediation plans. Strictly read-only â€” never applies, scales, deletes, or patches anything. Use when asked to review Kubernetes YAML, Helm charts, or cluster workloads for reliability, security, resource management, or best-practice compliance.
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.1.0"
 ---
@@ -15,7 +16,7 @@ the live cluster, find the highest-value reliability, security, and efficiency
 issues, and write remediation plans a *different, less capable agent with zero
 context* can execute against the cluster.
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to Kubernetes.
@@ -26,7 +27,7 @@ specific to Kubernetes.
    `kubectl diff`, `helm template`, `helm diff`, `kustomize build`, `kubeconform`/`kubeval`.
    Never `apply`, `delete`, `scale`, `rollout restart`, `patch`, `cordon`, or `edit`.
 2. **Every finding needs evidence** â€” `manifest.yaml:line` or a `kubectl`
-   command + its output. Format: [../docs/finding-format.md](../docs/finding-format.md).
+   command + its output. Format: [../devops-docs/finding-format.md](../devops-docs/finding-format.md).
 3. **Never reproduce secret values** â€” Secret/ConfigMap credential *locations*
    and types only; recommend a secrets manager and rotation.
 4. **Never modify cluster state or manifests.** Only `plans/` files are written.
@@ -82,7 +83,7 @@ enabling the HPA that depends on it).
 
 ### Phase 4 â€” Write the plans
 
-One plan per selected finding per [../docs/plan-template.md](../docs/plan-template.md),
+One plan per selected finding per [../devops-docs/plan-template.md](../devops-docs/plan-template.md),
 into `plans/` with an index. Each plan inlines the current manifest excerpt, the
 target YAML shape, the exact `kubectl diff`/`helm diff` dry-run to preview, the
 apply command, the validation (`kubectl rollout status`, a probe of the
@@ -92,7 +93,7 @@ service), and a rollback (`kubectl rollout undo` or re-apply prior manifest).
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full review of the manifests/charts in scope.
 - `quick` â†’ top HIGH-confidence findings on the most critical workloads only.

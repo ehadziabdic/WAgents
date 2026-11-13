@@ -34,7 +34,7 @@ Use this skill when designing landing pages, 3D interactive hero sections, dashb
 ### [React Bits](https://www.reactbits.dev/get-started/mcp)
 - **Primary Use**: 135+ interactive, customizable, and animated React components built with Tailwind CSS and Framer Motion (text animations, interactive cards, cursor effects, background grids).
 - **MCP Integration**:
-  - Connect through the React Bits MCP server: see [`mcp/README.md#react-bits`](../../mcp/README.md).
+  - Connect through the React Bits MCP server: see the [React Bits MCP setup guide](https://www.reactbits.dev/get-started/mcp).
   - Query components directly from your coding agent to inspect component source code and installation commands.
   - Seamlessly integrates into shadcn/ui-based React and Next.js repositories.
 
@@ -47,6 +47,7 @@ Use this skill when designing landing pages, 3D interactive hero sections, dashb
 
 ### [21st.dev](https://21st.dev/)
 - The npm for design engineers. High-craft, community-crafted Tailwind + Framer Motion components with copy-paste integration.
+- **Live through the `21st` MCP (primary design MCP):** `search` the 12,000+ component/theme/template catalog, `get_inspiration` reranked against the project's Design Context, `get_component` for code, `search_logo` for brand SVGs, `generate` for net-new UI. Search before inventing; adapt retrieved code to the repo's tokens, and verify license, deps, and accessibility before adopting.
 
 ### [Motion (Framer Motion)](https://motion.dev/)
 - Production-ready declarative animations, gestures, layout transitions, and scroll animations for React and vanilla JS.
@@ -67,4 +68,4 @@ Use this skill when designing landing pages, 3D interactive hero sections, dashb
      }
    }
    ```
-3. **Taste Dials**: Cross-reference [`design-taste-frontend`](../design-taste-frontend/SKILL.md) and [`ui-ux-pro-max`](../ui-ux-pro-max/SKILL.md) to set intentional `DESIGN_VARIANCE`, `MOTION_INTENSITY`, and `VISUAL_DENSITY` values.
+3. **Taste Dials**: Cross-reference [`taste-skill`](../taste-skill/SKILL.md) and [`ui-ux-pro-max`](../ui-ux-pro-max/SKILL.md) to set intentional `DESIGN_VARIANCE`, `MOTION_INTENSITY`, and `VISUAL_DENSITY` values.

@@ -1,4 +1,4 @@
-﻿---
+---
 name: taste-skill-stitch-skill
 description: Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards â€” strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 ---

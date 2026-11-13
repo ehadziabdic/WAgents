@@ -11,6 +11,8 @@ description: >
   Don't use for sourcing or generating audio — finding BGM, SFX, or making a
   voiceover is `/media-use`. Don't use for clip timing or track layout, which is
   `/hyperframes-core`.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # HyperFrames Audio

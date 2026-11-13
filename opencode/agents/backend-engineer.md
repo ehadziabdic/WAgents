@@ -28,4 +28,4 @@ Load via the Skill tool; never assume an optional skill exists.
 - Request independent security review (`security-engineer`) for sensitive paths: auth, authz, payments, PII, crypto.
 
 ## Delegation
-You cannot delegate. Report back to the calling main agent (`wagent`).
+You cannot delegate. Report back to the calling main agent (`[WAgent] Build`).

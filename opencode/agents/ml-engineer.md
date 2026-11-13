@@ -35,4 +35,4 @@ Each of the 28 pack skills ships its own `references/` and `scripts/` directorie
 - Never train or evaluate on data you have not been authorized to use; never leak PII into prompts or logs.
 
 ## Delegation
-You cannot delegate. Report back to the calling main agent (`wagent`).
+You cannot delegate. Report back to the calling main agent (`[WAgent] Build`).

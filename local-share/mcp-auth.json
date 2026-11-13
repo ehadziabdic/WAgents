@@ -1,0 +1,43 @@
+{
+  "notion-mcp-server": {
+    "tokens": {
+      "accessToken": "REPLACE_ME",
+      "refreshToken": "REPLACE_ME",
+      "expiresAt": 1789956539.106,
+      "scope": "default"
+    },
+    "clientInfo": {
+      "clientId": "1XimfG3jwQttKk5Y",
+      "clientIdIssuedAt": 1789781027
+    },
+    "serverUrl": "https://mcp.notion.com/sse"
+  },
+  "figma-mcp": {
+    "clientInfo": {
+      "clientId": "MlzhJrNKmPQ7YUZqzywnzF",
+      "clientSecret": "REPLACE_ME",
+      "clientIdIssuedAt": 1790117798,
+      "clientSecretExpiresAt": 0
+    },
+    "serverUrl": "https://mcp.figma.com/mcp",
+    "tokens": {
+      "accessToken": "REPLACE_ME",
+      "refreshToken": "REPLACE_ME",
+      "expiresAt": 1797893804
+    }
+  },
+  "huggingface-mcp": {
+    "tokens": {
+      "accessToken": "REPLACE_ME",
+      "refreshToken": "REPLACE_ME",
+      "expiresAt": 1789956537.564,
+      "scope": "openid profile read-mcp read-repos jobs contribute-repos inference-api"
+    },
+    "clientInfo": {
+      "clientId": "6077671f-ab4b-4aba-a24f-73507963bf6f",
+      "clientIdIssuedAt": 1789781043,
+      "clientSecretExpiresAt": 0
+    },
+    "serverUrl": "https://huggingface.co/mcp?login"
+  }
+}

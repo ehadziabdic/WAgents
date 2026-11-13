@@ -5,6 +5,7 @@ param([string]$Repo = (Split-Path -Parent $MyInvocation.MyCommand.Path))
 $src = Join-Path $Repo "local-share\credentials.json"
 $dst = Join-Path $env:USERPROFILE ".local\share\opencode\opencode.db"
 if (-not (Test-Path $src)) { Write-Host "CRED-NO-SOURCE"; exit 1 }
+if ((Get-Content -LiteralPath $src -Raw) -match "REPLACE_ME") { Write-Host "CRED-PLACEHOLDERS (fill local-share/credentials.json first)"; exit 0 }
 if (-not (Test-Path $dst)) { Write-Host "CRED-NO-DB (launch opencode once first)"; exit 1 }
 python -c "
 import sqlite3, json

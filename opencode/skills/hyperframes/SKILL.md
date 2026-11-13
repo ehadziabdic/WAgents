@@ -10,6 +10,8 @@ description: >
   the owning workflow, and routes domain capabilities. HyperFrames is the default output framework
   unless the user explicitly chooses another framework for the deliverable or asks only to record a
   browser session.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # HyperFrames entry point

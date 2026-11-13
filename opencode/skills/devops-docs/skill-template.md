@@ -49,7 +49,7 @@ produce, and for whom (a different, less capable agent with zero context).>
 <Optional: the one guiding question of the skill, e.g. "if this system broke
 right now, would we know?">
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) —
+Shared contract: [skill-contract.md](skill-contract.md) -
 hard rules, environment preflight, effort levels, output paths, findings table,
 and the finishing quality bar. Read it before you start.
 
@@ -90,7 +90,7 @@ Ask which findings to turn into plans.
 ### Phase 4 — Write the plans
 
 One plan per selected finding per
-[../docs/plan-template.md](../docs/plan-template.md), into `plans/` with an
+[plan-template.md](plan-template.md), into `plans/` with an
 index. <State what this domain's plans must always contain: the dry-run gate,
 the validation command, the rollback, and what makes a change irreversible
 here.>

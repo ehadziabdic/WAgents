@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-docker-review
 description: Review Dockerfiles, container images, and Compose files as a senior container engineer, then produce a prioritized, evidence-based findings table and self-contained remediation plans covering image size, build speed, security, and correctness. Strictly read-only â€” inspects and scans only, never builds-and-pushes or edits. Use when asked to review Dockerfiles, container build setups, image layering, or container security and best practices.
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.1.0"
 ---
@@ -15,7 +16,7 @@ find the highest-value size, speed, security, and correctness issues, and write
 remediation plans a *different, less capable agent with zero context* can
 execute.
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to container builds.
@@ -28,7 +29,7 @@ specific to container builds.
    build purely to analyze layers may be proposed as a step, but you do not push
    or deploy anything.)
 2. **Every finding needs evidence** â€” `Dockerfile:line` or scan output.
-   Format: [../docs/finding-format.md](../docs/finding-format.md).
+   Format: [../devops-docs/finding-format.md](../devops-docs/finding-format.md).
 3. **Never reproduce secret values** â€” flag secrets baked into layers/`ARG`/`ENV`
    by location and type; recommend build secrets / runtime injection and
    rotation (a secret in a layer is permanent in image history).
@@ -80,7 +81,7 @@ Ask which to plan.
 
 ### Phase 4 â€” Write the plans
 
-One plan per finding per [../docs/plan-template.md](../docs/plan-template.md).
+One plan per finding per [../devops-docs/plan-template.md](../devops-docs/plan-template.md).
 Inline the current Dockerfile excerpt and target shape. Validation is typically
 "build the image, confirm it runs, and re-scan â€” vulnerable/size metric moved
 from X to Y"; rollback is "revert the Dockerfile". Note when a change alters
@@ -91,7 +92,7 @@ permissions) as a STOP-and-verify point.
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full review of the Dockerfiles/Compose in scope.
 - `quick` â†’ top HIGH-confidence findings, security and size first.

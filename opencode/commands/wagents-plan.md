@@ -14,7 +14,7 @@ Break a technical specification into small, isolated, and testable tasks with de
    - `backend-engineer` for endpoints, schemas, database, services
    - `security-engineer` for threat modeling and authz audits
    - `qa-engineer` for test suites and browser coverage
-   - `wagent` for component boundaries and cross-cutting concerns (handled directly)
+   - `[WAgent] Build` for component boundaries and cross-cutting concerns (handled directly)
 3. **Explicit Verification Steps**: Every task must define its automated test command or verification criteria.
 4. **Order by Dependency**: Core schemas and interfaces come first; dependent implementations follow.
 5. **Approval Gate**: Stop and wait for user sign-off on the plan before launching implementation.

@@ -29,4 +29,4 @@ Load via the Skill tool; never assume an optional skill exists.
 - Verify documented behavior against the actual code (`codebase-memory` first, then read files).
 - Do not invent URLs, API behavior, or version numbers — verify via `microsoft-docs`/Context7 or hand back to `research-specialist`.
 - Knowledge-base writes require explicit user confirmation.
-- You cannot delegate. Report back to the calling main agent (`wagent`).
+- You cannot delegate. Report back to the calling main agent (`[WAgent] Build`).

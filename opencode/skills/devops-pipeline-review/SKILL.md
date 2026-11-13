@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-pipeline-review
 description: Review CI/CD pipelines (GitHub Actions, GitLab CI, Jenkins, CircleCI, Azure Pipelines, etc.) as a senior release engineer, then produce a prioritized, evidence-based findings table and self-contained remediation plans covering reliability, speed, security, and correctness. Strictly read-only â€” never triggers, cancels, or edits pipelines. Use when asked to review CI/CD configuration for flakiness, slow builds, insecure secrets handling, missing gates, or supply-chain risk.
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.1.0"
 ---
@@ -15,7 +16,7 @@ highest-value reliability, speed, security, and correctness issues, and write
 remediation plans a *different, less capable agent with zero context* can
 execute.
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to CI/CD.
@@ -26,7 +27,7 @@ specific to CI/CD.
    (`gh run list/view`, `glab ci`, etc.). Never trigger, re-run, cancel, or edit
    a pipeline, and never rotate/modify CI secrets.
 2. **Every finding needs evidence** â€” `.github/workflows/ci.yml:line` or a run
-   log reference. Format: [../docs/finding-format.md](../docs/finding-format.md).
+   log reference. Format: [../devops-docs/finding-format.md](../devops-docs/finding-format.md).
 3. **Never reproduce secret values** â€” reference secret *names* and where they
    are injected only; recommend scoping and rotation.
 4. **Never modify pipeline config.** Only `plans/` files are written.
@@ -81,7 +82,7 @@ permissions review).
 
 ### Phase 4 â€” Write the plans
 
-One plan per finding per [../docs/plan-template.md](../docs/plan-template.md).
+One plan per finding per [../devops-docs/plan-template.md](../devops-docs/plan-template.md).
 Because CI changes are validated *by running CI*, each plan's validation step is
 "open a PR / branch and confirm the workflow passes and produces the expected
 runtime/behavior", and rollback is "revert the workflow change". Inline the
@@ -91,7 +92,7 @@ current YAML excerpt and target shape.
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full review of the pipelines in scope.
 - `quick` â†’ top HIGH-confidence findings, security and broken gates first.

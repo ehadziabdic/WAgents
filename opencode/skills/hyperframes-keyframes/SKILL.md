@@ -7,6 +7,8 @@ description: >
   masks, SVG morph/draw, text trails, 3D depth, or `hyperframes keyframes` diagnostics.
   Don't use for broad scene strategy, brand design, media sourcing, captions, or
   general video planning.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # HyperFrames Keyframes

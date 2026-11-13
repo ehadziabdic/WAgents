@@ -1,0 +1,146 @@
+
+  harness-score v1.8.1  C:\Users\eminha\AppData\Local\Temp\hs-core-mirror
+
+  Maturity: L2 ┬╖ Guided   Score: 71/105 (68%)   scopes: repo
+  Detected: Antigravity, Codex, OpenCode
+
+  Context & Guides     ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê 100%  20/20 pts
+  Skills & Commands    ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê 100%  17/17 pts
+  Hooks & Guardrails   ΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæ   0%  0/14 pts
+  Sensors & Feedback   ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûæΓûæΓûæΓûæ  80%  16/20 pts
+  CI Feedback          ΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæΓûæ   0%  0/14 pts
+  Hygiene & Safety     ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûæΓûæ  90%  18/20 pts
+
+  Improvements (11):
+   Γ£ù HKS-01 Hooks configuration present and valid JSON (+4 pts)
+     Create a hooks configuration (.cursor/hooks.json, .claude/settings.json hooks key, .devin/hooks.v1.json event map, or .devin/config.json hooks key) ΓÇö hooks are the harness layer that can observe and control the agent loop deterministically.
+     No .cursor/hooks.json, .claude/settings.json hooks key, plugin hooks/hooks.json, .devin/hooks.v1.json, or .devin/config.json hooks key found.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#hks-01
+   Γ£ù HKS-02 Hook events and handlers are structurally valid (+2 pts)
+     Declare at least one structurally valid hook event and every metadata field required by your tool; unrecognized future events are reported as warnings.
+     No parseable hooks configuration.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#hks-02
+   Γ£ù HKS-03 Gate hook guards risky operations (+4 pts)
+     Register a gate hook (Cursor: beforeShellExecution / beforeMCPExecution / preToolUse / beforeReadFile; Claude Code or Devin: PreToolUse / PermissionRequest) that guards destructive operations.
+     No parseable hooks configuration.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#hks-03
+   Γ£ù HKS-04 Feedback hook observes agent output (+2 pts)
+     Register a feedback hook (Cursor: afterFileEdit / postToolUse / stop; Claude Code: PostToolUse; Devin: PostToolUse / Stop) ΓÇö e.g. auto-format edited files or run a quick lint.
+     No parseable hooks configuration.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#hks-04
+   Γ£ù HKS-05 Hook scripts exist in the repository (+2 pts)
+     Commit the scripts referenced by your hooks config ΓÇö a hook pointing at a missing script fails open on every machine but yours.
+     No parseable hooks configuration.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#hks-05
+   Γ£ù SNS-03 Type checking in place (+4 pts)
+     Enable static type checking (tsconfig.json with strict: true, mypy/pyright/ty for Python) ΓÇö typed code is dramatically more harnessable: the compiler catches agent mistakes for free.
+     No type-checker configuration for detected ecosystem(s): node, python.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#sns-03
+   Γ£ù CI-01 CI pipeline configured (+4 pts)
+     Add a CI workflow (.github/workflows/ci.yml) ΓÇö CI is the harness sensor that catches what slipped past local checks, on every push.
+     No CI configuration detected (GitHub Actions, GitLab CI, CircleCIΓÇª).
+     https://paladini.github.io/harness-score/guide/measure-and-improve#ci-01
+   Γ£ù CI-02 CI runs the test suite (+4 pts)
+     Make CI execute the test suite (npm test, pytest, go testΓÇª) so no agent-authored change can merge without the sensors firing.
+     No CI configuration to inspect.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#ci-02
+   Γ£ù CI-03 CI runs lint / type checks (+3 pts)
+     Add lint and typecheck steps to CI ΓÇö cheap computational sensors belong on every push ("keep quality left").
+     No CI configuration to inspect.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#ci-03
+   Γ£ù CI-04 Pre-commit checks installed (+3 pts)
+     Add pre-commit tooling (husky + lint-staged, pre-commit, lefthook) so fast checks run before a commit exists ΓÇö the earliest possible feedback loop.
+     No pre-commit hook tooling detected.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#ci-04
+   Γ£ù HYG-05 License present (+2 pts)
+     Add a LICENSE file ΓÇö required for open-source distribution and plugin marketplaces.
+     No LICENSE file at repository root.
+     https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-05
+
+  Not applicable (1):
+   ┬╖ HYG-08 MCP config uses env interpolation for credentials
+     No MCP config is in use; HYG-08 does not apply.
+
+  To reach L3: ci ΓëÑ 50%
+
+# Harness Score Report
+
+**Maturity level:** L2 ┬╖ Guided
+**Maturity score:** 71/105 (68%)
+**Maturity scopes:** repo
+**Gate:** maturity
+**Detected harnesses:** Antigravity, Codex, OpenCode
+
+## Dimensions
+
+| Dimension | Score | % |
+|---|---|---|
+| Context & Guides | 20/20 | 100% |
+| Skills & Commands | 17/17 | 100% |
+| Hooks & Guardrails | 0/14 | 0% |
+| Sensors & Feedback | 16/20 | 80% |
+| CI Feedback | 0/14 | 0% |
+| Hygiene & Safety | 18/20 | 90% |
+
+## Checks
+
+| | Check | Points | Evidence |
+|---|---|---|---|
+| Γ£à | [CTX-01](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-01) Agent context file present (AGENTS.md) | 4/4 | Found AGENTS.md at repository root. |
+| Γ£à | [CTX-02](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-02) Agent context file is substantive | 3/3 | AGENTS.md: 38 non-empty lines, 3 headings (needs ΓëÑ20 lines and ΓëÑ2 headings). |
+| Γ£à | [CTX-03](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-03) Scoped rules in use | 4/4 | Found 7 rule(s) (antigravity): .agents/rules/wagents-documentation.md, .agents/rules/wagents-global.md, .agents/rules/wagents-python.md, ΓÇª |
+| Γ£à | [CTX-04](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-04) Rules have valid frontmatter | 3/3 | All 7 rule(s) declare usable frontmatter. |
+| Γ£à | [CTX-05](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-05) Rules are scoped, not all always-on | 2/2 | 7 rule(s): 0 path-scoped, 0 always-on. |
+| Γ£à | [CTX-06](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-06) No bloated rules (Γëñ500 lines each) | 2/2 | All 7 rule(s) are Γëñ500 lines. |
+| Γ£à | [CTX-07](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-07) README present | 1/1 | README.md found at repository root. |
+| Γ£à | [CTX-08](https://paladini.github.io/harness-score/guide/measure-and-improve#ctx-08) No legacy .cursorrules file | 1/1 | No deprecated .cursorrules file. |
+| Γ£à | [SKL-01](https://paladini.github.io/harness-score/guide/measure-and-improve#skl-01) At least one agent skill defined | 4/4 | Found 274 skill(s) (codex): .agents/skills/base-architecture-blueprint/SKILL.md, .agents/skills/base-design-references/SKILL.md, .agents/skills/base-webapp-testing-basics/SKILL.md, ΓÇª |
+| Γ£à | [SKL-02](https://paladini.github.io/harness-score/guide/measure-and-improve#skl-02) Skills declare name and description | 3/3 | All 274 skill(s) declare name and description. |
+| Γ£à | [SKL-03](https://paladini.github.io/harness-score/guide/measure-and-improve#skl-03) Explicit workflows/commands defined | 3/3 | Found 8 command/workflow(s) (antigravity): .agents/workflows/ui-ux-pro-max.md, .agents/workflows/wagents-brainstorm.md, .agents/workflows/wagents-debug.md, ΓÇª |
+| Γ£à | [SKL-04](https://paladini.github.io/harness-score/guide/measure-and-improve#skl-04) Skill descriptions are trigger-worthy | 2/2 | All 274 skill description(s) are ΓëÑ40 characters. |
+| Γ£à | [AGT-01](https://paladini.github.io/harness-score/guide/measure-and-improve#agt-01) Custom subagent defined | 3/3 | Found 14 subagent(s) (opencode): .opencode/agents/backend-engineer.md, .opencode/agents/code-reviewer.md, .opencode/agents/cv-maintainer.md, ΓÇª |
+| Γ£à | [AGT-02](https://paladini.github.io/harness-score/guide/measure-and-improve#agt-02) Subagents declare name and description | 2/2 | All 14 subagent(s) declare name and description. |
+| Γ¥î | [HKS-01](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-01) Hooks configuration present and valid JSON | 0/4 | No .cursor/hooks.json, .claude/settings.json hooks key, plugin hooks/hooks.json, .devin/hooks.v1.json, or .devin/config.json hooks key found. |
+| Γ¥î | [HKS-02](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-02) Hook events and handlers are structurally valid | 0/2 | No parseable hooks configuration. |
+| Γ¥î | [HKS-03](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-03) Gate hook guards risky operations | 0/4 | No parseable hooks configuration. |
+| Γ¥î | [HKS-04](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-04) Feedback hook observes agent output | 0/2 | No parseable hooks configuration. |
+| Γ¥î | [HKS-05](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-05) Hook scripts exist in the repository | 0/2 | No parseable hooks configuration. |
+| Γ£à | [SNS-01](https://paladini.github.io/harness-score/guide/measure-and-improve#sns-01) Test runner configured | 6/6 | node:test built-in (node --test), e.g. .agents/skills/hyperframes-animation/scripts/animation-map-sampling.test.mjs. |
+| Γ£à | [SNS-02](https://paladini.github.io/harness-score/guide/measure-and-improve#sns-02) Linter configured | 5/5 | Found: biome.json, pyproject.toml [tool.ruff]. |
+| Γ¥î | [SNS-03](https://paladini.github.io/harness-score/guide/measure-and-improve#sns-03) Type checking in place | 0/4 | No type-checker configuration for detected ecosystem(s): node, python. |
+| Γ£à | [SNS-04](https://paladini.github.io/harness-score/guide/measure-and-improve#sns-04) Formatter configured | 3/3 | biome (formats + lints); python formatter via pyproject.toml. |
+| Γ£à | [SNS-05](https://paladini.github.io/harness-score/guide/measure-and-improve#sns-05) Test files actually exist | 2/2 | Found 35 test file(s), e.g. .agents/skills/ml-testing/scripts/test_data_pipeline.py. |
+| Γ¥î | [CI-01](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-01) CI pipeline configured | 0/4 | No CI configuration detected (GitHub Actions, GitLab CI, CircleCIΓÇª). |
+| Γ¥î | [CI-02](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-02) CI runs the test suite | 0/4 | No CI configuration to inspect. |
+| Γ¥î | [CI-03](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-03) CI runs lint / type checks | 0/3 | No CI configuration to inspect. |
+| Γ¥î | [CI-04](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-04) Pre-commit checks installed | 0/3 | No pre-commit hook tooling detected. |
+| Γ£à | [HYG-01](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-01) .gitignore present | 2/2 | .gitignore found at repository root. |
+| Γ£à | [HYG-02](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-02) .gitignore covers environment files | 3/3 | .gitignore contains a .env pattern. |
+| Γ£à | [HYG-03](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-03) No unprotected .env files in the tree | 4/4 | No real .env files in the tree (templates like .env.example are fine). |
+| Γ£à | [HYG-04](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-04) MCP configuration free of credentials | 4/4 | No MCP config in repository (nothing to leak). |
+| Γ¥î | [HYG-05](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-05) License present | 0/2 | No LICENSE file at repository root. |
+| Γ£à | [HYG-06](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-06) No credential signatures in harness files | 2/2 | Scanned 305 harness file(s); no credential signatures. |
+| Γ£à | [HYG-07](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-07) Dependency lockfile committed | 3/3 | Found package-lock.json. |
+| N/A | [HYG-08](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-08) MCP config uses env interpolation for credentials | 0/3 | No MCP config is in use; HYG-08 does not apply. |
+
+## Not applicable
+
+- **HYG-08** ΓÇö No MCP config is in use; HYG-08 does not apply.
+
+## Recommended improvements
+
+- **HKS-01** ΓÇö Create a hooks configuration (.cursor/hooks.json, .claude/settings.json hooks key, .devin/hooks.v1.json event map, or .devin/config.json hooks key) ΓÇö hooks are the harness layer that can observe and control the agent loop deterministically. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-01))
+- **HKS-02** ΓÇö Declare at least one structurally valid hook event and every metadata field required by your tool; unrecognized future events are reported as warnings. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-02))
+- **HKS-03** ΓÇö Register a gate hook (Cursor: beforeShellExecution / beforeMCPExecution / preToolUse / beforeReadFile; Claude Code or Devin: PreToolUse / PermissionRequest) that guards destructive operations. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-03))
+- **HKS-04** ΓÇö Register a feedback hook (Cursor: afterFileEdit / postToolUse / stop; Claude Code: PostToolUse; Devin: PostToolUse / Stop) ΓÇö e.g. auto-format edited files or run a quick lint. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-04))
+- **HKS-05** ΓÇö Commit the scripts referenced by your hooks config ΓÇö a hook pointing at a missing script fails open on every machine but yours. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#hks-05))
+- **SNS-03** ΓÇö Enable static type checking (tsconfig.json with strict: true, mypy/pyright/ty for Python) ΓÇö typed code is dramatically more harnessable: the compiler catches agent mistakes for free. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#sns-03))
+- **CI-01** ΓÇö Add a CI workflow (.github/workflows/ci.yml) ΓÇö CI is the harness sensor that catches what slipped past local checks, on every push. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-01))
+- **CI-02** ΓÇö Make CI execute the test suite (npm test, pytest, go testΓÇª) so no agent-authored change can merge without the sensors firing. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-02))
+- **CI-03** ΓÇö Add lint and typecheck steps to CI ΓÇö cheap computational sensors belong on every push ("keep quality left"). ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-03))
+- **CI-04** ΓÇö Add pre-commit tooling (husky + lint-staged, pre-commit, lefthook) so fast checks run before a commit exists ΓÇö the earliest possible feedback loop. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#ci-04))
+- **HYG-05** ΓÇö Add a LICENSE file ΓÇö required for open-source distribution and plugin marketplaces. ([guide](https://paladini.github.io/harness-score/guide/measure-and-improve#hyg-05))
+
+**To reach L3:** ci ΓëÑ 50%
+
+SECRET-CHECK opencode.jsonc literal-secret matches: 11 (values never printed; move to env vars to clear)

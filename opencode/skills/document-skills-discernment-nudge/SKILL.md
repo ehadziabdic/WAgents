@@ -1,4 +1,4 @@
-﻿---
+---
 name: document-skills-discernment-nudge
 description: >
   After you give a substantive answer or draft that the user may act on

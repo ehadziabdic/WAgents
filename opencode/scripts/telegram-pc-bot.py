@@ -153,6 +153,29 @@ def run_ps(script, *args):
     return (r.stdout + r.stderr)[:3500]
 
 
+def run_ps_async(cid, script, label, *args, timeout=600):
+    """Run a PowerShell script off the poll loop and reply when it finishes."""
+
+    def work():
+        si = subprocess.STARTUPINFO()
+        si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        try:
+            r = subprocess.run(
+                ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script, *args],
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                startupinfo=si,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+            out = (r.stdout + r.stderr).strip()[-3000:] or "(no output)"
+        except Exception as e:
+            out = "failed: " + str(e)[:200]
+        api("sendMessage", chat_id=cid, text=(label + "\n" + out)[:4000])
+
+    threading.Thread(target=work, daemon=True).start()
+
+
 def jail(path_arg):
     p = os.path.abspath(os.path.join(HOME, path_arg.replace("/", os.sep)))
     if p != HOME and not p.startswith(HOME + os.sep):
@@ -452,6 +475,7 @@ while True:
                     "/screen <url> [iphone|ipad|desktop] [full] [dark] "
                     "[jpg|webp] [selector <css>] - web screenshot via Iris (Brave) as photo\n"
                     "/status - GPU + running Python processes\n"
+                    "/streamio [start|stop|status] - control the Stremio server (Docker + gist)\n"
                     "/ls <folder> - list files (relative to home, e.g. /ls Documents)\n"
                     "/get <file> - send file to chat, up to 45MB\n"
                     "/drive <file> - upload to Google Drive, replies with link\n"
@@ -562,8 +586,33 @@ while True:
             except Exception:
                 pass
             continue
+        if txt.startswith("/status"):
             out = run_ps(os.path.join(root, "sysinfo.ps1"))
             api("sendMessage", chat_id=cid, text=out[:4000] or "no-status")
+            continue
+        if txt.startswith("/streamio") or txt.startswith("/stremio"):
+            parts = txt.split(None, 1)
+            arg = parts[1].strip().lower() if len(parts) > 1 else ""
+            actions = {
+                "": "Start",
+                "start": "Start",
+                "up": "Start",
+                "stop": "Stop",
+                "down": "Stop",
+                "status": "Status",
+            }
+            action = actions.get(arg)
+            if not action:
+                api("sendMessage", chat_id=cid, text="usage: /streamio [start|stop|status]")
+                continue
+            api("sendMessage", chat_id=cid, text="stremio: " + action.lower() + " requested, working...")
+            run_ps_async(
+                cid,
+                os.path.join(root, "stremio-control.ps1"),
+                "stremio " + action.lower(),
+                "-Action",
+                action,
+            )
             continue
         if txt.startswith("/ls"):
             arg = txt[3:].strip() or "."

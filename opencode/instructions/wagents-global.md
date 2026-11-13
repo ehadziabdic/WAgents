@@ -22,7 +22,7 @@ alwaysApply: true
 ## Routing
 
 - UI/UX/frontend -> frontend-designer
-- Architecture/decisions/refactors -> wagent (owns architecture directly)
+- Architecture/decisions/refactors -> [WAgent] Build (owns architecture directly)
 - Backend/API/DB/auth -> backend-engineer
 - Defensive security -> security-engineer
 - Offensive testing -> not installed: decline, offer defensive review (main agents never delegate to each other)

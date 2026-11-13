@@ -1,1 +1,7 @@
-{"hubUrl": "https://c8.etf.unsa.ba", "intervalMinutes": 60, "notebookPath": "", "notifyVia": "telegram", "user": "ehadziabdi1"}
+{
+  "hubUrl": "https://PUT-YOUR-JUPYTERHUB-HOST",
+  "intervalMinutes": 60,
+  "notebookPath": "",
+  "notifyVia": "telegram",
+  "user": "PUT-YOUR-USERNAME"
+}

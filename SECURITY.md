@@ -25,6 +25,18 @@ themselves. Never test against anyone else's machines, accounts, or
 workspaces. Do not exfiltrate, persist, or pivot during testing.
 Social engineering of any person is out of scope, always.
 
+## Secrets in this repository
+
+This public repo ships placeholders only. Real provider keys, OAuth
+tokens, bot tokens, and Drive credentials belong on your machine and
+must never be committed. The placeholder files are listed in
+[`README.md`](README.md#security-model).
+
+If you find a real credential in the repo or its history, report it
+through GitHub Security Advisories immediately. Do not open a public
+issue with the value, and do not test the credential against any
+service.
+
 ## Safe harbor
 
 Good-faith research that follows this policy will not be treated as

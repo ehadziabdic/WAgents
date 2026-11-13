@@ -8,10 +8,28 @@ node_modules/
 last-state.txt
 .brave-debug-profile/
 .opencode-debug
-# Secrets must never be committed (public repo)
+
+# Session artifacts, never versioned
+.wagents/inbox/
+opencode/.wagents/inbox/
+
+# Any nested brag/skill self-copies (machine corruption, never commit), any depth
+**/brag/brag/**
+**/wagents-*/wagents-*/**
+
+# Separate git repo (prompt collection), never mirrored
+opencode/jailbreaks/
+
+# Public repo: never commit real secrets or PII
+opencode/aboutme.md
 telegram/.telegram.env
 telegram/.voice-target-session
 local-share/*.json
 **/.jupyter.env
 **/rclone.conf
 **/credentials.json
+opencode/scripts/.telegram.env
+opencode/scripts/.voice-target-session
+opencode/scripts/.telegram-bot.pid
+opencode/schedules/*/watch.log
+opencode/schedules/*/training.log

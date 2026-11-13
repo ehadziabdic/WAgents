@@ -31,7 +31,7 @@ HOME = os.path.abspath(os.path.expanduser("~"))
 WAGENTS_DIR = os.path.join(CONFIG_ROOT, ".wagents")
 WAGENTS_INBOX = os.path.join(WAGENTS_DIR, "inbox")
 MAX_SEND_BYTES = 45 * 1024 * 1024
-RCLONE_EXE = shutil.which("rclone")
+RCLONE_EXE = shutil.which("rclone") or os.path.expandvars(r"C:\Users\eminha\AppData\Local\Microsoft\WinGet\Packages\Rclone.Rclone_Microsoft.Winget.Source_8wekyb3d8bbwe\rclone-v1.75.1-windows-amd64\rclone.exe")
 INBOX = os.path.join(CONFIG_ROOT, "schedules", "inbox")
 _WHISPER = None
 def transcribe(ogg_path):
@@ -222,10 +222,7 @@ while True:
             if not p or not os.path.isfile(p):
                 api("sendMessage", chat_id=cid, text="no such file (relative to home): " + arg[:200])
                 continue
-            rclone = shutil.which("rclone")
-            if not rclone:
-                api("sendMessage", chat_id=cid, text="rclone not on PATH. Install it, then retry.")
-                continue
+            rclone = shutil.which("rclone") or os.path.expandvars(r"C:\Users\eminha\AppData\Local\Microsoft\WinGet\Packages\Rclone.Rclone_Microsoft.Winget.Source_8wekyb3d8bbwe\rclone-v1.75.1-windows-amd64\rclone.exe")
             name = os.path.basename(p)
             up = subprocess.run([rclone, "copy", p, "gdrive:wagents-pc/"], capture_output=True, text=True, timeout=600)
             if up.returncode != 0:
@@ -250,9 +247,6 @@ while True:
                         z.write(p, os.path.basename(p))
                 if os.path.getsize(tmp) > MAX_SEND_BYTES:
                     rclone = shutil.which("rclone") or RCLONE_EXE
-                    if not rclone:
-                        api("sendMessage", chat_id=cid, text="rclone not on PATH. Install it, then retry.")
-                        continue
                     name = os.path.basename(arg.rstrip("/\\")) + ".zip"
                     subprocess.run([rclone, "copy", tmp, "gdrive:wagents-pc/"], capture_output=True, timeout=600)
                     link = subprocess.run([rclone, "link", "gdrive:wagents-pc/" + name], capture_output=True, text=True, timeout=120)

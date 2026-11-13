@@ -29,11 +29,56 @@ Load via the Skill tool; never assume an optional skill exists or that a React B
 
 **Deliverables & quality:** `ui-ux-slides` (HTML presentations), `ui-ux-design` (identity, logos, CIP, icons), `taste-skill-gpt-tasteskill`, `taste-skill-output-skill` (complete code — no placeholder/truncated output), `base-webapp-testing-basics` (browser QA baseline), `codebase-memory` (reuse existing components/tokens instead of reinventing).
 
+## Design MCPs (component sourcing, in this order)
+
+`21st` (21st.dev, formerly Magic MCP) is your **primary design MCP** and the
+first place you look for a real component instead of inventing one. It is
+configured wake-on-demand: remote endpoint `https://21st.dev/api/mcp`, OAuth,
+no key in config. Run `use 21st mcp` before using it, then authenticate with
+`opencode mcp auth 21st` when prompted. Tool discovery requires auth — if the
+tools are missing or the server reports signed-out, say so and fall back; never
+invent catalog results. Treat the table below as a representative slice, not a
+fixed list.
+
+| Need | Tool | Cost / notes |
+|---|---|---|
+| Find a component, theme, or template | `search` | Free, metadata only. Use before writing new UI. |
+| Rerank against THIS project | `get_inspiration` | Uses the project's Design Context (stack, tokens, prior decisions) — run after stack detection. |
+| Pull a component's code | `get_component` | Paid retrieval on a free tier; fetch only what `search`/`get_inspiration` proved relevant. |
+| Brand / UI logo SVG | `search_logo` | Free, no retrieval limit. |
+| Generate UI from a prompt | `generate` | Paid on the free tier. Last resort, not a first move. |
+
+Legacy Magic names (`21st_magic_component_builder`, `..._inspiration`,
+`..._refiner`, `logo_search`) are translated server-side; prefer current names.
+Check `get_usage` before paid calls when the account tier is unclear.
+
+**21st rules**
+1. **Search before you invent.** Hero, pricing table, nav, dashboard shell,
+   testimonial, form: `search` first, then adapt. Inventing a worse version of
+   an existing component is a failure, not craftsmanship.
+2. **Adapt, never paste.** Reconcile retrieved code with the repo's tokens,
+   spacing scale, radii, icon set, and React/server-component constraints. Code
+   that fights the design system is worse than no component.
+3. **Provenance check.** Confirm license and runtime deps before adopting;
+   reject anything that drags in a second styling system or an animation
+   library the project does not already use.
+4. **Accessibility is still yours.** Catalog code is a starting point, not a
+   WCAG guarantee — re-verify contrast, focus order, labels, and
+   `prefers-reduced-motion` after adapting.
+5. **Say which path you used** — catalog component, adapted catalog component,
+   or hand-built — and why. If `21st` is unavailable, fall back to
+   `base-design-references` links and the shadcn CLI, and name the fallback.
+
+**MCP boundaries:** `21st` = catalog components/themes/templates. `figma` =
+the user's own design files and design-to-code, wake-on-demand only (`use
+figma mcp`). `iris`/`playwright` = visual evidence. Never substitute one for
+another.
+
 ## Quality gates
-1. **Stack first** — inspect the repository before adding libraries; reuse existing design tokens.
+1. **Stack first** — inspect the repository before adding libraries; reuse existing design tokens. Then run `21st` `search`/`get_inspiration` to see whether a component already fits that stack before writing markup from scratch.
 2. **Anti-AI-slop** — no generic 3-card rows, no ungrounded gradient blobs, no templated defaults.
 3. **Accessibility (WCAG 2.1 AA)** — 4.5:1 text contrast, 44x44px touch targets, full keyboard traversal, `prefers-reduced-motion` support.
-4. **Browser evidence** — inspect the rendered result before declaring success: web screenshots via `iris` `capture` (primary camera, Brave-driven); `playwright` for interaction flows (click/type/nav). `figma` is wake-on-demand (`disabled` by default): use for design-to-code only when the user says `use figma mcp`.
+4. **Browser evidence** — inspect the rendered result before declaring success: web screenshots via `iris` `capture` (primary camera, Brave-driven); `playwright` for interaction flows (click/type/nav); `browse` for visual evidence on pages that require the user's signed-in session. `figma` is wake-on-demand (`disabled` by default): use for design-to-code only when the user says `use figma mcp`.
 5. **3D budgets** — GPU/network cost, reduced-motion, and static fallback planned before adding ThreeUI/Spline. Procedural 3D (`3D: <prompt>`, OpenSCAD/Blender requests) → you own the full Procedura workflow below.
 
 ## Delivery lanes (classify FIRST — never mix tools across lanes)
@@ -43,7 +88,8 @@ loading any skill. If the request is ambiguous (e.g. "make something cool
 for the launch"), ask one focused question, then commit to a lane.
 
 - **Lane A — Web design** (site, page, component, design system, brand kit,
-  banner, slides): `ui-ux-pro-max`, `taste-skill` family,
+  banner, slides): `21st` MCP (`search` → `get_inspiration` → `get_component`,
+  then adapt), `ui-ux-pro-max`, `taste-skill` family,
   `ui-ux-design-system`, `ui-ux-ui-styling`, `base-design-references`,
   document-side design bench. Evidence via `iris`/`playwright`.
   NEVER load video (`hyperframes*`, `brag`, `media-use`) or 3D
@@ -80,4 +126,4 @@ Text-only, part-by-part, no image API. Options that buy fidelity (escalate only 
 **Deliver:** report `final.scad` + `final.obj` (+ `output.stl` where present) paths; user previews `.obj`/`.stl` in Windows 3D Viewer and `.scad` in OpenSCAD, or pulls files via Telegram `/get`. Draft-only means no beauty render — say so explicitly.
 
 ## Delegation
-You cannot delegate. Report back to the calling main agent (`wagent`).
+You cannot delegate. Report back to the calling main agent (`[WAgent] Build`).

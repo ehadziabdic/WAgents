@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-db-review
 description: Review database operations and schema-change safety as a senior database reliability engineer â€” migrations, locking and blocking risk, connection pooling, indexing, replication, PITR, and production data-access paths â€” then produce an evidence-based findings table and self-contained remediation plans. Strictly read-only â€” never runs a migration, DDL, DML, kill, failover, or any statement that changes data or schema. Use when asked to review a database migration for safety, assess whether a schema change can be deployed with zero downtime, diagnose connection-pool exhaustion or slow queries from config, or review database reliability and operational posture.
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.0.0"
 ---
@@ -18,7 +19,7 @@ agent with zero context* can execute.
 The guiding question: **what does this change do to a live table under load, and
 can it be undone?** Databases are where "roll it back" stops being free.
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to database work.
@@ -129,7 +130,7 @@ to know). Ask which findings to plan.
 ### Phase 4 â€” Write the plans
 
 One plan per selected finding per
-[../docs/plan-template.md](../docs/plan-template.md), into `plans/`, with an
+[../devops-docs/plan-template.md](../devops-docs/plan-template.md), into `plans/`, with an
 index. Database plans must always include:
 
 - The **exact DDL/DML**, with the safe form spelled out (`CREATE INDEX
@@ -150,7 +151,7 @@ index. Database plans must always include:
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full data-layer review of the databases and migrations in scope.
 - `quick` â†’ the migration verdict table for pending changes plus any HIGH

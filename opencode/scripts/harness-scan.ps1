@@ -7,11 +7,11 @@
 # content) and deletes it afterwards. Nothing fake is ever committed:
 #   mirror/AGENTS.md            = copy of live global AGENTS.md
 #   mirror/.opencode/agents/    = copy of live agents/ (native row)
-#   mirror/.agents/skills/<id>  = copy per live skill dir
+#   mirror/.agents/skills/<id>  = copy per live skill dir (config is now the only skill root)
 #   mirror/.agents/workflows/   = copy of live commands/
 #   mirror/.agents/rules/       = copy of live instructions/
 # MCP config has no recognized row: instead this script greps
-# opencode.jsonc for literal-secret patterns and reports counts only
+# opencode.json for literal-secret patterns and reports counts only
 # (values are NEVER printed).
 #
 # Outputs (global wagents dir):
@@ -54,15 +54,15 @@ try {
     [IO.File]::WriteAllText($f, [IO.File]::ReadAllText($f), $noBom)
   }
 
-  # Own HYG-04 equivalent: literal secrets in opencode.jsonc (counts only).
-  $cfg = Get-Content (Join-Path $Config "opencode.jsonc") -Raw
+  # Own HYG-04 equivalent: literal secrets in opencode.json (counts only).
+  $cfg = Get-Content (Join-Path $Config "opencode.json") -Raw
   $pats = @("Bearer [A-Za-z0-9_\-\.]+", "pat[A-Za-z0-9\.]+", "sk-[A-Za-z0-9]+",
             "ghp_[A-Za-z0-9]+", "sntryu_[A-Za-z0-9]+", "tvly-[A-Za-z0-9\-_]+",
             "vck_[A-Za-z0-9]+", "figu_[A-Za-z0-9\-_]+", "sbp_[A-Za-z0-9]+")
   $hits = 0
   foreach ($p in $pats) { $hits += ([regex]::Matches($cfg, $p)).Count }
   Add-Content (Join-Path $OutDir "harness-score.txt") ""
-  Add-Content (Join-Path $OutDir "harness-score.txt") ("SECRET-CHECK opencode.jsonc literal-secret matches: " + $hits + " (values never printed; move to env vars to clear)")
+  Add-Content (Join-Path $OutDir "harness-score.txt") ("SECRET-CHECK opencode.json literal-secret matches: " + $hits + " (values never printed; move to env vars to clear)")
   Write-Output "report: .wagents/harness-score.txt (+ .json) | secret-matches: $hits"
 }
 finally {

@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-audit
 description: Perform a broad infrastructure and DevOps audit as a senior platform engineer, across reliability, security, cost, observability, and operability, then produce a prioritized, evidence-based findings table and self-contained remediation plans for other agents to execute. Strictly read-only â€” never applies changes. Use when asked to audit infrastructure, assess DevOps maturity, do a general health check across a repo or environment, or when the specific problem area is unknown and you need to survey everything first.
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.1.0"
 ---
@@ -16,7 +17,7 @@ write remediation plans a *different, less capable agent with zero context* can
 execute. The audit is broad; deep domain dives delegate to the focused skills
 (`/k8s-review`, `/terraform-review`, etc.).
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to a broad estate audit.
@@ -27,7 +28,7 @@ specific to a broad estate audit.
    (`terraform plan/validate`, `kubectl get/describe`, `aws ... describe/get/list`,
    `docker inspect`). Never `apply`, `delete`, `scale`, `push`, or edit anything.
 2. **Every finding needs evidence** â€” a `file:line` or a command + its output.
-   No vibes-only findings. See [../docs/finding-format.md](../docs/finding-format.md).
+   No vibes-only findings. See [../devops-docs/finding-format.md](../devops-docs/finding-format.md).
 3. **Never reproduce secret values** â€” reference location and credential type
    only, always recommend rotation.
 4. **Never modify infrastructure or source.** The only files you create live
@@ -57,7 +58,7 @@ Map the estate before judging it:
 
 Survey these categories; for large estates dispatch parallel read-only subagents
 (one per category) â€” each subagent must be given the absolute path to
-[../docs/finding-format.md](../docs/finding-format.md) including the finding
+[../devops-docs/finding-format.md](../devops-docs/finding-format.md) including the finding
 shape, plus Hard Rules 3 and 5 verbatim (subagents do not inherit them).
 
 - **Reliability** â€” single points of failure, no health checks/probes, missing
@@ -89,7 +90,7 @@ ask which findings to turn into plans (default: top 3â€“5 plus anything fla
 ### Phase 4 â€” Write the plans
 
 For each selected finding, write one plan per
-[../docs/plan-template.md](../docs/plan-template.md) into `plans/`, with a
+[../devops-docs/plan-template.md](../devops-docs/plan-template.md) into `plans/`, with a
 `plans/README.md` index (priority order, dependencies, status). For findings
 that belong to a focused domain, the plan may hand off ("execute via
 `/terraform-review plan ...`") but must still be self-contained.
@@ -98,7 +99,7 @@ that belong to a focused domain, the plan may hand off ("execute via
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full breadth audit across all categories.
 - `quick` â†’ hotspots only: highest-criticality systems, top ~6 HIGH-confidence
@@ -111,7 +112,7 @@ Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 ## Related skills
 
 This skill is the front door; depth belongs to the specialists. Route per the
-[contract's routing table](../docs/skill-contract.md#6-cross-skill-routing) â€”
+[contract's routing table](../devops-docs/skill-contract.md#6-cross-skill-routing) â€”
 `/k8s-review`, `/terraform-review`, `/pipeline-review`, `/docker-review`,
 `/observability`, `/security-review`, `/cost`, `/dr-review`, `/db-review`. If
 production is broken right now, stop and use `/incident` instead.

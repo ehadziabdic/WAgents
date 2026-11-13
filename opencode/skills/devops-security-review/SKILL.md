@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-security-review
 description: Identify security risks and infrastructure misconfigurations as a senior security/DevSecOps engineer across IaC, Kubernetes, containers, pipelines, cloud config, and secrets handling, then produce a prioritized, evidence-based findings table and self-contained remediation plans. Strictly read-only and defensive â€” never exploits, never applies changes, never reproduces secret values. Use when asked to review infrastructure security posture, find misconfigurations, assess IAM/network/secrets exposure, or harden a deployment.
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.1.0"
 ---
@@ -15,7 +16,7 @@ configuration security risks from code and config evidence, explain the
 production impact and the remediation, and write plans a *different, less
 capable agent with zero context* can execute to harden the system.
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to a defensive security review.
@@ -89,7 +90,7 @@ plan.
 
 ### Phase 4 â€” Write the plans
 
-One plan per finding per [../docs/plan-template.md](../docs/plan-template.md).
+One plan per finding per [../devops-docs/plan-template.md](../devops-docs/plan-template.md).
 Inline the current config, the hardened target (least-privilege policy, scoped
 security group, encryption block), the validation (re-run the scanner â†’ finding
 gone; confirm access still works for legitimate callers), and rollback. For
@@ -100,7 +101,7 @@ history** and treats the old value as compromised.
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full defensive review across all layers in scope.
 - `quick` â†’ top HIGH-confidence exposures only (public surface, secrets, IAM).

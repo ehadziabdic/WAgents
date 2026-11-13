@@ -1,8 +1,9 @@
-﻿---
+---
 name: devops-dr-review
 description: Review backup, restore, and disaster-recovery readiness as a senior SRE â€” whether backups exist, are recoverable, meet the stated RTO/RPO, survive deletion or ransomware, and whether failover has actually been tested â€” then produce an evidence-based findings table and self-contained remediation plans. Strictly read-only â€” never triggers a restore, failover, snapshot deletion, or any change. Use when asked about backups, restore testing, RTO/RPO, data-loss risk, multi-region or multi-AZ failover, business continuity, or "what happens if this database/region/account is lost".
 license: MIT
 metadata:
+  opencode/autoinvoke: false
   author: devops-skills contributors
   version: "1.0.0"
 ---
@@ -18,7 +19,7 @@ zero context* can execute.
 The guiding question: **has anyone ever restored from this backup, and do we know
 how long it takes?** An untested backup is a hypothesis, not a recovery plan.
 
-Shared contract: [../docs/skill-contract.md](../docs/skill-contract.md) â€” hard
+Shared contract: [../devops-docs/skill-contract.md](../devops-docs/skill-contract.md) â€” hard
 rules, environment preflight, effort levels, output paths, the findings table,
 and the finishing quality bar. Read it first; the rules below are the ones
 specific to recovery work.
@@ -115,7 +116,7 @@ findings by data-loss exposure first, then leverage. Ask which to plan.
 ### Phase 4 â€” Write the plans
 
 One plan per selected finding per
-[../docs/plan-template.md](../docs/plan-template.md), into `plans/`, with an
+[../devops-docs/plan-template.md](../devops-docs/plan-template.md), into `plans/`, with an
 index. DR plans must always include:
 
 - The **restore drill** itself as a first-class step â€” restore into an isolated
@@ -133,7 +134,7 @@ index. DR plans must always include:
 
 Effort keywords (`quick` / `standard` / `deep`) and the shared `<focus>` and
 `plan <description>` modifiers behave as defined in the
-[skill contract](../docs/skill-contract.md#4-effort-levels).
+[skill contract](../devops-docs/skill-contract.md#4-effort-levels).
 
 - Bare â†’ full recovery review of the stateful assets in scope.
 - `quick` â†’ the posture table for the top critical assets plus any

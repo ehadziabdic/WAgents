@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "accounts": {
+    "ecba8793c001gHRbsXgNNFBPQB": {
+      "id": "ecba8793c001gHRbsXgNNFBPQB",
+      "serviceID": "ollama-cloud",
+      "description": "default",
+      "credential": {
+        "type": "api",
+        "key": "REPLACE_ME"
+      }
+    },
+    "ecba8793d001uFoSWckwl31EwC": {
+      "id": "ecba8793d001uFoSWckwl31EwC",
+      "serviceID": "github-copilot",
+      "description": "default",
+      "credential": {
+        "type": "oauth",
+        "refresh": "REPLACE_ME",
+        "access": "REPLACE_ME",
+        "expires": 0
+      }
+    },
+    "ecba8793d002gGdfIB0FbPj9as": {
+      "id": "ecba8793d002gGdfIB0FbPj9as",
+      "serviceID": "opencode",
+      "description": "default",
+      "credential": {
+        "type": "api",
+        "key": "REPLACE_ME"
+      }
+    },
+    "ecba8793d003Ah0R6vOQU0Opbs": {
+      "id": "ecba8793d003Ah0R6vOQU0Opbs",
+      "serviceID": "nvidia",
+      "description": "default",
+      "credential": {
+        "type": "api",
+        "key": "REPLACE_ME"
+      }
+    }
+  },
+  "active": {
+    "ollama-cloud": "ecba8793c001gHRbsXgNNFBPQB",
+    "github-copilot": "ecba8793d001uFoSWckwl31EwC",
+    "opencode": "ecba8793d002gGdfIB0FbPj9as",
+    "nvidia": "ecba8793d003Ah0R6vOQU0Opbs"
+  }
+}

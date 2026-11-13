@@ -1,4 +1,4 @@
-﻿---
+---
 name: document-skills-claude-api
 description: |-
   Reference for the Claude API / Anthropic SDK â€” model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration.

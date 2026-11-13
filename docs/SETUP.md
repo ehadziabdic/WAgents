@@ -7,15 +7,17 @@ Prereqs: Windows 10/11. Everything else is installed below.
 1. `winget install SST.OpenCodeDesktop` (or installer from opencode.ai).
    Launch once so the background service + firewall rules exist.
 2. Clone this repo, copy `local-share/auth.json` and
-   `opencode/opencode.jsonc` into place so the first chat has models,
+   `opencode/opencode.json` into place so the first chat has models,
    then paste `docs/AGENT-SETUP-PROMPT.md` into a new opencode chat.
 
 ## 1. Installer (admin PowerShell, run by the agent)
 
-`.\install.ps1` stages: [0] Tailscale/Python/Node/Git,
+`.\install.ps1` stages: [0] Tailscale/Python/Node/Git/**Brave**,
 [1] config overlay, [2] secrets deploy, [3] firewall scoping
 (opencode rules to Private-only), [4] rclone.conf, [5] npm deps,
-[6] pip + whisper-small prefetch, [7] rclone.
+[5b] harness + MCP warmup, [5d] OpenCode Browse (Brave agent driver),
+[5e] jailbreak prompts (optional, see step 10), [6] pip + whisper-small
+prefetch, [7] rclone, [8] credentials, [9] done.
 
 ## 2. Manual steps (with reasons)
 
@@ -29,17 +31,38 @@ Prereqs: Windows 10/11. Everything else is installed below.
    `scripts/brave-debug-launch.ps1`. Required for attached-tab driving
    (Notion/Sheets/JupyterHub as you). Tabs restore via History if needed.
 4. **JupyterHub token**: YOUR OWN Hub Control Panel > Token page.
-   Put it in `scripts/.jupyter.env` (same 3-line format). Tokens die
-   with SSO sessions; a 403 from the watcher means refresh, not failure.
+   Copy `opencode/scripts/.jupyter.env.example` to `.jupyter.env` and
+   fill the three lines (the real file is gitignored). Tokens die with
+   SSO sessions; a 403 from the watcher means refresh, not failure.
 5. **Telegram**: replace TELEGRAM_ALLOWED_CHAT_ID with YOUR numeric ID
    (ask @userinfobot), in repo `telegram/.telegram.env` and the live
    copy. Start the bot: `python telegram/telegram-pc-bot.py`. Set
    `.voice-target-session` to the current chat session ID.
 6. **Figma**: carried via mcp-auth; if design calls fail with auth
    errors, re-authenticate the Figma MCP.
-7. **Shared APIs note**: provider keys, Figma, Drive, and the bot token
-   belong to whoever shared this repo. Usage bills them; Drive uploads
-   land in their Drive; the bot name stays theirs.
+7. **Credentials note**: this public repo ships placeholders. Use your
+   own provider keys, Figma/Drive access, Telegram bot, and JupyterHub
+   token. Fill `local-share/*.json` and `telegram/.telegram.env` before
+   first launch, or authenticate after it. The installer preserves any
+   existing live files instead of overwriting them.
+8. **Browse (auto)**: the installer runs `browse install --agent opencode`,
+   which opens the Chrome Web Store in Brave. Click "Add to Brave", then
+   confirm pairing on the extension's status page (or re-run
+   `browse install --agent opencode`). Until this click happens, Browse
+   runs but cannot pair with your browser.
+9. **Hex (optional, manual)**: Hex is no longer part of the installer.
+   If you want voice dictation, run `irm https://anoma.ly/hex/install-windows.ps1 | iex`
+   yourself once, then launch it, set your hotkey, and optionally enable
+   launch-at-login. Requires Vulkan on x64.
+10. **Jailbreak prompts (optional)**: `[WAgent] Unrestricted` reads one
+    model-matched file from `~/.config/opencode/jailbreaks`. That folder
+    is a separate repository and is not part of this repo. The installer
+    installs the resolver and the model map but not the prompts. Supply
+    them with `.\install.ps1 -JailbreaksRepo <url>`, or clone by hand:
+    `git clone <url> "$env:USERPROFILE\.config\opencode\jailbreaks"`.
+    Without prompts the agent still works and answers `STATUS=no-match`
+    with the list of models it does have. Never write into that folder
+    from an agent; it is read-only source.
 
 ## 3. Verify
 
@@ -50,6 +73,9 @@ Prereqs: Windows 10/11. Everything else is installed below.
   transcription + chat answer.
 - `powershell -File schedules/jupyter_crash/check-jupyter.ps1`
   prints NO-SERVER-RUNNING / IDLE-NO-SESSION or live server state.
+- `powershell -File scripts/resolve-jailbreak.ps1 -List` prints the
+  available prompt files, or nothing plus an empty list when the
+  optional `jailbreaks/` collection was not installed.
 
 ## 4. Excluded on purpose (recreated, not stored)
 

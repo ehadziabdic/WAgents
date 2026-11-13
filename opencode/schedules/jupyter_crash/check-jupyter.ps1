@@ -5,7 +5,7 @@
 # alerts). Alerts fire only on state changes while a server is reachable, i.e.
 # real mid-training deaths, never on logout/session expiry.
 param([string]$SchedulesRoot = (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) ".." | Join-Path -ChildPath "schedules/jupyter_crash"))
-$envFile = Join-Path (Split-Path (Split-Path $PSScriptRoot)) "scripts\.jupyter.env"
+$envFile = "C:\Users\eminha\.config\opencode\scripts\.jupyter.env"
 $pairs = @{}
 Get-Content $envFile | Where-Object { $_ -match "=" } | ForEach-Object { $kv = $_ -split "=", 2; $pairs[$kv[0].Trim()] = $kv[1].Trim() }
 $base = $pairs["JUPYTERHUB_URL"]; $tok = $pairs["JUPYTERHUB_TOKEN"]; $user = $pairs["JUPYTERHUB_USER"]

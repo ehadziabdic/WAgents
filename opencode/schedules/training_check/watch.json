@@ -1,1 +1,1 @@
-{"donePattern": "Training complete", "intervalMinutes": 60, "logPath": "PUT-YOUR-TRAINING-LOG-PATH-HERE", "notifyVia": "telegram", "startedAt": ""}
+{"donePattern": "Training complete", "intervalMinutes": 60, "logPath": "C:/Users/eminha/.config/opencode/schedules/training_check/training.log", "notifyVia": "telegram", "startedAt": "2026-09-23T00:00:00Z"}

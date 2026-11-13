@@ -1,0 +1,5 @@
+{
+    "_comment":  "Managed by scripts/autostart-control.ps1. Missing file means OFF.",
+    "telegramBot":  true,
+    "updatedAt":  "2026-11-10T16:06:49+01:00"
+}

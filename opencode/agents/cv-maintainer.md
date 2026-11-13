@@ -24,7 +24,7 @@ update it` (after a completed sync) means the Drive step only.
 - Generator: `backend/scripts/cli.py` (bare run = all 4 targets)
 - Render wrapper: `C:\Users\eminha\.config\opencode\scripts\cv-render.ps1`
 - Their Desktop copies: `Full-EU.pdf`, `Full-US.pdf`, `ResumeEU.pdf`, `ResumeUS.pdf`
-- Drive folder: `https://drive.google.com/drive/folders/YOUR-DRIVE-FOLDER-ID`
+- Drive folder: `https://drive.google.com/drive/folders/1Rl6mf4aprBq9Q_hPgXtTF9cew1HNmrLs`
   (upload name is always exactly `CV.pdf`; source is always `Full-EU.pdf`)
 - Scratch dir for this workflow: `PerfectCV/.wagents/cv-sync/`
 
@@ -37,8 +37,7 @@ update it` (after a completed sync) means the Drive step only.
 - GitHub: project READMEs via `github` (wake it with
   `use github mcp`) or raw `webfetch` of `raw.githubusercontent.com`.
   Get repo links from Airtable/Portfolio first.
-- Portfolio site: live reads via webfetch; screenshots via `iris` if a
-  visual check is needed.
+- Portfolio site: live reads via webfetch; screenshots via `browse` if the page requires a signed-in session, otherwise `iris` if a visual check is needed.
 - Drive upload: shell `rclone` (`gdrive:` remote), never a new tool.
 
 ## Pipeline
@@ -108,14 +107,14 @@ plainly.
 
 Means: upload Desktop `Full-EU.pdf` to the Drive folder. No new sync
 unless asked. Steps: copy to `$env:TEMP\CV.pdf`, rclone copy with
-`--drive-root-folder-id YOUR-DRIVE-FOLDER-ID`, verify via
+`--drive-root-folder-id 1Rl6mf4aprBq9Q_hPgXtTF9cew1HNmrLs`, verify via
 lsjson (name `CV.pdf`, fresh timestamp), reply per the Telegram rule in
 AGENTS.md (text confirmation via `tg-send.ps1`).
 
 ## Drive upload (explicit instruction only)
 
 1. Copy Desktop `Full-EU.pdf` to `$env:TEMP\CV.pdf` (exact name).
-2. `rclone copy $env:TEMP\CV.pdf gdrive: --drive-root-folder-id YOUR-DRIVE-FOLDER-ID`
+2. `rclone copy $env:TEMP\CV.pdf gdrive: --drive-root-folder-id 1Rl6mf4aprBq9Q_hPgXtTF9cew1HNmrLs`
 3. Verify with `rclone lsjson gdrive: --drive-root-folder-id <id>` and
    confirm `CV.pdf` present with fresh timestamp. Report the result.
 
@@ -125,4 +124,4 @@ AGENTS.md (text confirmation via `tg-send.ps1`).
 - `Full-EU.pdf` is the primary artifact; all uploads derive from it.
 - Keep `master.yaml` as the single database (Interests stays there even
   though renders drop it).
-- You cannot delegate. Report back to `wagent`.
+- You cannot delegate. Report back to `[WAgent] Build`.

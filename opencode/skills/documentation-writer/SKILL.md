@@ -1,4 +1,4 @@
-﻿---
+---
 name: documentation-writer
 description: 'DiÃ¡taxis Documentation Expert. An expert technical writer specializing in creating high-quality software documentation, guided by the principles and structure of the DiÃ¡taxis technical documentation authoring framework.'
 ---

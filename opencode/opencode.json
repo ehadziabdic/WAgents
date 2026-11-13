@@ -1,35 +1,178 @@
 {
+  // WAgents global configuration - single source of truth.
+  // Merged 2026-11-10 from the former opencode.json + opencode.jsonc pair.
+  // Pre-merge backup: .wagents/backups/2026-11-10-pre-p0p1/
   "$schema": "https://opencode.ai/config.json",
+
   "model": "opencode/muse-spark-1.3-contributor-free",
+
+  // ---------------------------------------------------------------------------
+  // Providers
+  // ---------------------------------------------------------------------------
   "provider": {
     "vercel": {
       "options": {
-        "apiKey": "PUT-YOUR-KEY-HERE"
+        "apiKey": "PUT-YOUR-VERCEL-TOKEN-HERE"
+      }
+    },
+    "omniroute": {
+      "name": "Omni Route",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:20128/v1"
+      },
+      "models": {
+        "openrouter/nex-agi/nex-n2.5-pro:free": {
+          "name": "Nex N2.5 Pro"
+        }
       }
     }
   },
-  "plugins": [
-    "opencode-mem@latest"
+
+  // ---------------------------------------------------------------------------
+  // Policies - binary, never prompt, cannot be lifted by a project or subagent.
+  // ---------------------------------------------------------------------------
+  "policies": [
+    // Provider catalogue: only the accounts in active use are offered.
+    { "action": "provider.use", "resource": "vercel", "effect": "deny" },
+    { "action": "provider.use", "resource": "omniroute", "effect": "deny" },
+    { "action": "provider.use", "resource": "github-copilot", "effect": "deny" },
+    { "action": "provider.use", "resource": "kilo", "effect": "deny" },
+    { "action": "provider.use", "resource": "unorouter", "effect": "deny" },
+    { "action": "provider.use", "resource": "cline-pass", "effect": "deny" },
+    { "action": "provider.use", "resource": "google", "effect": "deny" },
+
+    // Hard stops. A normal `git push` stays allowed; forced history rewrites do not.
+    { "action": "tool.use", "resource": "shell:git push --force*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:git push -f*", "effect": "deny" },
+
+    // The jailbreak prompt collection and the durable secret store are read-only.
+    { "action": "tool.use", "resource": "edit:*jailbreaks*", "effect": "deny" },
+    { "action": "tool.use", "resource": "edit:*.wagents/secrets*", "effect": "deny" }
   ],
+
+  // ---------------------------------------------------------------------------
+  // Runtime
+  // ---------------------------------------------------------------------------
+  "plugins": ["opencode-mem@latest"],
   "warming": true,
-  "disabled_providers": [
-    "kilo",
-    "vercel",
-    "unorouter",
-    "omniroute",
-    "google",
-    "github-copilot"
-  ],
   "websearch": {
     "provider": "random"
   },
+
+  // Keep long implementation sessions usable: retain a larger recent tail and
+  // write the summary in the background so compaction never pauses a turn.
+  "compaction": {
+    "auto": true,
+    "keep": {
+      "tokens": 24000
+    },
+    "buffer": "15%"
+  },
+  "experimental": {
+    "background_compaction": true,
+    "todo": true
+  },
+
+  // ---------------------------------------------------------------------------
+  // Context
+  // ---------------------------------------------------------------------------
+  "skills": ["C:\\Users\\eminha\\.config\\opencode\\skills"],
+  "instructions": [
+    "instructions/wagents-global.md",
+    "instructions/wagents-documentation.md",
+    "instructions/wagents-python.md",
+    "instructions/wagents-react.md",
+    "instructions/wagents-security.md",
+    "instructions/wagents-testing.md",
+    "instructions/wagents-typescript.md"
+  ],
+
+  // ---------------------------------------------------------------------------
+  // Permissions (interactive layer; `policies` above is the hard backstop)
+  // ---------------------------------------------------------------------------
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "allow" },
+    { "action": "external_directory", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*.env", "effect": "allow" },
+    { "action": "read", "resource": "*.env.*", "effect": "allow" },
+    { "action": "read", "resource": "*.env.example", "effect": "allow" }
+  ],
+
+  // ---------------------------------------------------------------------------
+  // MCP - 6 active, 12 wake-on-demand. `execution` bounds the default 12h hang.
+  // ---------------------------------------------------------------------------
   "mcp": {
+    "timeout": {
+      "startup": 60000,
+      "catalog": 30000,
+      "execution": 600000
+    },
     "servers": {
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "headers": {
+          "Authorization": "Bearer PUT-YOUR-CONTEXT7-TOKEN-HERE"
+        }
+      },
+      "tavily": {
+        "type": "remote",
+        "url": "https://mcp.tavily.com/mcp",
+        "disabled": false
+      },
+      "playwright": {
+        "type": "local",
+        "command": ["npx", "-y", "@playwright/mcp@0.0.83"],
+        "disabled": false,
+        "timeout": {
+          "startup": 60000
+        }
+      },
+      "scrapling": {
+        "type": "local",
+        "command": [
+          "C:\\Users\\eminha\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\scrapling.exe",
+          "mcp"
+        ]
+      },
+      "codebase-memory": {
+        "type": "local",
+        "command": ["codebase-memory-mcp"],
+        "environment": {
+          "CBM_RUNTIME_DIR": "C:\\Users\\eminha\\cbm-runtime"
+        }
+      },
+      "iris": {
+        "type": "local",
+        "command": [
+          "C:\\Users\\eminha\\.cargo\\bin\\iris.exe",
+          "mcp",
+          "--chrome",
+          "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+        ]
+      },
+
+      "vercel": {
+        "type": "remote",
+        "url": "https://mcp.vercel.com",
+        "disabled": true
+      },
+      "21st": {
+        "type": "remote",
+        "url": "https://21st.dev/api/mcp",
+        "disabled": true
+      },
+      "excalidraw": {
+        "type": "local",
+        "command": ["npx", "-y", "mcp-excalidraw-server"],
+        "disabled": true
+      },
       "github": {
         "type": "remote",
         "url": "https://api.githubcopilot.com/mcp/",
         "headers": {
-          "Authorization": "Bearer PUT-YOUR-KEY-HERE"
+          "Authorization": "Bearer PUT-YOUR-GITHUB-TOKEN-HERE"
         },
         "disabled": true
       },
@@ -42,23 +185,6 @@
         "type": "remote",
         "url": "https://mcp.airtable.com/mcp",
         "disabled": true
-      },
-      "playwright": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "@playwright/mcp@0.0.83"
-        ],
-        "disabled": false,
-        "timeout": {
-          "startup": 60000
-        }
-      },
-      "tavily": {
-        "type": "remote",
-        "url": "https://mcp.tavily.com/mcp",
-        "disabled": false
       },
       "sentry": {
         "type": "remote",
@@ -77,10 +203,7 @@
       },
       "markitdown": {
         "type": "local",
-        "command": [
-          "uvx",
-          "markitdown-mcp"
-        ],
+        "command": ["uvx", "markitdown-mcp"],
         "disabled": true,
         "timeout": {
           "startup": 30000
@@ -93,21 +216,22 @@
       },
       "rea": {
         "type": "local",
-        "command": [
-          "cmd.exe",
-          "/d",
-          "/c",
-          "npx",
-          "-y",
-          "rea-agents@6.7.0",
-          "mcp"
-        ],
+        "command": ["cmd.exe", "/d", "/c", "npx", "-y", "rea-agents@6.7.0", "mcp"],
         "disabled": true,
         "timeout": {
           "startup": 90000
         }
+      },
+      "browse": {
+        "type": "local",
+        "command": [
+          "C:\\Users\\eminha\\.local\\bin\\browse.exe",
+          "mcp"
+        ],
+        "environment": {
+          "OPENCODE_BROWSER_RUNTIME": "auto-update"
+        }
       }
     }
   }
-  
 }
